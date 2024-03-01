@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Spatial Statistics with R",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#required-packages",
+    "href": "index.html#required-packages",
+    "title": "Spatial Statistics with R",
+    "section": "Required packages",
+    "text": "Required packages\n\ninstall.packages(\n  \"sf\",\n  \"stars\",\n  \"terra\",\n  \"tmap\",\n  \"gstat\",\n  \"spatstat\"\n)",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "day1.html",
+    "href": "day1.html",
+    "title": "1  Introduction to spatial data",
+    "section": "",
+    "text": "Introduction to spatial data, support, coordinate reference systems\nIntroduction to spatial statistical data types: point patterns, geostatistical data, lattice data\nIs spatial dependence a fact? And is it a curse, or a blessing?\nSpatial sampling, design-based and model-based inference\nIntro to point patterns and point processes, observation window, first and second order properties",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to spatial data</span>"
+    ]
+  },
+  {
+    "objectID": "day2.html",
+    "href": "day2.html",
+    "title": "2  Point Pattern data",
+    "section": "",
+    "text": "Point patterns, density functions\nInteractions of point processes\nSimulating point process\nModelling density as a function of external variables",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Point Pattern data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html",
+    "href": "day3.html",
+    "title": "3  Geostatistical data",
+    "section": "",
+    "text": "Stationarity of mean, stationarity of covariance\nEstimating spatial covariance and semivariance\nModelling the variogram\nKriging interpolation\nConditional simulation",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day4.html",
+    "href": "day4.html",
+    "title": "4  Machine Learning methods applied to spatial data",
+    "section": "",
+    "text": "Data: coverages as predictors\nPitfalls: independence, known predictors, clustered data\nModel assessment, cross validation strategies",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Machine Learning methods applied to spatial data</span>"
+    ]
+  },
+  {
+    "objectID": "day5.html",
+    "href": "day5.html",
+    "title": "5  Big spatial datasets",
+    "section": "",
+    "text": "What is big?\nLarge vector datasets\nLarge raster datasets, image collections and data cubes\nCloud solutions, cloud platforms, platform lock-in",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Big spatial datasets</span>"
+    ]
+  }
+]

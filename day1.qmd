@@ -1,0 +1,9 @@
+
+## Introduction to spatial data
+
+* Introduction to spatial data, support, coordinate reference systems
+* Introduction to spatial statistical data types: point patterns, geostatistical data, lattice data
+* Is spatial dependence a fact? And is it a curse, or a blessing?
+* Spatial sampling, design-based and model-based inference
+* Intro to point patterns and point processes, observation window, first and second order properties
+

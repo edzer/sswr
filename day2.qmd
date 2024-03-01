@@ -1,0 +1,6 @@
+## Point Pattern data
+
+* Point patterns, density functions
+* Interactions of point processes
+* Simulating point process
+* Modelling density as a function of external variables

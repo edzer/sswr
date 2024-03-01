@@ -1,0 +1,5 @@
+## Machine Learning methods applied to spatial data
+
+* Data: coverages as predictors
+* Pitfalls: independence, known predictors, clustered data
+* Model assessment, cross validation strategies

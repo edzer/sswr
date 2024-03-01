@@ -1,0 +1,8 @@
+## Geostatistical data
+
+* Stationarity of mean, stationarity of covariance
+* Estimating spatial covariance and semivariance
+* Modelling the variogram
+* Kriging interpolation
+* Conditional simulation
+

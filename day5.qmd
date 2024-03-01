@@ -1,0 +1,7 @@
+## Big spatial datasets
+
+* What is big?
+* Large vector datasets
+* Large raster datasets, image collections and data cubes
+* Cloud solutions, cloud platforms, platform lock-in
+
