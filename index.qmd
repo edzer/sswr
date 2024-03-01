@@ -1,0 +1,15 @@
+# Introduction {.unnumbered}
+
+
+## Required packages
+
+```{r eval=FALSE}
+install.packages(
+  "sf",
+  "stars",
+  "terra",
+  "tmap",
+  "gstat",
+  "spatstat"
+)
+```
