@@ -197,8 +197,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#support-examples" id="toc-support-examples" class="nav-link" data-scroll-target="#support-examples">Support: examples</a></li>
   </ul></li>
-  <li><a href="#what-is-statistics" id="toc-what-is-statistics" class="nav-link" data-scroll-target="#what-is-statistics"><span class="header-section-number">1.2</span> What is Statistics?</a></li>
+  <li><a href="#what-is-statistics" id="toc-what-is-statistics" class="nav-link" data-scroll-target="#what-is-statistics"><span class="header-section-number">1.2</span> What is Statistics?</a>
+  <ul class="collapse">
+  <li><a href="#design-based-statistics" id="toc-design-based-statistics" class="nav-link" data-scroll-target="#design-based-statistics">Design-based statistics</a></li>
+  <li><a href="#model-based-statistics" id="toc-model-based-statistics" class="nav-link" data-scroll-target="#model-based-statistics">Model-based statistics</a></li>
+  <li><a href="#using-coordinates-as-covariates" id="toc-using-coordinates-as-covariates" class="nav-link" data-scroll-target="#using-coordinates-as-covariates">Using coordinates as covariates?</a></li>
+  </ul></li>
   <li><a href="#spatial-statistics-data-types" id="toc-spatial-statistics-data-types" class="nav-link" data-scroll-target="#spatial-statistics-data-types"><span class="header-section-number">1.3</span> Spatial statistics: data types</a></li>
+  <li><a href="#intro-to-sf-and-stars" id="toc-intro-to-sf-and-stars" class="nav-link" data-scroll-target="#intro-to-sf-and-stars"><span class="header-section-number">1.4</span> Intro to <code>sf</code> and <code>stars</code></a></li>
+  <li><a href="#exercises-for-tomorrow" id="toc-exercises-for-tomorrow" class="nav-link" data-scroll-target="#exercises-for-tomorrow"><span class="header-section-number">1.5</span> Exercises for tomorrow</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -262,9 +269,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-is-special-about-spatial-data" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="what-is-special-about-spatial-data"><span class="header-section-number">1.1</span> What is special about spatial data?</h2>
 <ul>
-<li><strong>Coordinates</strong>. What are coordinates?</li>
+<li><strong>Coordinates</strong>. What are coordinates? Dimension(s)?</li>
 <li><strong>Location</strong>. Does location always involve coordinates?</li>
-<li><strong>Time</strong>. If not explicit, there is an implicit time reference.</li>
+<li><strong>Time</strong>. If not explicit, there is an implicit time reference. Dimension(s)?</li>
 <li><strong>Attributes</strong>. <em>at</em> specific locations we measure specific properties</li>
 <li>Quite often, we want to know <em>where</em> things change (<strong>space-time interactions</strong>).</li>
 <li><strong>Reference systems</strong> for space, time, and attributes: what are they?</li>
@@ -306,9 +313,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>where does randomness come from? Design-based vs.&nbsp;model-based</li>
 <li>are parameters random or fixed? Bayesian vs.&nbsp;frequentist</li>
+<li>inference, prediction, simulations</li>
 </ul></li>
 <li>Typical approach: observation = signal + noise, noise modelled by random variables</li>
 </ul>
+<section id="design-based-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="design-based-statistics">Design-based statistics</h3>
+</section>
+<section id="model-based-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="model-based-statistics">Model-based statistics</h3>
+</section>
+<section id="using-coordinates-as-covariates" class="level3">
+<h3 class="anchored" data-anchor-id="using-coordinates-as-covariates">Using coordinates as covariates?</h3>
+</section>
 </section>
 <section id="spatial-statistics-data-types" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="spatial-statistics-data-types"><span class="header-section-number">1.3</span> Spatial statistics: data types</h2>
@@ -317,6 +334,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Geostatistical data</li>
 <li>Areal data</li>
 </ul>
+<p>Data types that received less attention in the spatial statistics literature are</p>
+<ul>
+<li>image data</li>
+<li>tracking data, trajectories</li>
+</ul>
+</section>
+<section id="intro-to-sf-and-stars" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="intro-to-sf-and-stars"><span class="header-section-number">1.4</span> Intro to <code>sf</code> and <code>stars</code></h2>
+</section>
+<section id="exercises-for-tomorrow" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="exercises-for-tomorrow"><span class="header-section-number">1.5</span> Exercises for tomorrow</h2>
 
 
 <!-- -->
@@ -806,9 +834,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is special about spatial data?</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Coordinates**. What are coordinates?</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Coordinates**. What are coordinates? Dimension(s)?</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Location**. Does location always involve coordinates?</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Time**. If not explicit, there is an implicit time reference.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Time**. If not explicit, there is an implicit time reference. Dimension(s)?</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Attributes**. _at_ specific locations we measure specific properties</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Quite often, we want to know _where_ things change (**space-time interactions**).</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Reference systems** for space, time, and attributes: what are they?</span>
@@ -837,14 +865,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Statistics: a scientific disciplin aiming at modelling data, using probability theory</span>
 <span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>where does randomness come from? Design-based vs. model-based</span>
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>are parameters random or fixed? Bayesian vs. frequentist </span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Typical approach: observation = signal + noise, noise modelled by random variables</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>inference, prediction, simulations</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Typical approach: observation = signal + noise, noise modelled by random variables</span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics: data types</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design-based statistics</span></span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point Patterns</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Geostatistical data</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Areal data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model-based statistics</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using coordinates as covariates?</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics: data types</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point Patterns</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Geostatistical data</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Areal data</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>Data types that received less attention in the spatial statistics literature are</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>image data</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>tracking data, trajectories</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `sf` and `stars`</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for tomorrow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
