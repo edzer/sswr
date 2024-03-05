@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.514">
+<meta name="generator" content="quarto-1.4.550">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Edzer Pebesma">
 <meta name="dcterms.date" content="2024-03-05">
@@ -92,6 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -138,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the course</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -181,6 +182,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
 <li><a href="#cran-packages" id="toc-cran-packages" class="nav-link" data-scroll-target="#cran-packages">CRAN packages:</a></li>
   <li><a href="#non-cran-packages" id="toc-non-cran-packages" class="nav-link" data-scroll-target="#non-cran-packages">non-CRAN packages:</a></li>
+  <li><a href="#introduction-to-the-course" id="toc-introduction-to-the-course" class="nav-link" data-scroll-target="#introduction-to-the-course">Introduction to the course</a></li>
+  <li><a href="#how-we-work" id="toc-how-we-work" class="nav-link" data-scroll-target="#how-we-work">How we work</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#why-r" id="toc-why-r" class="nav-link" data-scroll-target="#why-r">Why R?</a></li>
+  <li><a href="#reproducing-the-current-course" id="toc-reproducing-the-current-course" class="nav-link" data-scroll-target="#reproducing-the-current-course">Reproducing the current course</a></li>
   </ul>
 </li>
   </ul>
@@ -200,12 +206,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="quarto-title-meta-contents">
     <p class="author"><a href="https://www.uni-muenster.de/Geoinformatics/institute/staff/index.php/119/Edzer_Pebesma">Edzer Pebesma</a> <a href="mailto:edzer.pebesma@uni-muenster.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-8049-7069" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
   </div>
-    <div class="quarto-title-meta-contents">
+  <div class="quarto-title-meta-contents">
         <p class="affiliation">
+            <a href="https://www.uni-muenster.de/en/">
             Universität Münster
+            </a>
           </p>
       </div>
-    </div>
+  </div>
 
 <div class="quarto-title-meta">
 
@@ -265,6 +273,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"starsdata"</span>, repos <span class="op">=</span> <span class="st">"http://cran.uni-muenster.de/pebesma/"</span>, </span>
 <span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section><section id="introduction-to-the-course" class="level3"><h3 class="anchored" data-anchor-id="introduction-to-the-course">Introduction to the course</h3>
+<ul>
+<li>introduction of the tutor</li>
+<li>introduction of course participants, please state
+<ul>
+<li>name,</li>
+<li>where you’re from,</li>
+<li>what kind of spatial data analysis you have done so far</li>
+</ul>
+</li>
+</ul></section><section id="how-we-work" class="level3"><h3 class="anchored" data-anchor-id="how-we-work">How we work</h3>
+<ul>
+<li>live sessions are from 15:00-18:00 CET (Berlin time)</li>
+<li>slack communication during the full week</li>
+<li>please share open questions you run into in your actual research, preferably with (example) data and R code</li>
+</ul></section><section id="resources" class="level3"><h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<ul>
+<li>
+<a href="https://r-spatial.org/book/">Spatial Data Science: With applications in R</a>, by Pebesma and Bivand 2023</li>
+<li>Vignettes of <a href="https://r-spatial.github.io/sf/">sf</a>: tab “Articles”</li>
+<li>Vignettes of <a href="https://r-spatial.github.io/stars/">stars</a>: tab “Articles”</li>
+<li>All these material are written using R-markdown (or <a href="https://quarto.org/">quarto</a>)</li>
+</ul></section><section id="why-r" class="level3"><h3 class="anchored" data-anchor-id="why-r">Why R?</h3>
+<ul>
+<li>R is old! Think of the advantages!</li>
+<li>R is as good as any data science language, but is more in focus with the statistical community</li>
+<li>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</li>
+<li>R spatial packages have gone full cycle:
+<ul>
+<li>the first generation has been deprecated</li>
+<li>removed from CRAN, and</li>
+<li>replaced by modern versions</li>
+</ul>
+</li>
+<li>R is a data science language that allows you <a href="https://eartharxiv.org/repository/view/3216/">to work reproducibly</a>
+</li>
+</ul></section><section id="reproducing-the-current-course" class="level3"><h3 class="anchored" data-anchor-id="reproducing-the-current-course">Reproducing the current course</h3>
+<ul>
+<li>Go to https://github.com/edzer/sswr/</li>
+<li>Go to “Code”, “copy URL to clipboard”</li>
+<li>Clone this repo to your hard drive</li>
+<li>Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling</li>
+<li>Run the code sections!</li>
+</ul>
 
 
 <!-- -->
@@ -448,27 +500,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -483,10 +514,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -495,8 +530,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -719,8 +761,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./day1.html" class="pagination-link" aria-label="<span class='chapter-number'>1</span>&nbsp; <span class='chapter-title'>Introduction to the course</span>">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the course</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./day1.html" class="pagination-link" aria-label="Introduction to spatial data">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -774,10 +816,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="in">                 type = "source")</span></span>
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="in">install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/", </span></span>
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="in">                 type = "source")</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to the course</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of the tutor</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of course participants, please state</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>name,</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>where you're from,</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>what kind of spatial data analysis you have done so far</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### How we work</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>live sessions are from 15:00-18:00 CET (Berlin time)</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>slack communication during the full week</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please share open questions you run into in your actual research, preferably with (example) data and R code</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resources</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Spatial Data Science: With applications in R</span><span class="co">](https://r-spatial.org/book/)</span>, by Pebesma and Bivand 2023</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">sf</span><span class="co">](https://r-spatial.github.io/sf/)</span>: tab "Articles"</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">stars</span><span class="co">](https://r-spatial.github.io/stars/)</span>: tab "Articles"</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All these material are written using R-markdown (or <span class="co">[</span><span class="ot">quarto</span><span class="co">](https://quarto.org/)</span>)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why R?</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is old! Think of the advantages!</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is as good as any data science language, but is more in focus with the statistical community</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R spatial packages have gone full cycle: </span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>the first generation has been deprecated</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">    *  </span>removed from CRAN, and </span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>replaced by modern versions</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is a data science language that allows you <span class="co">[</span><span class="ot">to work reproducibly</span><span class="co">](https://eartharxiv.org/repository/view/3216/)</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reproducing the current course</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to https://github.com/edzer/sswr/</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to "Code", "copy URL to clipboard"</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Clone this repo to your hard drive</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Run the code sections!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sswr/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
