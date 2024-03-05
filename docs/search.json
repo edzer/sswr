@@ -14,19 +14,19 @@
     "href": "index.html#required-packages",
     "title": "Spatial Statistics with R",
     "section": "Required packages",
-    "text": "Required packages\n\ninstall.packages(\n  \"sf\",\n  \"stars\",\n  \"terra\",\n  \"tmap\",\n  \"gstat\",\n  \"spatstat\"\n)",
+    "text": "Required packages\nThe following packages may be used during the course; it is assumed that you know how to install packages, and have permission to do so on your computer.\nCRAN packages:\n\ninstall.packages(c(\"classInt\",\n\"colorspace\",\n\"dplyr\",\n\"ggplot2\",\n\"gstat\",\n\"hglm\",\n\"igraph\",\n\"lme4\",\n\"lwgeom\",\n\"maps\" ,\n\"mapview\",\n\"randomForest\",\n\"rnaturalearth\",\n\"s2\",\n\"scales\",\n\"sf\",\n\"sp\",\n\"spacetime\",\n\"spdep\",\n\"spatialreg\",\n\"spatstat\",\n\"spData\",\n\"stars\",\n\"terra\",\n\"tidyverse\",\n\"tmap\",\n\"units\",\n\"viridis\",\n\"viridisLite\",\n\"xts\"))\n\nnon-CRAN packages:\n\ninstall.packages(\"spDataLarge\", repos = \"https://nowosad.github.io/drat/\", type = \"source\")\ninstall.packages(\"starsdata\",\n  repos = \"http://cran.uni-muenster.de/pebesma/\", type = \"source\")",
     "crumbs": [
       "Introduction"
     ]
   },
   {
-    "objectID": "day1.html",
-    "href": "day1.html",
-    "title": "1  Introduction to spatial data",
-    "section": "",
-    "text": "Learning goals\n\n\nReading materials\n\n\nRequired packages\n\n\nSummary\n\nIntroduction to spatial data, support, coordinate reference systems\nIntroduction to spatial statistical data types: point patterns, geostatistical data, lattice data\nIs spatial dependence a fact? And is it a curse, or a blessing?\nSpatial sampling, design-based and model-based inference\nIntro to point patterns and point processes, observation window, first and second order properties",
+    "objectID": "day1.html#introduction-to-spatial-data",
+    "href": "day1.html#introduction-to-spatial-data",
+    "title": "1  Introduction to the course",
+    "section": "1.1 Introduction to spatial data",
+    "text": "1.1 Introduction to spatial data\n\nLearning goals\n\nlearn the different data types considerd in spatial statistics, and get familiar with simple features, as well as with the difference between discrete and continuous variability in space and in attributes\nlearn what spatial dependence is about, and cases where it can be ignored\nintroduce spatial point patterns and processes\n\n\n\nReading materials\nFrom Spatial Data Science: with applications in R:\n\nPreface\nChapter 1: Getting started\nChapter 2: Coordinates\nChapter 10: Statistical modelling of spatial data\n\n\n\nExercises that will be discussed the first day:\n\nSection 10.6: Exercises\n\n\n\nRequired packages\nSee Introduction chapter\n\n\nSummary\n\nIntroduction to spatial data, support, coordinate reference systems\nIntroduction to spatial statistical data types: point patterns, geostatistical data, lattice data; imagery, tracks/trajectories\nIs spatial dependence a fact? And is it a curse, or a blessing?\nSpatial sampling, design-based and model-based inference\nIntro to point patterns and point processes, observation window, first and second order properties\nExercises for Day 2",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to spatial data</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to the course</span>"
     ]
   },
   {
