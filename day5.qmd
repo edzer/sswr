@@ -92,7 +92,7 @@ library(sf)
 
 From https://github.com/microsoft/USBuildingFootprints downloaded [Maine.geojson.zip](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip), and read with
 
-```{r}
+```{r eval=FALSE}
 m = st_read("/vsizip/Maine.geojson.zip") # /vsizip: indicates data source is a zipped file
 ```
 

@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.550">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Spatial Statistics with R - 2&nbsp; Point Pattern data</title>
 <style>
 code{white-space: pre-wrap;}
@@ -56,7 +53,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -74,8 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -102,16 +97,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -122,13 +112,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Statistics with R</a> 
         <div class="sidebar-tools-main">
@@ -143,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
@@ -180,31 +166,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
+<li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
   <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link" data-scroll-target="#reading-materials">Reading materials</a></li>
-  <li><a href="#intro-to-sf-and-stars" id="toc-intro-to-sf-and-stars" class="nav-link" data-scroll-target="#intro-to-sf-and-stars"><span class="header-section-number">2.1</span> Intro to <code>sf</code> and <code>stars</code></a>
+  <li>
+<a href="#intro-to-sf-and-stars" id="toc-intro-to-sf-and-stars" class="nav-link" data-scroll-target="#intro-to-sf-and-stars"><span class="header-section-number">2.1</span> Intro to <code>sf</code> and <code>stars</code></a>
   <ul class="collapse">
-  <li><a href="#why-do-all-functions-in-sf-start-with-st_" id="toc-why-do-all-functions-in-sf-start-with-st_" class="nav-link" data-scroll-target="#why-do-all-functions-in-sf-start-with-st_">Why do all functions in <code>sf</code> start with <code>st_</code>?</a></li>
-  </ul></li>
-  <li><a href="#intro-to-spatstat" id="toc-intro-to-spatstat" class="nav-link" data-scroll-target="#intro-to-spatstat"><span class="header-section-number">2.2</span> Intro to <code>spatstat</code></a></li>
+<li><a href="#why-do-all-functions-in-sf-start-with-st_" id="toc-why-do-all-functions-in-sf-start-with-st_" class="nav-link" data-scroll-target="#why-do-all-functions-in-sf-start-with-st_">Why do all functions in <code>sf</code> start with <code>st_</code>?</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+</li>
+  <li><a href="#intro-to-spatstat" id="toc-intro-to-spatstat" class="nav-link" data-scroll-target="#intro-to-spatstat"><span class="header-section-number">2.2</span> Intro to <code>spatstat</code></a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span>
+</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -218,18 +202,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<section id="learning-goals" class="level3">
-<h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
-</section>
-<section id="reading-materials" class="level3">
-<h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
+</header><section id="learning-goals" class="level3"><h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
+</section><section id="reading-materials" class="level3"><h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
 <p>From <a href="https://r-spatial.org/book/">Spatial Data Science: with applications in R</a>:</p>
 <ul>
 <li>Chapter 11: Point Patterns</li>
-<li>Chapter 7: <code>sf</code> and <code>stars</code></li>
+<li>Chapter 7: <code>sf</code> and <code>stars</code>
+</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Summary">
 <div class="callout-header d-flex align-content-center">
@@ -242,8 +221,10 @@ Summary
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Intro to <code>sf</code> and <code>stars</code></li>
-<li>Intro to <code>spatstat</code></li>
+<li>Intro to <code>sf</code> and <code>stars</code>
+</li>
+<li>Intro to <code>spatstat</code>
+</li>
 <li>Point patterns, density functions</li>
 <li>Interactions of point processes</li>
 <li>Simulating point process</li>
@@ -251,15 +232,17 @@ Summary
 </ul>
 </div>
 </div>
-</section>
-<section id="intro-to-sf-and-stars" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="intro-to-sf-and-stars"><span class="header-section-number">2.1</span> Intro to <code>sf</code> and <code>stars</code></h2>
+</section><section id="intro-to-sf-and-stars" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="intro-to-sf-and-stars">
+<span class="header-section-number">2.1</span> Intro to <code>sf</code> and <code>stars</code>
+</h2>
 <ul>
 <li>Briefly: <code>sf</code> provides classes and methods for <em>simple features</em>
 <ul>
 <li>a feature is a “thing”, with geometrical properties (point(s), line(s), polygon(s)) and attributes</li>
-<li><code>sf</code> stores data in <code>data.frame</code>s with a list-column (of class <code>sfc</code>) that holds the geometries</li>
-</ul></li>
+<li>
+<code>sf</code> stores data in <code>data.frame</code>s with a list-column (of class <code>sfc</code>) that holds the geometries</li>
+</ul>
+</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="the Simple Feature standard">
 <div class="callout-header d-flex align-content-center">
@@ -274,20 +257,33 @@ the Simple Feature standard
 <p>“Simple Feature Access” is an <a href="https://www.ogc.org/standard/sfa/">open standard</a> for data with vector geometries. It defines a set of classes for geometries and operations on them.</p>
 <ul>
 <li>“simple” refers to curves that are “simply” represented by points connected by straight lines</li>
-<li>connecting lines are not allowed to <a href="https://r-spatial.org/book/03-Geometries.html#sec-valid">self-intersect</a></li>
+<li>connecting lines are not allowed to <a href="https://r-spatial.org/book/03-Geometries.html#sec-valid">self-intersect</a>
+</li>
 <li>polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.</li>
+<li>All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, …</li>
 </ul>
 </div>
 </div>
-<section id="why-do-all-functions-in-sf-start-with-st_" class="level3">
-<h3 class="anchored" data-anchor-id="why-do-all-functions-in-sf-start-with-st_">Why do all functions in <code>sf</code> start with <code>st_</code>?</h3>
+<section id="why-do-all-functions-in-sf-start-with-st_" class="level3"><h3 class="anchored" data-anchor-id="why-do-all-functions-in-sf-start-with-st_">Why do all functions in <code>sf</code> start with <code>st_</code>?</h3>
 <ul>
-<li>see <a href="https://ecoevo.social/@noamross/112055449473807578">here</a></li>
+<li>see <a href="https://ecoevo.social/@noamross/112055449473807578">here</a>
+</li>
 </ul>
-</section>
-</section>
-<section id="intro-to-spatstat" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="intro-to-spatstat"><span class="header-section-number">2.2</span> Intro to <code>spatstat</code></h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gdal-fig-nodetails" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gdal-fig-nodetails-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="sf_deps.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gdal-fig-nodetails-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: <strong>sf</strong> and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="intro-to-spatstat" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="intro-to-spatstat">
+<span class="header-section-number">2.2</span> Intro to <code>spatstat</code>
+</h2>
 <div class="callout callout-style-default callout-tip callout-titled" title="MaxEnt">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -303,7 +299,8 @@ MaxEnt
 <li>adds background (absence) points</li>
 <li>fits logistic regression models to the 0/1 data</li>
 <li>ignores space, spatial interactions, distances</li>
-<li>will be discussed on Day 4: <strong>Machine Learning methods applied to spatial data</strong></li>
+<li>will be discussed on Day 4: <strong>Machine Learning methods applied to spatial data</strong>
+</li>
 </ul>
 </div>
 </div>
@@ -311,10 +308,7 @@ MaxEnt
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -751,9 +745,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./day1.html" class="pagination-link" aria-label="Introduction to spatial data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></span>
       </a>          
@@ -800,30 +792,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>"simple" refers to curves that are "simply" represented by points connected by straight lines</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>connecting lines are not allowed to <span class="co">[</span><span class="ot">self-intersect</span><span class="co">](https://r-spatial.org/book/03-Geometries.html#sec-valid)</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why do all functions in `sf` start with `st_`?</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>see <span class="co">[</span><span class="ot">here</span><span class="co">](https://ecoevo.social/@noamross/112055449473807578)</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>You would think that MaxEnt is a point pattern technique, however it</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why do all functions in `sf` start with `st_`?</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>see <span class="co">[</span><span class="ot">here</span><span class="co">](https://ecoevo.social/@noamross/112055449473807578)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gdal-fig-nodetails, echo = FALSE}</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "**sf** and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency"</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::include_graphics("sf_deps.png") </span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores space, spatial interactions, distances</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>You would think that MaxEnt is a point pattern technique, however it</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores space, spatial interactions, distances</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-
 
 
 

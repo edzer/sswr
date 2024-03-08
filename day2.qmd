@@ -34,12 +34,20 @@ with vector geometries. It defines a set of classes for geometries and operation
 * "simple" refers to curves that are "simply" represented by points connected by straight lines
 * connecting lines are not allowed to [self-intersect](https://r-spatial.org/book/03-Geometries.html#sec-valid)
 * polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.
+* All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...
 
 :::
 
 ### Why do all functions in `sf` start with `st_`?
 
 * see [here](https://ecoevo.social/@noamross/112055449473807578)
+
+```{r fig-gdal-fig-nodetails, echo = FALSE}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "**sf** and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency"
+knitr::include_graphics("sf_deps.png") 
+```
 
 ## Intro to `spatstat`
 

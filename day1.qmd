@@ -151,17 +151,87 @@ of $e(s_0)$ using correlated, nearby observations (day 3: geostatistics).
 
 ## Spatial statistics: data types
 
-* Point Patterns
-    * Points (locations) + observation window
-* Geostatistical data
-    * locations + measured values
-* Areal data
-    * polygons (or grid cells) + polygon summary values
+### Point Patterns
+
+* Points (locations) + observation window
+* Example from [here](https://opendata-esri-de.opendata.arcgis.com/datasets/dc6d012f47d94fde99deacc316721f30/explore?location=51.099061%2C10.453852%2C7.45)
+
+```{r fig-gdal-fig-nodetails, echo = FALSE}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "Wind turbine parks in Germany"
+knitr::include_graphics("turbines.png")
+```
+
+### Geostatistical data
+
+# locations + measured values
+
+```{r}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "NO2 measurements at rural background stations (EEA)"
+library(sf)
+no2 <- read.csv(system.file("external/no2.csv",
+    package = "gstat"))
+crs <- st_crs("EPSG:32632")
+st_as_sf(no2, crs = "OGC:CRS84", coords =
+    c("station_longitude_deg", "station_latitude_deg")) |>
+    st_transform(crs) -> no2.sf
+library(ggplot2)
+# plot(st_geometry(no2.sf))
+"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg" |>
+  read_sf() |>
+  st_transform(crs) -> de
+ggplot() + geom_sf(data = de) +
+    geom_sf(data = no2.sf, mapping = aes(col = NO2))
+```
+
+### Areal data
+
+* polygons (or grid cells) + polygon summary values
+
+```{r}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "NO2 rural background, average values per NUTS1 region"
+a = aggregate(no2.sf["NO2"], de, mean, na.rm = TRUE)
+ggplot() + geom_sf(data = de) +
+    geom_sf(data = a, mapping = aes(fill = NO2))
+```
 
 Data types that received less attention in the spatial statistics literature are
 
-* image data
-* tracking data, trajectories
+### Image data
+
+```{r}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "RGB image from a Landsat scene"
+library(stars)
+plot(L7_ETMs, rgb = 1:3)
+```
+
+### Tracking data, trajectories
+
+```{r}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "Storm/hurricane trajectories colored by year"
+# from: https://r-spatial.org/r/2017/08/28/nest.html
+library(tidyverse)
+storms.sf <- storms %>%
+    st_as_sf(coords = c("long", "lat"), crs = 4326)
+storms.sf <- storms.sf %>% 
+    mutate(time = as.POSIXct(paste(paste(year,month,day, sep = "-"), 
+                                   paste(hour, ":00", sep = "")))) %>% 
+    select(-month, -day, -hour)
+storms.nest <- storms.sf %>% group_by(name, year) %>% nest
+to_line <- function(tr) st_cast(st_combine(tr), "LINESTRING") %>% .[[1]] 
+tracks <- storms.nest %>% pull(data) %>% map(to_line) %>% st_sfc(crs = 4326)
+storms.tr <- storms.nest %>% select(-data) %>% st_sf(geometry = tracks)
+storms.tr %>% ggplot(aes(color = year)) + geom_sf()
+```
 
 ## Checklist if you have spatial data
 
