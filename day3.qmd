@@ -1,5 +1,28 @@
 ## Geostatistical data
 
+### Learning goals
+
+### Reading materials
+
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+
+* Chapter 12: Interpolation
+* Chapter 13: Multivariate and Spatiotemporal Geostatistics
+
+::: {.callout-tip title="Summary"}
+
+* Intro to `gstat`
+* Geostatistical data
+* Spatial correlation, variograms, stationarity
+* Kriging
+* Simulating geostatistical data
+* Spatiotemporal geostatistics
+
+:::
+
+### Summary
+
+
 * Stationarity of mean, stationarity of covariance
 * Estimating spatial covariance and semivariance
 * Modelling the variogram

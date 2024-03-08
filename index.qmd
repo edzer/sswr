@@ -1,15 +1,92 @@
 # Introduction {.unnumbered}
 
-
 ## Required packages
 
+The following packages may be used during the course; it is assumed
+that you know how to install packages, and have permission to do
+so on your computer. 
+
+### CRAN packages:
+
 ```{r eval=FALSE}
-install.packages(
-  "sf",
-  "stars",
-  "terra",
-  "tmap",
-  "gstat",
-  "spatstat"
-)
+install.packages(c("classInt",
+"colorspace",
+"dplyr",
+"ggplot2",
+"gstat",
+"hglm",
+"igraph",
+"lme4",
+"lwgeom",
+"maps" ,
+"mapview",
+"randomForest",
+"rnaturalearth",
+"s2",
+"scales",
+"sf",
+"sp",
+"spacetime",
+"spdep",
+"spatialreg",
+"spatstat",
+"spData",
+"stars",
+"terra",
+"tidyverse",
+"tmap",
+"units",
+"viridis",
+"viridisLite",
+"xts"))
 ```
+
+### non-CRAN packages:
+
+```{r eval=FALSE}
+install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", 
+				 type = "source")
+install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/", 
+				 type = "source")
+```
+
+### Introduction to the course
+
+* introduction of the tutor
+* introduction of course participants, please state
+   * name,
+   * where you're from,
+   * what kind of spatial data analysis you have done so far
+
+### How we work
+
+* live sessions are from 15:00-18:00 CET (Berlin time)
+* slack communication during the full week
+* please share open questions you run into in your actual research, preferably with (example) data and R code
+
+### Resources
+
+* [Spatial Data Science: With applications in R](https://r-spatial.org/book/), by Pebesma and Bivand 2023
+* Vignettes of [sf](https://r-spatial.github.io/sf/): tab "Articles"
+* Vignettes of [stars](https://r-spatial.github.io/stars/): tab "Articles"
+* All these material are written using R-markdown (or [quarto](https://quarto.org/))
+
+### Why R?
+
+* R is old! Think of the advantages!
+* R is as good as any data science language, but is more in focus with the statistical community
+* R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)
+* R spatial packages have gone full cycle: 
+    * the first generation has been deprecated
+    *  removed from CRAN, and 
+    * replaced by modern versions
+* R is a data science language that allows you [to work reproducibly](https://eartharxiv.org/repository/view/3216/)
+* Because we have [CRAN](https://cran.r-project.org/)
+
+### Reproducing the current course
+
+* Go to https://github.com/edzer/sswr/
+* Go to "Code", "copy URL to clipboard"
+* Clone this repo to your hard drive
+* Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling
+* Run the code sections!

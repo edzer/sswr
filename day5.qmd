@@ -1,7 +1,115 @@
 ## Big spatial datasets
 
+### Learning goals
+
+### Reading materials
+
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+
+* Chapter 9: Large data and cloud native
+
+[stars vignettes 2: proxy objects](https://r-spatial.github.io/stars/articles/stars2.html)
+
+::: {.callout-tip title="Summary"}
+
 * What is big?
-* Large vector datasets
+* Raster or vector?
+* How to access large data sets?
+* Spatial statistics on large datasets
+
+:::
+
+## What is a big dataset?
+
+* What is big?
+    * too big to handle in main memory (with some copying) (Gb)
+    * too big to fit in memory (20 Gb)
+    * too big to download (Tb)
+    * too big to fit on the hard drive, or local file storage (10 Tb)
+    * too big to move (copy) to your institution (100 Tb - Pb)
+
+* Large vector datasets, examples
+    * all building footprints of a continents, [link](https://github.com/microsoft/USBuildingFootprints)
+    * all rivers, e.g. of the US, [link](https://www.arcgis.com/home/item.html?id=1e29e33360c8441bbb018663273a046e)
+    * OpenStreetMap, [link](https://wiki.openstreetmap.org/wiki/Downloading_data)
+    * all agricultural parcels of a continent, e.g. [EuroCrops](https://github.com/maja601/EuroCrops)
+
 * Large raster datasets, image collections and data cubes
-* Cloud solutions, cloud platforms, platform lock-in
+    * ERA-5
+    * CMIP-6
+    * Copernicus (Sentinel-1, 2, 3, 5p, etc)
+    * Landsat, MODIS, ...
+
+* Cloud solutions, cloud platforms, with platform lock-in
+    * ArcGIS online
+    * Sentinel Hub
+    * Google Earth Engine
+    * Microsoft Planetary Computer
+    * Earth on Amazon (AWS US-west Oregon: COGS + STAC for S1 + S2)
+    * Copernicus Data Space Ecosystem (has openEO: a fully open source software stack)
+
+## Access mechanism
+
+::: {.callout-tip}
+## Clouds and object storage
+
+Object storage abstracts away hard drives and file systems!
+
+* e.g. S3 bucket (AWS/OpenStack): 
+    * total size is unlimited
+    * maximum object size 5 Tb (AWS S3)
+    * idea: write once, read many times
+    * large objects: write piece-wise
+    * http range requests
+    * price depends on size, access speed, amount of requests
+    * tabular data: Parquet
+* large data processing: collocate processing and storage
+    * avoid network between locations / data centers
+    * network inside a data center is fast / cheap
+:::
+
+
+* API: openEO, CDS, 
+* partial reads of data cubes: variable, bounding box, strided (low resolution), time period
+* vector tiles: pmtiles, flatgeobuf
+
+
+## Examples
+
+```{r eval=FALSE}
+curl::curl_download(
+  "https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg",
+  "nshn_water_line.gpkg"
+)
+```
+
+```{r}
+library(sf)
+```
+```{r eval=FALSE}
+(w <- read_sf("nshn_water_line.gpkg"))
+```
+
+From https://github.com/microsoft/USBuildingFootprints downloaded [Maine.geojson.zip](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip), and read with
+
+```{r}
+m = st_read("/vsizip/Maine.geojson.zip") # /vsizip: indicates data source is a zipped file
+```
+
+or read directly from github into R:
+```{r eval=FALSE}
+m = st_read("/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip")
+# /vsicurl: indicates data source is a URL
+```
+
+## Spatial statistics on large datasets
+
+### Geostatistics
+
+* [RandomForestsGLS](https://cran.r-project.org/web/packages/RandomForestsGLS/)
+* [spNNGP](https://cran.r-project.org/web/packages/spNNGP/index.html)
+* [FRK](https://cran.r-project.org/web/packages/FRK/index.html)
+
+A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. [DOI](https://doi.org/10.1007/s13253-018-00348-w).
+
 

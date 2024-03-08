@@ -1,5 +1,44 @@
 ## Machine Learning methods applied to spatial data
 
+### Learning goals
+
+### Reading materials
+
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+
+* Section 10.1: Mapping with non-spatial regression and ML models (you already read this)
+
+From the [stars vignettes](https://r-spatial.github.io/stars/articles/):
+
+* 7. Statistical modelling with stars objects
+
+Area of Applicability:
+
+* this [CAST vignette](https://hannameyer.github.io/CAST/articles/cast02-AOA-tutorial.html)
+* [Machine learning-based global maps of ecological variables and the challenge of assessing them](https://www.nature.com/articles/s41467-022-29838-9)
+
+
+::: {.callout-tip title="Summary"}
+
+* Intro to prediction with R
+* (functions of) Spatial coordinates as predictors
+* Spatially correlated residuals
+* Area of applicability
+* RandomForestsGLS: Random forests [for dependent data](https://arxiv.org/abs/2007.15421)
+
+:::
+
+
+### Summary
+
 * Data: coverages as predictors
 * Pitfalls: independence, known predictors, clustered data
-* Model assessment, cross validation strategies
+* Model assessment, cross validation strategies, area of applicability
+* RandomForestsGLS
+
+## Examples
+
+## MaxEnt
+
+* [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
+* R package [maxnet](https://cran.r-project.org/web/packages/maxnet/index.html) does that using glmnet (lasso or elasticnet regularization on 

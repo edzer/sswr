@@ -1,6 +1,57 @@
 ## Point Pattern data
 
+### Learning goals
+
+### Reading materials
+
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+
+* Chapter 11: Point Patterns
+* Chapter 7: `sf` and `stars`
+
+::: {.callout-tip title="Summary"}
+
+* Intro to `sf` and `stars`
+* Intro to `spatstat`
 * Point patterns, density functions
 * Interactions of point processes
 * Simulating point process
 * Modelling density as a function of external variables
+
+:::
+
+## Intro to `sf` and `stars`
+
+* Briefly: `sf` provides classes and methods for _simple features_
+    * a feature is a "thing", with geometrical properties (point(s), line(s), polygon(s)) and attributes
+    * `sf` stores data in `data.frame`s with a list-column (of class `sfc`) that holds the geometries
+
+::: {.callout-tip title="the Simple Feature standard"}
+
+"Simple Feature Access" is an [open standard](https://www.ogc.org/standard/sfa/) for data
+with vector geometries. It defines a set of classes for geometries and operations on them.
+
+* "simple" refers to curves that are "simply" represented by points connected by straight lines
+* connecting lines are not allowed to [self-intersect](https://r-spatial.org/book/03-Geometries.html#sec-valid)
+* polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.
+
+:::
+
+### Why do all functions in `sf` start with `st_`?
+
+* see [here](https://ecoevo.social/@noamross/112055449473807578)
+
+## Intro to `spatstat`
+
+
+
+::: {.callout-tip title="MaxEnt"}
+
+You would think that MaxEnt is a point pattern technique, however it
+
+* adds background (absence) points
+* fits logistic regression models to the 0/1 data
+* ignores space, spatial interactions, distances
+* will be discussed on Day 4: **Machine Learning methods applied to spatial data**
+
+:::
