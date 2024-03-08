@@ -221,13 +221,12 @@ window.Quarto = {
   <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
   <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link" data-scroll-target="#reading-materials">Reading materials</a></li>
   <li><a href="#exercises-that-can-be-prepared-for-the-first-day" id="toc-exercises-that-can-be-prepared-for-the-first-day" class="nav-link" data-scroll-target="#exercises-that-can-be-prepared-for-the-first-day">Exercises that can be prepared for the first day:</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#what-is-special-about-spatial-data" id="toc-what-is-special-about-spatial-data" class="nav-link" data-scroll-target="#what-is-special-about-spatial-data"><span class="header-section-number">1.1</span> What is special about spatial data?</a>
+  <li><a href="#why-r-for-spatial-statistics" id="toc-why-r-for-spatial-statistics" class="nav-link" data-scroll-target="#why-r-for-spatial-statistics"><span class="header-section-number">1.1</span> Why R for spatial statistics?</a></li>
+  <li><a href="#what-is-special-about-spatial-data" id="toc-what-is-special-about-spatial-data" class="nav-link" data-scroll-target="#what-is-special-about-spatial-data"><span class="header-section-number">1.2</span> What is special about spatial data?</a>
   <ul class="collapse">
   <li><a href="#support-examples" id="toc-support-examples" class="nav-link" data-scroll-target="#support-examples">Support: examples</a></li>
   </ul></li>
-  <li><a href="#spatial-vs.-geospatial" id="toc-spatial-vs.-geospatial" class="nav-link" data-scroll-target="#spatial-vs.-geospatial"><span class="header-section-number">1.2</span> Spatial vs.&nbsp;Geospatial</a></li>
-  <li><a href="#what-is-statistics" id="toc-what-is-statistics" class="nav-link" data-scroll-target="#what-is-statistics"><span class="header-section-number">1.3</span> What is Statistics?</a>
+  <li><a href="#spatial-vs.-geospatial" id="toc-spatial-vs.-geospatial" class="nav-link" data-scroll-target="#spatial-vs.-geospatial"><span class="header-section-number">1.3</span> Spatial vs.&nbsp;Geospatial</a>
   <ul class="collapse">
   <li><a href="#design-based-statistics" id="toc-design-based-statistics" class="nav-link" data-scroll-target="#design-based-statistics">Design-based statistics</a></li>
   <li><a href="#model-based-statistics" id="toc-model-based-statistics" class="nav-link" data-scroll-target="#model-based-statistics">Model-based statistics</a></li>
@@ -236,7 +235,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#spatial-statistics-data-types" id="toc-spatial-statistics-data-types" class="nav-link" data-scroll-target="#spatial-statistics-data-types"><span class="header-section-number">1.4</span> Spatial statistics: data types</a></li>
   <li><a href="#checklist-if-you-have-spatial-data" id="toc-checklist-if-you-have-spatial-data" class="nav-link" data-scroll-target="#checklist-if-you-have-spatial-data"><span class="header-section-number">1.5</span> Checklist if you have spatial data</a></li>
-  <li><a href="#exercises-for-tomorrow" id="toc-exercises-for-tomorrow" class="nav-link" data-scroll-target="#exercises-for-tomorrow"><span class="header-section-number">1.6</span> Exercises for tomorrow</a></li>
+  <li><a href="#exercises-for-day-2" id="toc-exercises-for-day-2" class="nav-link" data-scroll-target="#exercises-for-day-2"><span class="header-section-number">1.6</span> Exercises for Day 2</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -285,20 +284,38 @@ window.Quarto = {
 <ul>
 <li>Section 10.6: Exercises</li>
 </ul>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="Summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>Introduction to spatial data, support, coordinate reference systems</li>
 <li>Introduction to spatial statistical data types: point patterns, geostatistical data, lattice data; imagery, tracks/trajectories</li>
 <li>Is spatial dependence a fact? And is it a curse, or a blessing?</li>
 <li>Spatial sampling, design-based and model-based inference</li>
 <li>Intro to point patterns and point processes, observation window, first and second order properties</li>
-<li>Exercises for Day 2</li>
+<li>Checklist for your spatial data</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="why-r-for-spatial-statistics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="why-r-for-spatial-statistics"><span class="header-section-number">1.1</span> Why R for spatial statistics?</h2>
+<ul>
+<li>R is suitable for reproducible research (as are Python and Julia, …)</li>
+<li>Most researchers in spatial statistics who share code use R</li>
+<li>There’s a long legacy of R packages for spatial stats</li>
+<li>See CRAN Taskviews: <a href="https://cran.r-project.org/web/views/Spatial.html">Spatial</a>, <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">SpatioTemporal</a>, <a href="https://cran.r-project.org/web/views/Tracking.html">Tracking</a></li>
 </ul>
 </section>
-<section id="what-is-special-about-spatial-data" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="what-is-special-about-spatial-data"><span class="header-section-number">1.1</span> What is special about spatial data?</h2>
+<section id="what-is-special-about-spatial-data" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="what-is-special-about-spatial-data"><span class="header-section-number">1.2</span> What is special about spatial data?</h2>
 <ul>
 <li><strong>Coordinates</strong>. What are coordinates? Dimension(s)?</li>
 <li><strong>Location</strong>. Does location always involve coordinates?</li>
@@ -340,8 +357,8 @@ window.Quarto = {
 </ul>
 </section>
 </section>
-<section id="spatial-vs.-geospatial" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="spatial-vs.-geospatial"><span class="header-section-number">1.2</span> Spatial vs.&nbsp;Geospatial</h2>
+<section id="spatial-vs.-geospatial" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="spatial-vs.-geospatial"><span class="header-section-number">1.3</span> Spatial vs.&nbsp;Geospatial</h2>
 <ul>
 <li>Spatial refers (physical) spaces, 2- or 3-dimensional (<span class="math inline">\(R^2\)</span> or <span class="math inline">\(R^3\)</span>)
 <ul>
@@ -364,9 +381,17 @@ window.Quarto = {
 <li>MRT scans (3-D), places in a human body</li>
 </ul></li>
 </ul>
-</section>
-<section id="what-is-statistics" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="what-is-statistics"><span class="header-section-number">1.3</span> What is Statistics?</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="What is Statistics">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is Statistics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>… or what <em>are</em> statistics?</p>
 <ul>
 <li>statistic: a descriptive measure summarising some data</li>
 <li>Statistics: a scientific disciplin aiming at modelling data, using probability theory
@@ -377,6 +402,8 @@ window.Quarto = {
 </ul></li>
 <li>Typical approach: observation = signal + noise, noise modelled by random variables</li>
 </ul>
+</div>
+</div>
 <section id="design-based-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="design-based-statistics">Design-based statistics</h3>
 <p>In design-based statistics, randomness comes from random sampling. Consider an area <span class="math inline">\(B\)</span>, from which we take samples <span class="math display">\[z(s),
@@ -417,9 +444,18 @@ z(s_j).\]</span> This also predicts the value of a <em>randomly</em> chosen obse
 <section id="spatial-statistics-data-types" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="spatial-statistics-data-types"><span class="header-section-number">1.4</span> Spatial statistics: data types</h2>
 <ul>
-<li>Point Patterns</li>
-<li>Geostatistical data</li>
-<li>Areal data</li>
+<li>Point Patterns
+<ul>
+<li>Points (locations) + observation window</li>
+</ul></li>
+<li>Geostatistical data
+<ul>
+<li>locations + measured values</li>
+</ul></li>
+<li>Areal data
+<ul>
+<li>polygons (or grid cells) + polygon summary values</li>
+</ul></li>
 </ul>
 <p>Data types that received less attention in the spatial statistics literature are</p>
 <ul>
@@ -438,8 +474,8 @@ z(s_j).\]</span> This also predicts the value of a <em>randomly</em> chosen obse
 <li>Do you know the <em>extent</em> (<span class="math inline">\(B\)</span>) from which your data were sampled, or collected?</li>
 </ul>
 </section>
-<section id="exercises-for-tomorrow" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="exercises-for-tomorrow"><span class="header-section-number">1.6</span> Exercises for tomorrow</h2>
+<section id="exercises-for-day-2" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="exercises-for-day-2"><span class="header-section-number">1.6</span> Exercises for Day 2</h2>
 
 
 <!-- -->
@@ -918,143 +954,160 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Section 10.6: Exercises</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Introduction to spatial data, support, coordinate reference systems</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Introduction to spatial statistical data types: point patterns, geostatistical data, lattice data; imagery, tracks/trajectories</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Is spatial dependence a fact? And is it a curse, or a blessing?</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatial sampling, design-based and model-based inference</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to point patterns and point processes, observation window, first and second order properties</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Exercises for Day 2</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Checklist for your spatial data</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is special about spatial data?</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Coordinates**. What are coordinates? Dimension(s)?</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Location**. Does location always involve coordinates?</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Time**. If not explicit, there is an implicit time reference. Dimension(s)?</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Attributes**. _at_ specific locations we measure specific properties</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Quite often, we want to know _where_ things change (**space-time interactions**).</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Reference systems** for space, time, and attributes: what are they?</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Support**: if we have an attribute value associated with a line, polygon or grid cell:</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>does the value summarise all values at points? (line/area/cell support), or</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is the value constant throughout the line/area/cell (point support)?</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Continuity**: </span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is a variable _spatially_ continuous? Yes for geostatitical data, no for point patterns</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is an _attribute variable_ continuous? [Stevens's measurement scales](https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ): yes if _Interval_ or _Ratio_.</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Support: examples</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Road properties</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>road type: gravel, brick, asphalt (point support: everywhere on the whole road)</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>mean width: block support (summary value)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>minimum width: block support (although the minimum width may be the value at a single (point) location, it summarizes all widths of the road--we no longer know the width at any specific point location)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Land use/land cover</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>when we classify e.g. 30 m x 30 m Landsat pixels into a single class, this single class is not constant throughout this pixel</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>road type is a land cover type, but a road never covers a 30 m x 30 m pixel</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>a land cover type like "urban" is associated with a positive (non-point) support: we don't say a point in a garden or park is urban, or a point on a roof, but these are part of a (block support) urban fabric</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Elevation</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>in principle, we can measure elevation at a point; in practice, every measuring device has a physical (non-point) size</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Further reading: <span class="co">[</span><span class="ot">Chapter 5: Attributes and Support</span><span class="co">](https://r-spatial.org/book/05-Attributes.html)</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial vs. Geospatial</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatial refers (physical) spaces, 2- or 3-dimensional ($R^2$ or $R^3$)</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Most often spatial statistics considers 2-dimensional problems</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>3-d: meteorology, climate science, geophysics, groundwater hydrology, aeronautics, ...</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>"Geo" refers to the Earth</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Earth coordinates, we always need a _datum_, consisting of an ellipsoid (shape) and the way it is fixed to the Earth (origin)</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>The Earth is modelled by an ellipsoid, which is nearly round</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>If we consider Earth-bound areas as flat, for larger areas we get the distances wrong</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>We can (and do) also work on $S^2$, the surface of a sphere, rather than $R^2$, to get distances right, but this creates a number of challenges</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Non-geospatial spaces could be:</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Associated with other bodies (moon, Mars)</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Astrophysics, places/directions in the universe</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Locations in a building (where we use "engineering coordinates", relative to a building corner and orientation)</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Microscope images</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>MRT scans (3-D), places in a human body</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is Statistics?</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>statistic: a descriptive measure summarising some data</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Statistics: a scientific disciplin aiming at modelling data, using probability theory</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>where does randomness come from? Design-based vs. model-based</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>are parameters random or fixed? Bayesian vs. frequentist </span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>inference, prediction, simulations</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Typical approach: observation = signal + noise, noise modelled by random variables</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design-based statistics</span></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>In design-based statistics, randomness comes from random</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>sampling. Consider an area $B$, from which we take samples $$z(s),</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>s \in B,$$ with $s$ a location for instance two-dimensional: $s_i =</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span>x_i,y_i<span class="sc">\}</span>$. If we select the samples _randomly_, we can consider</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>$S \in B$ a random variable, and $z(S)$ a random sample. Note the</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>randomness in $S$, not in $z$. </span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>Two variables $z(S_1)$ and $z(S_2)$ are _independent_ if $S_1$ and</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>$S_2$ are sampled independently.  For estimation we need to know the</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>inclusion probabilities, which need to be non-negative for every</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>location. </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why R for spatial statistics?</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is suitable for reproducible research (as are Python and Julia, ...)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Most researchers in spatial statistics who share code use R</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>There's a long legacy of R packages for spatial stats</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>See CRAN Taskviews: <span class="co">[</span><span class="ot">Spatial</span><span class="co">](https://cran.r-project.org/web/views/Spatial.html)</span>, <span class="co">[</span><span class="ot">SpatioTemporal</span><span class="co">](https://cran.r-project.org/web/views/SpatioTemporal.html)</span>, <span class="co">[</span><span class="ot">Tracking</span><span class="co">](https://cran.r-project.org/web/views/Tracking.html)</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is special about spatial data?</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Coordinates**. What are coordinates? Dimension(s)?</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Location**. Does location always involve coordinates?</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Time**. If not explicit, there is an implicit time reference. Dimension(s)?</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Attributes**. _at_ specific locations we measure specific properties</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Quite often, we want to know _where_ things change (**space-time interactions**).</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Reference systems** for space, time, and attributes: what are they?</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Support**: if we have an attribute value associated with a line, polygon or grid cell:</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>does the value summarise all values at points? (line/area/cell support), or</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is the value constant throughout the line/area/cell (point support)?</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Continuity**: </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is a variable _spatially_ continuous? Yes for geostatitical data, no for point patterns</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>is an _attribute variable_ continuous? [Stevens's measurement scales](https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ): yes if _Interval_ or _Ratio_.</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Support: examples</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Road properties</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>road type: gravel, brick, asphalt (point support: everywhere on the whole road)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>mean width: block support (summary value)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>minimum width: block support (although the minimum width may be the value at a single (point) location, it summarizes all widths of the road--we no longer know the width at any specific point location)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Land use/land cover</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>when we classify e.g. 30 m x 30 m Landsat pixels into a single class, this single class is not constant throughout this pixel</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>road type is a land cover type, but a road never covers a 30 m x 30 m pixel</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>a land cover type like "urban" is associated with a positive (non-point) support: we don't say a point in a garden or park is urban, or a point on a roof, but these are part of a (block support) urban fabric</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Elevation</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>in principle, we can measure elevation at a point; in practice, every measuring device has a physical (non-point) size</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Further reading: <span class="co">[</span><span class="ot">Chapter 5: Attributes and Support</span><span class="co">](https://r-spatial.org/book/05-Attributes.html)</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial vs. Geospatial</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatial refers (physical) spaces, 2- or 3-dimensional ($R^2$ or $R^3$)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Most often spatial statistics considers 2-dimensional problems</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>3-d: meteorology, climate science, geophysics, groundwater hydrology, aeronautics, ...</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>"Geo" refers to the Earth</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>For Earth coordinates, we always need a _datum_, consisting of an ellipsoid (shape) and the way it is fixed to the Earth (origin)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>The Earth is modelled by an ellipsoid, which is nearly round</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>If we consider Earth-bound areas as flat, for larger areas we get the distances wrong</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>We can (and do) also work on $S^2$, the surface of a sphere, rather than $R^2$, to get distances right, but this creates a number of challenges</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Non-geospatial spaces could be:</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Associated with other bodies (moon, Mars)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Astrophysics, places/directions in the universe</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Locations in a building (where we use "engineering coordinates", relative to a building corner and orientation)</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Microscope images</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>MRT scans (3-D), places in a human body</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="What is Statistics"}</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>... or what _are_ statistics?</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>statistic: a descriptive measure summarising some data</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Statistics: a scientific disciplin aiming at modelling data, using probability theory</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>where does randomness come from? Design-based vs. model-based</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>are parameters random or fixed? Bayesian vs. frequentist </span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>inference, prediction, simulations</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Typical approach: observation = signal + noise, noise modelled by random variables</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>If inclusion probabilities are constant (simple random sampling;</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>or complete spatial randomness: day 2, point patterns) then we</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>can estimate the mean of $Z(B)$ by the sample mean $$\frac{1}{n}\sum_{j=1}^n</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>z(s_j).$$ This also predicts the value of a _randomly_ chosen</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>observation $z(S)$. It cannot be used to predict the value $z(s_0)$</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>for a non-randomly chosen location $s_0$; for this we need a model.</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model-based statistics</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design-based statistics</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>In design-based statistics, randomness comes from random</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>sampling. Consider an area $B$, from which we take samples $$z(s),</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>s \in B,$$ with $s$ a location for instance two-dimensional: $s_i =</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span>x_i,y_i<span class="sc">\}</span>$. If we select the samples _randomly_, we can consider</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>$S \in B$ a random variable, and $z(S)$ a random sample. Note the</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>randomness in $S$, not in $z$. </span>
 <span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Model-based statistics assumes randomness in the measured responses;</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>consider a regression model $y = X\beta + e$, where $e$ is a random</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>variable and as a consequence $y$, the response variable is a</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>random variable. In the spatial context we replace $y$ with $z$,</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>and capitalize it to indicate it is a random variable, and write </span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>$$Z(s) = X(s)\beta + e(s)$$ to stress that</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$Z(s)$ is a random function (random variables $Z$ as a function of $s$)</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$X(s)$ is the matrix with covariates, which depend on $s$</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$\beta$ are (spatially) constant coefficients, not depening on $s$</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$e(s)$ is a random function with mean zero and covariance matrix $\Sigma$</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Two variables $z(S_1)$ and $z(S_2)$ are _independent_ if $S_1$ and</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>$S_2$ are sampled independently.  For estimation we need to know the</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>inclusion probabilities, which need to be non-negative for every</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>location. </span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>If inclusion probabilities are constant (simple random sampling;</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>or complete spatial randomness: day 2, point patterns) then we</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>can estimate the mean of $Z(B)$ by the sample mean $$\frac{1}{n}\sum_{j=1}^n</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>z(s_j).$$ This also predicts the value of a _randomly_ chosen</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>observation $z(S)$. It cannot be used to predict the value $z(s_0)$</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>for a non-randomly chosen location $s_0$; for this we need a model.</span>
 <span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>In the regression literature this is called a (linear) mixed model,</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>because $e$ is not i.i.d.</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>Predicting $Z(s_0)$ will involve (GLS) estimation of $\beta$, but also prediction</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>of $e(s_0)$ using correlated, nearby observations (day 3: geostatistics).</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design- or model-based?</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>design-based requires a random sample, if that is the case it needs no further assumptions</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>model-based requires stationarity assumptions to estimate $\Sigma$</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>model-based is typically more effective for interpolation problems</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>design-based can be most effective when estimation e.g. average mapping errors</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using coordinates as covariates?</span></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>(day 4)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model-based statistics</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>Model-based statistics assumes randomness in the measured responses;</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>consider a regression model $y = X\beta + e$, where $e$ is a random</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>variable and as a consequence $y$, the response variable is a</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>random variable. In the spatial context we replace $y$ with $z$,</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>and capitalize it to indicate it is a random variable, and write </span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>$$Z(s) = X(s)\beta + e(s)$$ to stress that</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$Z(s)$ is a random function (random variables $Z$ as a function of $s$)</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$X(s)$ is the matrix with covariates, which depend on $s$</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$\beta$ are (spatially) constant coefficients, not depening on $s$</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>$e(s)$ is a random function with mean zero and covariance matrix $\Sigma$</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>In the regression literature this is called a (linear) mixed model,</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>because $e$ is not i.i.d.</span>
 <span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics: data types</span></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point Patterns</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Geostatistical data</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Areal data</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>Data types that received less attention in the spatial statistics literature are</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>image data</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>tracking data, trajectories</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you have the spatial coordinates of your data?</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Are the coordinates Earth-bound?</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>If yes, do you have the coordinate reference system of them?</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is the support (physical size) of your observations?</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you know the _extent_ ($B$) from which your data were sampled, or collected?</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for tomorrow</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>Predicting $Z(s_0)$ will involve (GLS) estimation of $\beta$, but also prediction</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>of $e(s_0)$ using correlated, nearby observations (day 3: geostatistics).</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design- or model-based?</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>design-based requires a random sample, if that is the case it needs no further assumptions</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>model-based requires stationarity assumptions to estimate $\Sigma$</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>model-based is typically more effective for interpolation problems</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>design-based can be most effective when estimation e.g. average mapping errors</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using coordinates as covariates?</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>(day 4)</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics: data types</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point Patterns</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Points (locations) + observation window</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Geostatistical data</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>locations + measured values</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Areal data</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>polygons (or grid cells) + polygon summary values</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>Data types that received less attention in the spatial statistics literature are</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>image data</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>tracking data, trajectories</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you have the spatial coordinates of your data?</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Are the coordinates Earth-bound?</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>If yes, do you have the coordinate reference system of them?</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is the support (physical size) of your observations?</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you know the _extent_ ($B$) from which your data were sampled, or collected?</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for Day 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

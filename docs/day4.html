@@ -191,8 +191,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
   <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link" data-scroll-target="#reading-materials">Reading materials</a></li>
-  <li><a href="#required-packages" id="toc-required-packages" class="nav-link" data-scroll-target="#required-packages">Required packages</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">4.1</span> Examples</a></li>
+  <li><a href="#maxent" id="toc-maxent" class="nav-link" data-scroll-target="#maxent"><span class="header-section-number">4.2</span> MaxEnt</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -223,16 +224,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="reading-materials" class="level3">
 <h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
-</section>
-<section id="required-packages" class="level3">
-<h3 class="anchored" data-anchor-id="required-packages">Required packages</h3>
+<p>From <a href="https://r-spatial.org/book/">Spatial Data Science: with applications in R</a>:</p>
+<ul>
+<li>Section 10.1: Mapping with non-spatial regression and ML models (you already read this)</li>
+</ul>
+<p>From the <a href="https://r-spatial.github.io/stars/articles/">stars vignettes</a>:</p>
+<ul>
+<li><ol start="7" type="1">
+<li>Statistical modelling with stars objects</li>
+</ol></li>
+</ul>
+<p>Area of Applicability:</p>
+<ul>
+<li>this <a href="https://hannameyer.github.io/CAST/articles/cast02-AOA-tutorial.html">CAST vignette</a></li>
+<li><a href="https://www.nature.com/articles/s41467-022-29838-9">Machine learning-based global maps of ecological variables and the challenge of assessing them</a></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Intro to prediction with R</li>
+<li>(functions of) Spatial coordinates as predictors</li>
+<li>Spatially correlated residuals</li>
+<li>Area of applicability</li>
+<li>GLS-RF: Random forests with correlated errors</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <ul>
 <li>Data: coverages as predictors</li>
 <li>Pitfalls: independence, known predictors, clustered data</li>
-<li>Model assessment, cross validation strategies</li>
+<li>Model assessment, cross validation strategies, area of applicability</li>
+<li>RandomForestsGLS</li>
+</ul>
+</section>
+<section id="examples" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="examples"><span class="header-section-number">4.1</span> Examples</h2>
+</section>
+<section id="maxent" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="maxent"><span class="header-section-number">4.2</span> MaxEnt</h2>
+<ul>
+<li><a href="https://doi.org/10.1111/j.1472-4642.2010.00725.x">A statistical explanation of MaxEnt for Ecologists</a></li>
+<li>R package <a href="https://cran.r-project.org/web/packages/maxnet/index.html">maxnet</a> does that using glmnet (lasso or elasticnet regularization on</li>
 </ul>
 
 
@@ -697,15 +740,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Required packages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>: </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Section 10.1: Mapping with non-spatial regression and ML models (you already read this)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>From the <span class="co">[</span><span class="ot">stars vignettes</span><span class="co">](https://r-spatial.github.io/stars/articles/)</span>:</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Data: coverages as predictors</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Pitfalls: independence, known predictors, clustered data</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Model assessment, cross validation strategies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>7. Statistical modelling with stars objects</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Area of Applicability:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>this <span class="co">[</span><span class="ot">CAST vignette</span><span class="co">](https://hannameyer.github.io/CAST/articles/cast02-AOA-tutorial.html)</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Machine learning-based global maps of ecological variables and the challenge of assessing them</span><span class="co">](https://www.nature.com/articles/s41467-022-29838-9)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to prediction with R</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>(functions of) Spatial coordinates as predictors</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatially correlated residuals</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Area of applicability</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>GLS-RF: Random forests with correlated errors</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Data: coverages as predictors</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Pitfalls: independence, known predictors, clustered data</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Model assessment, cross validation strategies, area of applicability</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>RandomForestsGLS</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## MaxEnt</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">A statistical explanation of MaxEnt for Ecologists</span><span class="co">](https://doi.org/10.1111/j.1472-4642.2010.00725.x)</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R package <span class="co">[</span><span class="ot">maxnet</span><span class="co">](https://cran.r-project.org/web/packages/maxnet/index.html)</span> does that using glmnet (lasso or elasticnet regularization on </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
