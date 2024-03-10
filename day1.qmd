@@ -195,9 +195,11 @@ ggplot() + geom_sf(data = de) +
 #| code-fold: true
 #| out.width: '100%'
 #| fig.cap: "NO2 rural background, average values per NUTS1 region"
-a = aggregate(no2.sf["NO2"], de, mean, na.rm = TRUE)
+# https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP
+de$GDP_percap = c(45200, 46100, 37900, 27800, 49700, 64700, 45000, 26700, 36500, 38700, 35700, 35300, 29900, 27400, 32400, 28900)
 ggplot() + geom_sf(data = de) +
-    geom_sf(data = a, mapping = aes(fill = NO2))
+    geom_sf(data = de, mapping = aes(fill = GDP_percap)) + 
+	geom_sf(data = st_cast(de, "MULTILINESTRING"), col = 'white')
 ```
 
 Data types that received less attention in the spatial statistics literature are

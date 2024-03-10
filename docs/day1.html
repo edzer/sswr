@@ -487,9 +487,11 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <li>polygons (or grid cells) + polygon summary values</li>
 </ul>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">no2.sf</span><span class="op">[</span><span class="st">"NO2"</span><span class="op">]</span>, <span class="va">de</span>, <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
+<span><span class="va">de</span><span class="op">$</span><span class="va">GDP_percap</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">45200</span>, <span class="fl">46100</span>, <span class="fl">37900</span>, <span class="fl">27800</span>, <span class="fl">49700</span>, <span class="fl">64700</span>, <span class="fl">45000</span>, <span class="fl">26700</span>, <span class="fl">36500</span>, <span class="fl">38700</span>, <span class="fl">35700</span>, <span class="fl">35300</span>, <span class="fl">29900</span>, <span class="fl">27400</span>, <span class="fl">32400</span>, <span class="fl">28900</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">de</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">a</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">NO2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">de</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">GDP_percap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="va">de</span>, <span class="st">"MULTILINESTRING"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -1201,54 +1203,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
 <span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 rural background, average values per NUTS1 region"</span></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">aggregate</span>(no2.sf[<span class="st">"NO2"</span>], de, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> a, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> NO2))</span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a>Data types that received less attention in the spatial statistics literature are</span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>de<span class="sc">$</span>GDP_percap <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">45200</span>, <span class="dv">46100</span>, <span class="dv">37900</span>, <span class="dv">27800</span>, <span class="dv">49700</span>, <span class="dv">64700</span>, <span class="dv">45000</span>, <span class="dv">26700</span>, <span class="dv">36500</span>, <span class="dv">38700</span>, <span class="dv">35700</span>, <span class="dv">35300</span>, <span class="dv">29900</span>, <span class="dv">27400</span>, <span class="dv">32400</span>, <span class="dv">28900</span>)</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> de, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> GDP_percap)) <span class="sc">+</span> </span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>), <span class="at">col =</span> <span class="st">'white'</span>)</span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Image data</span></span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a>Data types that received less attention in the spatial statistics literature are</span>
 <span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "RGB image from a Landsat scene"</span></span>
-<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(L7_ETMs, <span class="at">rgb =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tracking data, trajectories</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### Image data</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "RGB image from a Landsat scene"</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(L7_ETMs, <span class="at">rgb =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Storm/hurricane trajectories colored by year"</span></span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> </span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(<span class="fu">paste</span>(year,month,day, <span class="at">sep =</span> <span class="st">"-"</span>), </span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(hour, <span class="st">":00"</span>, <span class="at">sep =</span> <span class="st">""</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour)</span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>storms.nest <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name, year) <span class="sc">%&gt;%</span> nest</span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>to_line <span class="ot">&lt;-</span> <span class="cf">function</span>(tr) <span class="fu">st_cast</span>(<span class="fu">st_combine</span>(tr), <span class="st">"LINESTRING"</span>) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] </span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>tracks <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">pull</span>(data) <span class="sc">%&gt;%</span> <span class="fu">map</span>(to_line) <span class="sc">%&gt;%</span> <span class="fu">st_sfc</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">st_sf</span>(<span class="at">geometry =</span> tracks)</span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> year)) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tracking data, trajectories</span></span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Storm/hurricane trajectories colored by year"</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> </span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(<span class="fu">paste</span>(year,month,day, <span class="at">sep =</span> <span class="st">"-"</span>), </span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(hour, <span class="st">":00"</span>, <span class="at">sep =</span> <span class="st">""</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour)</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>storms.nest <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name, year) <span class="sc">%&gt;%</span> nest</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>to_line <span class="ot">&lt;-</span> <span class="cf">function</span>(tr) <span class="fu">st_cast</span>(<span class="fu">st_combine</span>(tr), <span class="st">"LINESTRING"</span>) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] </span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>tracks <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">pull</span>(data) <span class="sc">%&gt;%</span> <span class="fu">map</span>(to_line) <span class="sc">%&gt;%</span> <span class="fu">st_sfc</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">st_sf</span>(<span class="at">geometry =</span> tracks)</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> year)) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you have the spatial coordinates of your data?</span>
-<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Are the coordinates Earth-bound?</span>
-<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>If yes, do you have the coordinate reference system of them?</span>
-<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is the support (physical size) of your observations?</span>
-<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
-<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you know the _extent_ ($B$) from which your data were sampled, or collected?</span>
-<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for Day 2</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you have the spatial coordinates of your data?</span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Are the coordinates Earth-bound?</span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>If yes, do you have the coordinate reference system of them?</span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is the support (physical size) of your observations?</span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Do you know the _extent_ ($B$) from which your data were sampled, or collected?</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for Day 2</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

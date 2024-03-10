@@ -182,13 +182,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li><a href="#intro-to-spatstat" id="toc-intro-to-spatstat" class="nav-link" data-scroll-target="#intro-to-spatstat"><span class="header-section-number">2.2</span> Intro to <code>spatstat</code></a></li>
+  <li><a href="#checking-homogeneity" id="toc-checking-homogeneity" class="nav-link" data-scroll-target="#checking-homogeneity"><span class="header-section-number">2.3</span> Checking homogeneity</a></li>
+  <li><a href="#estimating-density" id="toc-estimating-density" class="nav-link" data-scroll-target="#estimating-density"><span class="header-section-number">2.4</span> Estimating density</a></li>
+  <li><a href="#assessing-interactions-clusteringinhibition" id="toc-assessing-interactions-clusteringinhibition" class="nav-link" data-scroll-target="#assessing-interactions-clusteringinhibition"><span class="header-section-number">2.5</span> Assessing interactions: clustering/inhibition</a></li>
+  <li><a href="#fitting-models-to-clustered-data" id="toc-fitting-models-to-clustered-data" class="nav-link" data-scroll-target="#fitting-models-to-clustered-data"><span class="header-section-number">2.6</span> Fitting models to clustered data</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span>
-</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -284,6 +288,360 @@ Figure&nbsp;2.1: <strong>sf</strong> and its dependencies; arrows indicate stron
 </section></section><section id="intro-to-spatstat" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="intro-to-spatstat">
 <span class="header-section-number">2.2</span> Intro to <code>spatstat</code>
 </h2>
+<p>Consider a point pattern that consist of</p>
+<ul>
+<li>a set of known coordinates</li>
+<li>an observation window</li>
+</ul>
+<p>We can ask ourselves: our point <strong>pattern</strong> be a realisation of a <em>completely spatially random</em> (CRS) <strong>process</strong>? A CRS process has</p>
+<ol type="1">
+<li>a spatially constant intensity (<em>mean</em>: first order property)</li>
+<li>completely independent locations (<em>interactions</em>: second order property)</li>
+</ol>
+<p>e.g.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://spatstat.org/">spatstat</a></span><span class="op">)</span></span>
+<span><span class="co"># Loading required package: spatstat.data</span></span>
+<span><span class="co"># Loading required package: spatstat.geom</span></span>
+<span><span class="co"># spatstat.geom 3.2-9</span></span>
+<span><span class="co"># Loading required package: spatstat.random</span></span>
+<span><span class="co"># spatstat.random 3.2-3</span></span>
+<span><span class="co"># Loading required package: spatstat.explore</span></span>
+<span><span class="co"># Loading required package: nlme</span></span>
+<span><span class="co"># spatstat.explore 3.2-6</span></span>
+<span><span class="co"># Loading required package: spatstat.model</span></span>
+<span><span class="co"># Loading required package: rpart</span></span>
+<span><span class="co"># spatstat.model 3.2-10</span></span>
+<span><span class="co"># Loading required package: spatstat.linnet</span></span>
+<span><span class="co"># spatstat.linnet 3.1-4</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># spatstat 3.0-7 </span></span>
+<span><span class="co"># For an introduction to spatstat, type 'beginner'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">13431</span><span class="op">)</span></span>
+<span><span class="va">CRS</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.random/man/rpoispp.html">rpoispp</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">CRS</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Example point pattern</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Or does it have a non-constant intensity, but otherwise independent points:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ppi</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.random/man/rpoispp.html">rpoispp</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,<span class="va">...</span><span class="op">)</span> <span class="fl">500</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ppi</span>, main <span class="op">=</span> <span class="st">"inhomogeneous"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or does it have constant intensity, but dependent points:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.random/man/rThomas.html">rThomas</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">.02</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cl</span>, main <span class="op">=</span> <span class="st">"clustered"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.random/man/rHardcore.html">rHardcore</a></span><span class="op">(</span><span class="fl">0.05</span>,<span class="fl">1.5</span>,<span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/square.html">square</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">hc</span>, main <span class="op">=</span> <span class="st">"inhibition"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>or a combination:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#ff &lt;- function(x,y) { 4 * exp(2 * abs(x) - 1) }</span></span>
+<span><span class="va">ff</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span> <span class="fl">10</span> <span class="op">*</span> <span class="va">x</span></span>
+<span><span class="va">Z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/as.im.html">as.im</a></span><span class="op">(</span><span class="va">ff</span>, <span class="fu"><a href="https://rdrr.io/pkg/spatstat.geom/man/owin.html">owin</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.random/man/rMatClust.html">rMatClust</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0.05</span>, <span class="va">Z</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="checking-homogeneity" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="checking-homogeneity">
+<span class="header-section-number">2.3</span> Checking homogeneity</h2>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">q</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/quadrat.test.html">quadrat.test</a></span><span class="op">(</span><span class="va">CRS</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Warning: Some expected counts are small; chi^2 approximation may be</span></span>
+<span><span class="co"># inaccurate</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co">#   Chi-squared test of CSR using quadrat counts</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># data:  CRS</span></span>
+<span><span class="co"># X2 = 25, df = 24, p-value = 0.9</span></span>
+<span><span class="co"># alternative hypothesis: two.sided</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Quadrats: 5 by 5 grid of tiles</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">q</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/quadrat.test.html">quadrat.test</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co">#   Chi-squared test of CSR using quadrat counts</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># data:  ppi</span></span>
+<span><span class="co"># X2 = 81, df = 24, p-value = 8e-08</span></span>
+<span><span class="co"># alternative hypothesis: two.sided</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Quadrats: 5 by 5 grid of tiles</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="estimating-density" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="estimating-density">
+<span class="header-section-number">2.4</span> Estimating density</h2>
+<ul>
+<li>main parameter: bandwidth (<code>sigma</code>): determines the amound of smoothing.</li>
+<li>if <code>sigma</code> is not specified: uses <code>bw.diggle</code>, an automatically tuned bandwidth</li>
+</ul>
+<p>Correction for <code>edge</code> effect?</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">CRS</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">CRS</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ppi</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">ppi</span>, sigma <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ppi</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="assessing-interactions-clusteringinhibition" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="assessing-interactions-clusteringinhibition">
+<span class="header-section-number">2.5</span> Assessing interactions: clustering/inhibition</h2>
+<p>The K-function (“Ripley’s K”) is the expected number of additional random (CRS) points within a distance r of a typical random point in the observation window.</p>
+<p>The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">CRS</span>, <span class="va">Gest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">cl</span>, <span class="va">Gest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">hc</span>, <span class="va">Gest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">ppi</span>, <span class="va">Gest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">Y</span> , <span class="va">Gest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-5.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">ppi</span>, <span class="va">Kest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-6.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">ppi</span>, <span class="va">Kinhom</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-7.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">Y</span> , <span class="va">Kest</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-8.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.explore/man/envelope.html">envelope</a></span><span class="op">(</span><span class="va">Y</span> , <span class="va">Kinhom</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Generating 99 simulations of CSR  ...</span></span>
+<span><span class="co"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,</span></span>
+<span><span class="co"># 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,</span></span>
+<span><span class="co"># 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,</span></span>
+<span><span class="co"># 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68,</span></span>
+<span><span class="co"># 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85,</span></span>
+<span><span class="co"># 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, </span></span>
+<span><span class="co"># 99.</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Done.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day2_files/figure-html/unnamed-chunk-8-9.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="fitting-models-to-clustered-data" class="level2" data-number="2.6"><h2 data-number="2.6" class="anchored" data-anchor-id="fitting-models-to-clustered-data">
+<span class="header-section-number">2.6</span> Fitting models to clustered data</h2>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># assuming Inhomogeneous Poisson:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.model/man/ppm.html">ppm</a></span><span class="op">(</span><span class="va">ppi</span>, <span class="op">~</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co"># Nonstationary Poisson process</span></span>
+<span><span class="co"># Fitted to point pattern dataset 'ppi'</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Log intensity:  ~x</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Fitted trend coefficients:</span></span>
+<span><span class="co"># (Intercept)           x </span></span>
+<span><span class="co">#        4.33        1.96 </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co">#             Estimate  S.E. CI95.lo CI95.hi Ztest  Zval</span></span>
+<span><span class="co"># (Intercept)     4.33 0.174    3.99    4.67   *** 24.91</span></span>
+<span><span class="co"># x               1.96 0.247    1.48    2.45   ***  7.96</span></span>
+<span><span class="co"># assuming Inhomogeneous clustered:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.model/man/kppm.html">kppm</a></span><span class="op">(</span><span class="va">Y</span>, <span class="op">~</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co"># Inhomogeneous cluster point process model</span></span>
+<span><span class="co"># Fitted to point pattern dataset 'Y'</span></span>
+<span><span class="co"># Fitted by minimum contrast</span></span>
+<span><span class="co">#   Summary statistic: inhomogeneous K-function</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Log intensity:  ~x</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Fitted trend coefficients:</span></span>
+<span><span class="co"># (Intercept)           x </span></span>
+<span><span class="co">#        3.69        1.47 </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Cluster model: Thomas process</span></span>
+<span><span class="co"># Fitted cluster parameters:</span></span>
+<span><span class="co"># kappa scale </span></span>
+<span><span class="co"># 7.731 0.038 </span></span>
+<span><span class="co"># Mean cluster size:  [pixel image]</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Cluster strength: phi =  7.122</span></span>
+<span><span class="co"># Sibling probability: psib =  0.8769</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="MaxEnt">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -294,14 +652,17 @@ MaxEnt
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You would think that MaxEnt is a point pattern technique, however it</p>
+<p>It seems that <a href="https://biodiversityinformatics.amnh.org/open_source/maxent/">MaxEnt</a> fits an <a href="https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049">inhomogeneous Poisson process</a></p>
+<p>Starting from presence (only) observations, it</p>
 <ul>
-<li>adds background (absence) points</li>
-<li>fits logistic regression models to the 0/1 data</li>
-<li>ignores space, spatial interactions, distances</li>
+<li>adds background (absence) points, uniformly <em>in space</em>
+</li>
+<li>fits logistic regression models to the 0/1 data, using environmental covariates</li>
+<li>ignores spatial interactions, spatial distances</li>
 <li>will be discussed on Day 4: <strong>Machine Learning methods applied to spatial data</strong>
 </li>
 </ul>
+<p>A paper detailing the equivalence and differences between point pattern models and MaxEnt is found <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352">here</a>.</p>
 </div>
 </div>
 
@@ -756,71 +1117,182 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Point Pattern data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning goals</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>: </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 11: Point Patterns</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 7: <span class="in">`sf`</span> and <span class="in">`stars`</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to <span class="in">`sf`</span> and <span class="in">`stars`</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to <span class="in">`spatstat`</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point patterns, density functions</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Interactions of point processes</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Simulating point process</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Modelling density as a function of external variables</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `sf` and `stars`</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Briefly: <span class="in">`sf`</span> provides classes and methods for _simple features_</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>a feature is a "thing", with geometrical properties (point(s), line(s), polygon(s)) and attributes</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="in">`sf`</span> stores data in <span class="in">`data.frame`</span>s with a list-column (of class <span class="in">`sfc`</span>) that holds the geometries</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="the Simple Feature standard"}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>"Simple Feature Access" is an <span class="co">[</span><span class="ot">open standard</span><span class="co">](https://www.ogc.org/standard/sfa/)</span> for data</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>with vector geometries. It defines a set of classes for geometries and operations on them.</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>"simple" refers to curves that are "simply" represented by points connected by straight lines</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>connecting lines are not allowed to <span class="co">[</span><span class="ot">self-intersect</span><span class="co">](https://r-spatial.org/book/03-Geometries.html#sec-valid)</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why do all functions in `sf` start with `st_`?</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>see <span class="co">[</span><span class="ot">here</span><span class="co">](https://ecoevo.social/@noamross/112055449473807578)</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gdal-fig-nodetails, echo = FALSE}</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "**sf** and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency"</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::include_graphics("sf_deps.png") </span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>You would think that MaxEnt is a point pattern technique, however it</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores space, spatial interactions, distances</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Point Pattern data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning goals</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>: </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 11: Point Patterns</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 7: <span class="in">`sf`</span> and <span class="in">`stars`</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to <span class="in">`sf`</span> and <span class="in">`stars`</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Intro to <span class="in">`spatstat`</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Point patterns, density functions</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Interactions of point processes</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Simulating point process</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Modelling density as a function of external variables</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `sf` and `stars`</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Briefly: <span class="in">`sf`</span> provides classes and methods for _simple features_</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>a feature is a "thing", with geometrical properties (point(s), line(s), polygon(s)) and attributes</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="in">`sf`</span> stores data in <span class="in">`data.frame`</span>s with a list-column (of class <span class="in">`sfc`</span>) that holds the geometries</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="the Simple Feature standard"}</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>"Simple Feature Access" is an <span class="co">[</span><span class="ot">open standard</span><span class="co">](https://www.ogc.org/standard/sfa/)</span> for data</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>with vector geometries. It defines a set of classes for geometries and operations on them.</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>"simple" refers to curves that are "simply" represented by points connected by straight lines</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>connecting lines are not allowed to <span class="co">[</span><span class="ot">self-intersect</span><span class="co">](https://r-spatial.org/book/03-Geometries.html#sec-valid)</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why do all functions in `sf` start with `st_`?</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>see <span class="co">[</span><span class="ot">here</span><span class="co">](https://ecoevo.social/@noamross/112055449473807578)</span></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gdal-fig-nodetails, echo = FALSE}</span></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "**sf** and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency"</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::include_graphics("sf_deps.png") </span></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>Consider a point pattern that consist of </span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a set of known coordinates</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>an observation window</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CRS) **process**? A CRS process</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>has </span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>a spatially constant intensity (_mean_: first order property)</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>completely independent locations (_interactions_: second order property)</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>e.g.</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Example point pattern"</span></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13431</span>)</span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a>CRS <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="dv">100</span>)</span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS)</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a>Or does it have a non-constant intensity, but otherwise independent points:</span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a>ppi <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="cf">function</span>(x,y,...) <span class="dv">500</span> <span class="sc">*</span> x)</span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">main =</span> <span class="st">"inhomogeneous"</span>)</span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a>Or does it have constant intensity, but dependent points:</span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">rThomas</span>(<span class="dv">100</span>, .<span class="dv">02</span>, <span class="dv">5</span>)</span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cl, <span class="at">main =</span> <span class="st">"clustered"</span>)</span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">rHardcore</span>(<span class="fl">0.05</span>,<span class="fl">1.5</span>,<span class="fu">square</span>(<span class="dv">50</span>)) </span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">"inhibition"</span>)</span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a>or a combination:</span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a><span class="co">#ff &lt;- function(x,y) { 4 * exp(2 * abs(x) - 1) }</span></span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a>ff <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y) <span class="dv">10</span> <span class="sc">*</span> x</span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">as.im</span>(ff, <span class="fu">owin</span>())</span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rMatClust</span>(<span class="dv">10</span>, <span class="fl">0.05</span>, Z)</span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Y)</span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checking homogeneity</span></span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(CRS))</span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(ppi))</span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimating density</span></span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>main parameter: bandwidth (<span class="in">`sigma`</span>): determines the amound of smoothing.</span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>if <span class="in">`sigma`</span> is not specified: uses <span class="in">`bw.diggle`</span>, an automatically tuned bandwidth</span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a>Correction for <span class="in">`edge`</span> effect?</span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(CRS) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi, <span class="at">sigma =</span> .<span class="dv">05</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assessing interactions: clustering/inhibition</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a>The K-function ("Ripley's K") is the expected number of additional</span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>random (CRS) points within a distance r of a typical random point</span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>in the observation window.</span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a>The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(CRS, Gest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(cl, Gest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(hc, Gest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Gest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Gest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fitting models to clustered data</span></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous Poisson:</span></span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="fu">ppm</span>(ppi, <span class="sc">~</span>x)</span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous clustered:</span></span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="fu">kppm</span>(Y, <span class="sc">~</span>x)</span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a>It seems that</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MaxEnt</span><span class="co">](https://biodiversityinformatics.amnh.org/open_source/maxent/)</span> fits</span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a>an <span class="co">[</span><span class="ot">inhomogeneous Poisson process</span><span class="co">](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049)</span> </span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a>Starting from presence (only) observations, it</span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points, uniformly _in space_</span>
+<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data, using environmental covariates</span>
+<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores spatial interactions, spatial distances</span>
+<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
+<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a>A paper detailing the equivalence and differences between point pattern models and MaxEnt is found <span class="co">[</span><span class="ot">here</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352)</span>.</span>
+<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

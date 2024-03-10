@@ -51,15 +51,125 @@ knitr::include_graphics("sf_deps.png")
 
 ## Intro to `spatstat`
 
+Consider a point pattern that consist of 
+
+* a set of known coordinates
+* an observation window
+
+We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CRS) **process**? A CRS process
+has 
+
+1. a spatially constant intensity (_mean_: first order property)
+2. completely independent locations (_interactions_: second order property)
+
+e.g.
+```{r}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: "Example point pattern"
+library(spatstat)
+set.seed(13431)
+CRS = rpoispp(100)
+plot(CRS)
+```
+
+Or does it have a non-constant intensity, but otherwise independent points:
+
+```{r}
+ppi = rpoispp(function(x,y,...) 500 * x)
+plot(ppi, main = "inhomogeneous")
+```
+
+Or does it have constant intensity, but dependent points:
+
+```{r}
+cl <- rThomas(100, .02, 5)
+plot(cl, main = "clustered")
+```
+
+```{r}
+hc <- rHardcore(0.05,1.5,square(50)) 
+plot(hc, main = "inhibition")
+```
+
+or a combination:
+
+```{r}
+#ff <- function(x,y) { 4 * exp(2 * abs(x) - 1) }
+ff <- function(x,y) 10 * x
+Z <- as.im(ff, owin())
+Y <- rMatClust(10, 0.05, Z)
+plot(Y)
+```
+
+## Checking homogeneity
+
+```{r}
+(q = quadrat.test(CRS))
+plot(q)
+(q = quadrat.test(ppi))
+plot(q)
+```
+
+## Estimating density
+
+* main parameter: bandwidth (`sigma`): determines the amound of smoothing.
+* if `sigma` is not specified: uses `bw.diggle`, an automatically tuned bandwidth
+
+Correction for `edge` effect?
+
+```{r}
+density(CRS) |> plot()
+plot(CRS, add = TRUE, col = 'green')
+density(ppi) |> plot()
+plot(ppi, add = TRUE, col = 'green')
+density(ppi, sigma = .05) |> plot()
+plot(ppi, add = TRUE, col = 'green')
+```
+
+## Assessing interactions: clustering/inhibition
+
+The K-function ("Ripley's K") is the expected number of additional
+random (CRS) points within a distance r of a typical random point
+in the observation window.
+
+The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.
+
+```{r}
+envelope(CRS, Gest) |> plot()
+envelope(cl, Gest) |> plot()
+envelope(hc, Gest) |> plot()
+envelope(ppi, Gest) |> plot()
+envelope(Y , Gest) |> plot()
+envelope(ppi, Kest) |> plot()
+envelope(ppi, Kinhom) |> plot()
+envelope(Y , Kest) |> plot()
+envelope(Y , Kinhom) |> plot()
+```
+
+
+## Fitting models to clustered data
+```{r}
+# assuming Inhomogeneous Poisson:
+ppm(ppi, ~x)
+# assuming Inhomogeneous clustered:
+kppm(Y, ~x)
+```
 
 
 ::: {.callout-tip title="MaxEnt"}
 
-You would think that MaxEnt is a point pattern technique, however it
+It seems that
+[MaxEnt](https://biodiversityinformatics.amnh.org/open_source/maxent/) fits
+an [inhomogeneous Poisson process](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049) 
 
-* adds background (absence) points
-* fits logistic regression models to the 0/1 data
-* ignores space, spatial interactions, distances
+Starting from presence (only) observations, it
+
+* adds background (absence) points, uniformly _in space_
+* fits logistic regression models to the 0/1 data, using environmental covariates
+* ignores spatial interactions, spatial distances
 * will be discussed on Day 4: **Machine Learning methods applied to spatial data**
+
+A paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
 
 :::
