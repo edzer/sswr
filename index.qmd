@@ -61,31 +61,35 @@ install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/",
 ### How we work
 
 * live sessions are from 15:00-18:00 CET (Berlin time)
+   * 3 blocks of 50 min + 10 mins break
+   * please raise hands or speak up whenever something comes up
 * slack communication during the full week
-* please share open questions you run into in your actual research, preferably with (example) data and R code
+* please share questions you run into in your actual research, preferably with (example) data and R code
+* please use the open channels in slack, so that everyone can learn from q + a's
 
 ### Resources
 
-* [Spatial Data Science: With applications in R](https://r-spatial.org/book/), by Pebesma and Bivand 2023
+* [Spatial Data Science: With applications in R](https://r-spatial.org/book/), by Pebesma and Bivand 2023 (open online)
 * Vignettes of [sf](https://r-spatial.github.io/sf/): tab "Articles"
 * Vignettes of [stars](https://r-spatial.github.io/stars/): tab "Articles"
 * All these material are written using R-markdown (or [quarto](https://quarto.org/))
 
-### Why R?
+## Why R for spatial statistics?
 
 * R is old! Think of the advantages!
 * R is as good as any data science language, but is more in focus with the statistical community
+* Most researchers in spatial statistics who share code have used or use R
 * R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)
 * R spatial packages have gone full cycle: 
     * the first generation has been deprecated
     *  removed from CRAN, and 
     * replaced by modern versions
 * R is a data science language that allows you [to work reproducibly](https://eartharxiv.org/repository/view/3216/)
-* Because we have [CRAN](https://cran.r-project.org/)
+* Because we have [CRAN](https://cran.r-project.org/) and CRAN Taskviews: [Spatial](https://cran.r-project.org/web/views/Spatial.html), [SpatioTemporal](https://cran.r-project.org/web/views/SpatioTemporal.html), [Tracking](https://cran.r-project.org/web/views/Tracking.html)
 
 ### Reproducing the current course
 
-* Go to https://github.com/edzer/sswr/
+* Go to [https://github.com/edzer/sswr/](https://github.com/edzer/sswr/)
 * Go to "Code", "copy URL to clipboard"
 * Clone this repo to your hard drive
 * Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling

@@ -167,6 +167,7 @@ kppm(Y, ~x)
 
 ## Further reading
 
+* E. Pebesma, 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, [439-446](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html).
 * A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.
 * J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.
 
@@ -186,3 +187,4 @@ Starting from presence (only) observations, it
 A paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
 
 :::
+

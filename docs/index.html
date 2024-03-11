@@ -185,8 +185,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction-to-the-course" id="toc-introduction-to-the-course" class="nav-link" data-scroll-target="#introduction-to-the-course">Introduction to the course</a></li>
   <li><a href="#how-we-work" id="toc-how-we-work" class="nav-link" data-scroll-target="#how-we-work">How we work</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
-  <li><a href="#why-r" id="toc-why-r" class="nav-link" data-scroll-target="#why-r">Why R?</a></li>
-  <li><a href="#reproducing-the-current-course" id="toc-reproducing-the-current-course" class="nav-link" data-scroll-target="#reproducing-the-current-course">Reproducing the current course</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#why-r-for-spatial-statistics" id="toc-why-r-for-spatial-statistics" class="nav-link" data-scroll-target="#why-r-for-spatial-statistics">Why R for spatial statistics?</a>
+  <ul class="collapse">
+<li><a href="#reproducing-the-current-course" id="toc-reproducing-the-current-course" class="nav-link" data-scroll-target="#reproducing-the-current-course">Reproducing the current course</a></li>
   </ul>
 </li>
   </ul>
@@ -285,20 +289,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ul></section><section id="how-we-work" class="level3"><h3 class="anchored" data-anchor-id="how-we-work">How we work</h3>
 <ul>
-<li>live sessions are from 15:00-18:00 CET (Berlin time)</li>
+<li>live sessions are from 15:00-18:00 CET (Berlin time)
+<ul>
+<li>3 blocks of 50 min + 10 mins break</li>
+<li>please raise hands or speak up whenever something comes up</li>
+</ul>
+</li>
 <li>slack communication during the full week</li>
-<li>please share open questions you run into in your actual research, preferably with (example) data and R code</li>
+<li>please share questions you run into in your actual research, preferably with (example) data and R code</li>
+<li>please use the open channels in slack, so that everyone can learn from q + a’s</li>
 </ul></section><section id="resources" class="level3"><h3 class="anchored" data-anchor-id="resources">Resources</h3>
 <ul>
 <li>
-<a href="https://r-spatial.org/book/">Spatial Data Science: With applications in R</a>, by Pebesma and Bivand 2023</li>
+<a href="https://r-spatial.org/book/">Spatial Data Science: With applications in R</a>, by Pebesma and Bivand 2023 (open online)</li>
 <li>Vignettes of <a href="https://r-spatial.github.io/sf/">sf</a>: tab “Articles”</li>
 <li>Vignettes of <a href="https://r-spatial.github.io/stars/">stars</a>: tab “Articles”</li>
 <li>All these material are written using R-markdown (or <a href="https://quarto.org/">quarto</a>)</li>
-</ul></section><section id="why-r" class="level3"><h3 class="anchored" data-anchor-id="why-r">Why R?</h3>
+</ul></section></section><section id="why-r-for-spatial-statistics" class="level2"><h2 class="anchored" data-anchor-id="why-r-for-spatial-statistics">Why R for spatial statistics?</h2>
 <ul>
 <li>R is old! Think of the advantages!</li>
 <li>R is as good as any data science language, but is more in focus with the statistical community</li>
+<li>Most researchers in spatial statistics who share code have used or use R</li>
 <li>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</li>
 <li>R spatial packages have gone full cycle:
 <ul>
@@ -309,11 +320,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>R is a data science language that allows you <a href="https://eartharxiv.org/repository/view/3216/">to work reproducibly</a>
 </li>
-<li>Because we have <a href="https://cran.r-project.org/">CRAN</a>
+<li>Because we have <a href="https://cran.r-project.org/">CRAN</a> and CRAN Taskviews: <a href="https://cran.r-project.org/web/views/Spatial.html">Spatial</a>, <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">SpatioTemporal</a>, <a href="https://cran.r-project.org/web/views/Tracking.html">Tracking</a>
 </li>
-</ul></section><section id="reproducing-the-current-course" class="level3"><h3 class="anchored" data-anchor-id="reproducing-the-current-course">Reproducing the current course</h3>
+</ul>
+<section id="reproducing-the-current-course" class="level3"><h3 class="anchored" data-anchor-id="reproducing-the-current-course">Reproducing the current course</h3>
 <ul>
-<li>Go to https://github.com/edzer/sswr/</li>
+<li>Go to <a href="https://github.com/edzer/sswr/">https://github.com/edzer/sswr/</a>
+</li>
 <li>Go to “Code”, “copy URL to clipboard”</li>
 <li>Clone this repo to your hard drive</li>
 <li>Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling</li>
@@ -831,35 +844,39 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### How we work</span></span>
 <span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>live sessions are from 15:00-18:00 CET (Berlin time)</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>slack communication during the full week</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please share open questions you run into in your actual research, preferably with (example) data and R code</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resources</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Spatial Data Science: With applications in R</span><span class="co">](https://r-spatial.org/book/)</span>, by Pebesma and Bivand 2023</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">sf</span><span class="co">](https://r-spatial.github.io/sf/)</span>: tab "Articles"</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">stars</span><span class="co">](https://r-spatial.github.io/stars/)</span>: tab "Articles"</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All these material are written using R-markdown (or <span class="co">[</span><span class="ot">quarto</span><span class="co">](https://quarto.org/)</span>)</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why R?</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is old! Think of the advantages!</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is as good as any data science language, but is more in focus with the statistical community</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R spatial packages have gone full cycle: </span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>the first generation has been deprecated</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">    *  </span>removed from CRAN, and </span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>replaced by modern versions</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is a data science language that allows you <span class="co">[</span><span class="ot">to work reproducibly</span><span class="co">](https://eartharxiv.org/repository/view/3216/)</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Because we have <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/)</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reproducing the current course</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to https://github.com/edzer/sswr/</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to "Code", "copy URL to clipboard"</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Clone this repo to your hard drive</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Run the code sections!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>3 blocks of 50 min + 10 mins break</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>please raise hands or speak up whenever something comes up</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>slack communication during the full week</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please share questions you run into in your actual research, preferably with (example) data and R code</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please use the open channels in slack, so that everyone can learn from q + a's</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resources</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Spatial Data Science: With applications in R</span><span class="co">](https://r-spatial.org/book/)</span>, by Pebesma and Bivand 2023 (open online)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">sf</span><span class="co">](https://r-spatial.github.io/sf/)</span>: tab "Articles"</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">stars</span><span class="co">](https://r-spatial.github.io/stars/)</span>: tab "Articles"</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All these material are written using R-markdown (or <span class="co">[</span><span class="ot">quarto</span><span class="co">](https://quarto.org/)</span>)</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why R for spatial statistics?</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is old! Think of the advantages!</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is as good as any data science language, but is more in focus with the statistical community</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Most researchers in spatial statistics who share code have used or use R</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R spatial packages have gone full cycle: </span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>the first generation has been deprecated</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="ss">    *  </span>removed from CRAN, and </span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>replaced by modern versions</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is a data science language that allows you <span class="co">[</span><span class="ot">to work reproducibly</span><span class="co">](https://eartharxiv.org/repository/view/3216/)</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Because we have <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/)</span> and CRAN Taskviews: <span class="co">[</span><span class="ot">Spatial</span><span class="co">](https://cran.r-project.org/web/views/Spatial.html)</span>, <span class="co">[</span><span class="ot">SpatioTemporal</span><span class="co">](https://cran.r-project.org/web/views/SpatioTemporal.html)</span>, <span class="co">[</span><span class="ot">Tracking</span><span class="co">](https://cran.r-project.org/web/views/Tracking.html)</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reproducing the current course</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to <span class="co">[</span><span class="ot">https://github.com/edzer/sswr/</span><span class="co">](https://github.com/edzer/sswr/)</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to "Code", "copy URL to clipboard"</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Clone this repo to your hard drive</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Run the code sections!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
