@@ -245,3 +245,12 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 * Do you know the _extent_ ($B$) from which your data were sampled, or collected?
 
 ## Exercises for Day 2
+
+See day 2 slides.
+
+## Further reading
+
+* Ripley, B. 1981. Spatial Statistics. Wiley.
+* Cressie, N. 1993. Statistics for Spatial Data. Wiley.
+* Cochran, W.G. 1977. Sampling Techniques. Wiley.
+

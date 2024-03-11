@@ -2,12 +2,20 @@
 
 ### Learning goals
 
+* Get familiar with geostatistical data and spatial interpolation
+* Get familiar with concepts of geostatistics: stationarity, variogram, kriging, conditional simulation
+* Get an idea what spatiotemporal geostatistics is about
+
 ### Reading materials
 
 From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
 
-* Chapter 12: Interpolation
+* Chapter 12: Spatial Interpolation
 * Chapter 13: Multivariate and Spatiotemporal Geostatistics
+
+### Exercises for Today
+
+* Exercises of Ch 12: Spatial interpolation
 
 ::: {.callout-tip title="Summary"}
 

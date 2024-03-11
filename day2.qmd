@@ -2,6 +2,12 @@
 
 ### Learning goals
 
+* Understand spatial data structures used in R
+* Understand what a point pattern and a point process is
+* Understand what an observation window is
+* Get familiar with the tools used in point pattern data analysis
+* See the alignment with MaxEnt
+
 ### Reading materials
 
 From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
@@ -9,12 +15,16 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 * Chapter 11: Point Patterns
 * Chapter 7: `sf` and `stars`
 
+## Exercises for Today
+
+* Exercises of Ch 11: Point Patterns
+
 ::: {.callout-tip title="Summary"}
 
 * Intro to `sf` and `stars`
 * Intro to `spatstat`
 * Point patterns, density functions
-* Interactions of point processes
+* Interactions in point processes
 * Simulating point process
 * Modelling density as a function of external variables
 
@@ -63,17 +73,15 @@ has
 2. completely independent locations (_interactions_: second order property)
 
 e.g.
+
 ```{r}
-#| code-fold: true
-#| out.width: '100%'
-#| fig.cap: "Example point pattern"
 library(spatstat)
 set.seed(13431)
 CRS = rpoispp(100)
 plot(CRS)
 ```
 
-Or does it have a non-constant intensity, but otherwise independent points:
+Or does it have a non-constant intensity, but otherwise independent points?
 
 ```{r}
 ppi = rpoispp(function(x,y,...) 500 * x)
@@ -136,11 +144,11 @@ in the observation window.
 The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.
 
 ```{r}
-envelope(CRS, Gest) |> plot()
-envelope(cl, Gest) |> plot()
-envelope(hc, Gest) |> plot()
-envelope(ppi, Gest) |> plot()
-envelope(Y , Gest) |> plot()
+envelope(CRS, Lest) |> plot()
+envelope(cl, Lest) |> plot()
+envelope(hc, Lest) |> plot()
+envelope(ppi, Lest) |> plot()
+#envelope(Y , Gest) |> plot()
 envelope(ppi, Kest) |> plot()
 envelope(ppi, Kinhom) |> plot()
 envelope(Y , Kest) |> plot()
@@ -156,6 +164,11 @@ ppm(ppi, ~x)
 kppm(Y, ~x)
 ```
 
+
+## Further reading
+
+* A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.
+* J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.
 
 ::: {.callout-tip title="MaxEnt"}
 
