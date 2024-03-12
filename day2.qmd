@@ -66,9 +66,10 @@ knitr::include_graphics("sf_deps.png")
 ### `sf` operators, how to understand?
 
 `sf` has objects at three nested "levels":
-    * `sfg`: a single geometry (without coordinate reference system)
-    * `sfc`: a set of `sfg` geometries, with a coordinate reference system
-    * `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
+
+* `sfg`: a single geometry (without coordinate reference system)
+* `sfc`: a set of `sfg` geometries, with a coordinate reference system
+* `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
 
 * Operations _not_ involving geometry (`data.frame`; base R; tidyverse)
     * geometry column + `sf` class is sticky!
