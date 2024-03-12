@@ -125,6 +125,9 @@ Also areas:
 p = st_as_sfc("POLYGON((0 80, 120 80, 240 80, 0 80))")
 st_area(p)
 st_area(st_sfc(p, crs = 'OGC:CRS84')) |> units::set_units(km^2)
+pole = st_as_sfc("POINT(0 90)")
+st_intersects(pole, p)
+st_intersects(st_sfc(pole, crs = 'OGC:CRS84'), st_sfc(p, crs = 'OGC:CRS84'))
 ```
 
 What to do with `nc`? Project to $R^2$ (flat space):
@@ -134,6 +137,13 @@ pts
 (pp = as.ppp(pts))
 st_as_sf(pp)
 ```
+
+### Breakout session
+
+Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`:
+
+1. assuming these are coordinates in a a Cartesian space
+2. assuming these are geodetic coordinates
 
 ## Intro to `spatstat`
 

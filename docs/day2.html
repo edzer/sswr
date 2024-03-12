@@ -213,6 +213,7 @@ window.Quarto = {
 <a href="#sf-and-spatstat" id="toc-sf-and-spatstat" class="nav-link" data-scroll-target="#sf-and-spatstat"><span class="header-section-number">2.3</span> <code>sf</code> and <code>spatstat</code></a>
   <ul class="collapse">
 <li><a href="#why-is-this-important" id="toc-why-is-this-important" class="nav-link" data-scroll-target="#why-is-this-important">Why is this important?</a></li>
+  <li><a href="#breakout-session" id="toc-breakout-session" class="nav-link" data-scroll-target="#breakout-session">Breakout session</a></li>
   </ul>
 </li>
   <li><a href="#intro-to-spatstat" id="toc-intro-to-spatstat" class="nav-link" data-scroll-target="#intro-to-spatstat"><span class="header-section-number">2.4</span> Intro to <code>spatstat</code></a></li>
@@ -458,7 +459,16 @@ Figure&nbsp;2.1: <strong>sf</strong> and its dependencies; arrows indicate stron
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_area</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
 <span><span class="co"># [1] 0</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="va">p</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html">set_units</a></span><span class="op">(</span><span class="va">km</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co"># 1620544 [km^2]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># 1620544 [km^2]</span></span>
+<span><span class="va">pole</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="st">"POINT(0 90)"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="va">pole</span>, <span class="va">p</span><span class="op">)</span></span>
+<span><span class="co"># Sparse geometry binary predicate list of length 1, where the</span></span>
+<span><span class="co"># predicate was `intersects'</span></span>
+<span><span class="co">#  1: (empty)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="va">pole</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="va">p</span>, crs <span class="op">=</span> <span class="st">'OGC:CRS84'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Sparse geometry binary predicate list of length 1, where the</span></span>
+<span><span class="co"># predicate was `intersects'</span></span>
+<span><span class="co">#  1: 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What to do with <code>nc</code>? Project to <span class="math inline">\(R^2\)</span> (flat space):</p>
 <div class="cell">
@@ -520,7 +530,12 @@ Figure&nbsp;2.1: <strong>sf</strong> and its dependencies; arrows indicate stron
 <span><span class="co"># 8                    0.091  point          POINT (815437 301289)</span></span>
 <span><span class="co"># 9                    0.118  point          POINT (689435 294013)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section></section><section id="intro-to-spatstat" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="intro-to-spatstat">
+</section><section id="breakout-session" class="level3"><h3 class="anchored" data-anchor-id="breakout-session">Breakout session</h3>
+<p>Compute the distance between <code>POINT(10 -90)</code> and <code>POINT(50 -90)</code>:</p>
+<ol type="1">
+<li>assuming these are coordinates in a a Cartesian space</li>
+<li>assuming these are geodetic coordinates</li>
+</ol></section></section><section id="intro-to-spatstat" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="intro-to-spatstat">
 <span class="header-section-number">2.4</span> Intro to <code>spatstat</code>
 </h2>
 <p>Consider a point pattern that consist of</p>
@@ -1454,144 +1469,154 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-129"><a href="#cb24-129" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">st_as_sfc</span>(<span class="st">"POLYGON((0 80, 120 80, 240 80, 0 80))"</span>)</span>
 <span id="cb24-130"><a href="#cb24-130" aria-hidden="true" tabindex="-1"></a><span class="fu">st_area</span>(p)</span>
 <span id="cb24-131"><a href="#cb24-131" aria-hidden="true" tabindex="-1"></a><span class="fu">st_area</span>(<span class="fu">st_sfc</span>(p, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>)) <span class="sc">|&gt;</span> units<span class="sc">::</span><span class="fu">set_units</span>(km<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a>What to do with <span class="in">`nc`</span>? Project to $R^2$ (flat space):</span>
-<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-138"><a href="#cb24-138" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="sc">|&gt;</span> <span class="fu">st_centroid</span>() <span class="ot">-&gt;</span> pts</span>
-<span id="cb24-139"><a href="#cb24-139" aria-hidden="true" tabindex="-1"></a>pts</span>
-<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a>(<span class="at">pp =</span> <span class="fu">as.ppp</span>(pts))</span>
-<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(pp)</span>
-<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
-<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a>Consider a point pattern that consist of </span>
-<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a set of known coordinates</span>
-<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>an observation window</span>
+<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a>pole <span class="ot">=</span> <span class="fu">st_as_sfc</span>(<span class="st">"POINT(0 90)"</span>)</span>
+<span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(pole, p)</span>
+<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(<span class="fu">st_sfc</span>(pole, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>), <span class="fu">st_sfc</span>(p, <span class="at">crs =</span> <span class="st">'OGC:CRS84'</span>))</span>
+<span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a>What to do with <span class="in">`nc`</span>? Project to $R^2$ (flat space):</span>
+<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a>nc <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="st">'EPSG:32119'</span>) <span class="sc">|&gt;</span> <span class="fu">st_centroid</span>() <span class="ot">-&gt;</span> pts</span>
+<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a>pts</span>
+<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a>(<span class="at">pp =</span> <span class="fu">as.ppp</span>(pts))</span>
+<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(pp)</span>
+<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Breakout session</span></span>
+<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a>Compute the distance between <span class="in">`POINT(10 -90)`</span> and <span class="in">`POINT(50 -90)`</span>:</span>
 <span id="cb24-150"><a href="#cb24-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a>We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CRS) **process**? A CRS process</span>
-<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a>has </span>
+<span id="cb24-151"><a href="#cb24-151" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>assuming these are coordinates in a a Cartesian space</span>
+<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>assuming these are geodetic coordinates</span>
 <span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>a spatially constant intensity (_mean_: first order property)</span>
-<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>completely independent locations (_interactions_: second order property)</span>
-<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a>e.g.</span>
-<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
-<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13431</span>)</span>
-<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a>CRS <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="dv">100</span>)</span>
-<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS)</span>
-<span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a>Or does it have a non-constant intensity, but otherwise independent points?</span>
-<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a>ppi <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="cf">function</span>(x,y,...) <span class="dv">500</span> <span class="sc">*</span> x)</span>
-<span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">main =</span> <span class="st">"inhomogeneous"</span>)</span>
-<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a>Or does it have constant intensity, but dependent points:</span>
-<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">rThomas</span>(<span class="dv">100</span>, .<span class="dv">02</span>, <span class="dv">5</span>)</span>
-<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cl, <span class="at">main =</span> <span class="st">"clustered"</span>)</span>
-<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">rHardcore</span>(<span class="fl">0.05</span>,<span class="fl">1.5</span>,<span class="fu">square</span>(<span class="dv">50</span>)) </span>
-<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">"inhibition"</span>)</span>
-<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a>or a combination:</span>
-<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a><span class="co">#ff &lt;- function(x,y) { 4 * exp(2 * abs(x) - 1) }</span></span>
-<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a>ff <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y) <span class="dv">10</span> <span class="sc">*</span> x</span>
-<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">as.im</span>(ff, <span class="fu">owin</span>())</span>
-<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rMatClust</span>(<span class="dv">10</span>, <span class="fl">0.05</span>, Z)</span>
-<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Y)</span>
-<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Intro to `spatstat`</span></span>
+<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a>Consider a point pattern that consist of </span>
+<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>a set of known coordinates</span>
+<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>an observation window</span>
+<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a>We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CRS) **process**? A CRS process</span>
+<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a>has </span>
+<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>a spatially constant intensity (_mean_: first order property)</span>
+<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>completely independent locations (_interactions_: second order property)</span>
+<span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a>e.g.</span>
+<span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-171"><a href="#cb24-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13431</span>)</span>
+<span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a>CRS <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="dv">100</span>)</span>
+<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS)</span>
+<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a>Or does it have a non-constant intensity, but otherwise independent points?</span>
+<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a>ppi <span class="ot">=</span> <span class="fu">rpoispp</span>(<span class="cf">function</span>(x,y,...) <span class="dv">500</span> <span class="sc">*</span> x)</span>
+<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">main =</span> <span class="st">"inhomogeneous"</span>)</span>
+<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a>Or does it have constant intensity, but dependent points:</span>
+<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">rThomas</span>(<span class="dv">100</span>, .<span class="dv">02</span>, <span class="dv">5</span>)</span>
+<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cl, <span class="at">main =</span> <span class="st">"clustered"</span>)</span>
+<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-195"><a href="#cb24-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">rHardcore</span>(<span class="fl">0.05</span>,<span class="fl">1.5</span>,<span class="fu">square</span>(<span class="dv">50</span>)) </span>
+<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">"inhibition"</span>)</span>
+<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a>or a combination:</span>
 <span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checking homogeneity</span></span>
-<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(CRS))</span>
-<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
-<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(ppi))</span>
-<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
-<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimating density</span></span>
-<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>main parameter: bandwidth (<span class="in">`sigma`</span>): determines the amound of smoothing.</span>
-<span id="cb24-219"><a href="#cb24-219" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>if <span class="in">`sigma`</span> is not specified: uses <span class="in">`bw.diggle`</span>, an automatically tuned bandwidth</span>
-<span id="cb24-220"><a href="#cb24-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a>Correction for <span class="in">`edge`</span> effect?</span>
-<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(CRS) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi, <span class="at">sigma =</span> .<span class="dv">05</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-231"><a href="#cb24-231" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb24-232"><a href="#cb24-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-233"><a href="#cb24-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-234"><a href="#cb24-234" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assessing interactions: clustering/inhibition</span></span>
-<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-236"><a href="#cb24-236" aria-hidden="true" tabindex="-1"></a>The K-function ("Ripley's K") is the expected number of additional</span>
-<span id="cb24-237"><a href="#cb24-237" aria-hidden="true" tabindex="-1"></a>random (CRS) points within a distance r of a typical random point</span>
-<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a>in the observation window.</span>
-<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-240"><a href="#cb24-240" aria-hidden="true" tabindex="-1"></a>The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.</span>
-<span id="cb24-241"><a href="#cb24-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(CRS, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(cl, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(hc, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a><span class="co">#envelope(Y , Gest) |&gt; plot()</span></span>
-<span id="cb24-250"><a href="#cb24-250" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-251"><a href="#cb24-251" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-252"><a href="#cb24-252" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-253"><a href="#cb24-253" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb24-254"><a href="#cb24-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-255"><a href="#cb24-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-256"><a href="#cb24-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-257"><a href="#cb24-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fitting models to clustered data</span></span>
-<span id="cb24-260"><a href="#cb24-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-261"><a href="#cb24-261" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous Poisson:</span></span>
-<span id="cb24-262"><a href="#cb24-262" aria-hidden="true" tabindex="-1"></a><span class="fu">ppm</span>(ppi, <span class="sc">~</span>x)</span>
-<span id="cb24-263"><a href="#cb24-263" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous clustered:</span></span>
-<span id="cb24-264"><a href="#cb24-264" aria-hidden="true" tabindex="-1"></a><span class="fu">kppm</span>(Y, <span class="sc">~</span>x)</span>
-<span id="cb24-265"><a href="#cb24-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a><span class="co">#ff &lt;- function(x,y) { 4 * exp(2 * abs(x) - 1) }</span></span>
+<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a>ff <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y) <span class="dv">10</span> <span class="sc">*</span> x</span>
+<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">as.im</span>(ff, <span class="fu">owin</span>())</span>
+<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rMatClust</span>(<span class="dv">10</span>, <span class="fl">0.05</span>, Z)</span>
+<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Y)</span>
+<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checking homogeneity</span></span>
+<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-219"><a href="#cb24-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-220"><a href="#cb24-220" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(CRS))</span>
+<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
+<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a>(<span class="at">q =</span> <span class="fu">quadrat.test</span>(ppi))</span>
+<span id="cb24-223"><a href="#cb24-223" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(q)</span>
+<span id="cb24-224"><a href="#cb24-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimating density</span></span>
+<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>main parameter: bandwidth (<span class="in">`sigma`</span>): determines the amound of smoothing.</span>
+<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>if <span class="in">`sigma`</span> is not specified: uses <span class="in">`bw.diggle`</span>, an automatically tuned bandwidth</span>
+<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-231"><a href="#cb24-231" aria-hidden="true" tabindex="-1"></a>Correction for <span class="in">`edge`</span> effect?</span>
+<span id="cb24-232"><a href="#cb24-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-236"><a href="#cb24-236" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(CRS) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-237"><a href="#cb24-237" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CRS, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb24-240"><a href="#cb24-240" aria-hidden="true" tabindex="-1"></a><span class="fu">density</span>(ppi, <span class="at">sigma =</span> .<span class="dv">05</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-241"><a href="#cb24-241" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ppi, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb24-242"><a href="#cb24-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-243"><a href="#cb24-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## Assessing interactions: clustering/inhibition</span></span>
+<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a>The K-function ("Ripley's K") is the expected number of additional</span>
+<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a>random (CRS) points within a distance r of a typical random point</span>
+<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a>in the observation window.</span>
+<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-250"><a href="#cb24-250" aria-hidden="true" tabindex="-1"></a>The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.</span>
+<span id="cb24-251"><a href="#cb24-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-254"><a href="#cb24-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-255"><a href="#cb24-255" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(CRS, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-256"><a href="#cb24-256" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(cl, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-257"><a href="#cb24-257" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(hc, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-258"><a href="#cb24-258" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Lest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-259"><a href="#cb24-259" aria-hidden="true" tabindex="-1"></a><span class="co">#envelope(Y , Gest) |&gt; plot()</span></span>
+<span id="cb24-260"><a href="#cb24-260" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-261"><a href="#cb24-261" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(ppi, Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-262"><a href="#cb24-262" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kest) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-263"><a href="#cb24-263" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>(Y , Kinhom) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb24-264"><a href="#cb24-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-265"><a href="#cb24-265" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-266"><a href="#cb24-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-267"><a href="#cb24-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-268"><a href="#cb24-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
-<span id="cb24-269"><a href="#cb24-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-270"><a href="#cb24-270" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>E. Pebesma, 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, <span class="co">[</span><span class="ot">439-446</span><span class="co">](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html)</span>.</span>
-<span id="cb24-271"><a href="#cb24-271" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.</span>
-<span id="cb24-272"><a href="#cb24-272" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.</span>
-<span id="cb24-273"><a href="#cb24-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-274"><a href="#cb24-274" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
-<span id="cb24-275"><a href="#cb24-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-276"><a href="#cb24-276" aria-hidden="true" tabindex="-1"></a>It seems that</span>
-<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MaxEnt</span><span class="co">](https://biodiversityinformatics.amnh.org/open_source/maxent/)</span> fits</span>
-<span id="cb24-278"><a href="#cb24-278" aria-hidden="true" tabindex="-1"></a>an <span class="co">[</span><span class="ot">inhomogeneous Poisson process</span><span class="co">](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049)</span> </span>
+<span id="cb24-267"><a href="#cb24-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fitting models to clustered data</span></span>
+<span id="cb24-270"><a href="#cb24-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-271"><a href="#cb24-271" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous Poisson:</span></span>
+<span id="cb24-272"><a href="#cb24-272" aria-hidden="true" tabindex="-1"></a><span class="fu">ppm</span>(ppi, <span class="sc">~</span>x)</span>
+<span id="cb24-273"><a href="#cb24-273" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming Inhomogeneous clustered:</span></span>
+<span id="cb24-274"><a href="#cb24-274" aria-hidden="true" tabindex="-1"></a><span class="fu">kppm</span>(Y, <span class="sc">~</span>x)</span>
+<span id="cb24-275"><a href="#cb24-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-276"><a href="#cb24-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-278"><a href="#cb24-278" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
 <span id="cb24-279"><a href="#cb24-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-280"><a href="#cb24-280" aria-hidden="true" tabindex="-1"></a>Starting from presence (only) observations, it</span>
-<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-282"><a href="#cb24-282" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points, uniformly _in space_</span>
-<span id="cb24-283"><a href="#cb24-283" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data, using environmental covariates</span>
-<span id="cb24-284"><a href="#cb24-284" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores spatial interactions, spatial distances</span>
-<span id="cb24-285"><a href="#cb24-285" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
-<span id="cb24-286"><a href="#cb24-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a>A paper detailing the equivalence and differences between point pattern models and MaxEnt is found <span class="co">[</span><span class="ot">here</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352)</span>.</span>
-<span id="cb24-288"><a href="#cb24-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-289"><a href="#cb24-289" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb24-280"><a href="#cb24-280" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>E. Pebesma, 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, <span class="co">[</span><span class="ot">439-446</span><span class="co">](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html)</span>.</span>
+<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.</span>
+<span id="cb24-282"><a href="#cb24-282" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.</span>
+<span id="cb24-283"><a href="#cb24-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-284"><a href="#cb24-284" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="MaxEnt"}</span>
+<span id="cb24-285"><a href="#cb24-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-286"><a href="#cb24-286" aria-hidden="true" tabindex="-1"></a>It seems that</span>
+<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">MaxEnt</span><span class="co">](https://biodiversityinformatics.amnh.org/open_source/maxent/)</span> fits</span>
+<span id="cb24-288"><a href="#cb24-288" aria-hidden="true" tabindex="-1"></a>an <span class="co">[</span><span class="ot">inhomogeneous Poisson process</span><span class="co">](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049)</span> </span>
+<span id="cb24-289"><a href="#cb24-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-290"><a href="#cb24-290" aria-hidden="true" tabindex="-1"></a>Starting from presence (only) observations, it</span>
+<span id="cb24-291"><a href="#cb24-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-292"><a href="#cb24-292" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>adds background (absence) points, uniformly _in space_</span>
+<span id="cb24-293"><a href="#cb24-293" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>fits logistic regression models to the 0/1 data, using environmental covariates</span>
+<span id="cb24-294"><a href="#cb24-294" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>ignores spatial interactions, spatial distances</span>
+<span id="cb24-295"><a href="#cb24-295" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>will be discussed on Day 4: **Machine Learning methods applied to spatial data**</span>
+<span id="cb24-296"><a href="#cb24-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-297"><a href="#cb24-297" aria-hidden="true" tabindex="-1"></a>A paper detailing the equivalence and differences between point pattern models and MaxEnt is found <span class="co">[</span><span class="ot">here</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352)</span>.</span>
+<span id="cb24-298"><a href="#cb24-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-299"><a href="#cb24-299" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
