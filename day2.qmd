@@ -152,7 +152,7 @@ Consider a point pattern that consist of
 * a set of known coordinates
 * an observation window
 
-We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CRS) **process**? A CRS process
+We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CSR) **process**? A CSR process
 has 
 
 1. a spatially constant intensity (_mean_: first order property)
@@ -163,8 +163,8 @@ e.g.
 ```{r}
 library(spatstat)
 set.seed(13431)
-CRS = rpoispp(100)
-plot(CRS)
+CSR = rpoispp(100)
+plot(CSR)
 ```
 
 Or does it have a non-constant intensity, but otherwise independent points?
@@ -199,7 +199,7 @@ plot(Y)
 ## Checking homogeneity
 
 ```{r}
-(q = quadrat.test(CRS))
+(q = quadrat.test(CSR))
 plot(q)
 (q = quadrat.test(ppi))
 plot(q)
@@ -213,8 +213,8 @@ plot(q)
 Correction for `edge` effect?
 
 ```{r}
-density(CRS) |> plot()
-plot(CRS, add = TRUE, col = 'green')
+density(CSR) |> plot()
+plot(CSR, add = TRUE, col = 'green')
 density(ppi) |> plot()
 plot(ppi, add = TRUE, col = 'green')
 density(ppi, sigma = .05) |> plot()
@@ -224,21 +224,19 @@ plot(ppi, add = TRUE, col = 'green')
 ## Assessing interactions: clustering/inhibition
 
 The K-function ("Ripley's K") is the expected number of additional
-random (CRS) points within a distance r of a typical random point
+random (CSR) points within a distance r of a typical random point
 in the observation window.
 
 The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.
 
 ```{r}
-envelope(CRS, Lest) |> plot()
+envelope(CSR, Lest) |> plot()
 envelope(cl, Lest) |> plot()
 envelope(hc, Lest) |> plot()
 envelope(ppi, Lest) |> plot()
-#envelope(Y , Gest) |> plot()
-envelope(ppi, Kest) |> plot()
-envelope(ppi, Kinhom) |> plot()
-envelope(Y , Kest) |> plot()
-envelope(Y , Kinhom) |> plot()
+envelope(ppi, Linhom) |> plot()
+envelope(Y , Lest) |> plot()
+envelope(Y , Linhom) |> plot()
 ```
 
 
