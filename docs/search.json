@@ -212,9 +212,59 @@
   {
     "objectID": "day3.html",
     "href": "day3.html",
-    "title": "3  Geostatistical data",
+    "title": "\n3  Geostatistical data\n",
     "section": "",
-    "text": "Learning goals\n\nGet familiar with geostatistical data and spatial interpolation\nGet familiar with concepts of geostatistics: stationarity, variogram, kriging, conditional simulation\nGet an idea what spatiotemporal geostatistics is about\n\n\n\nReading materials\nFrom Spatial Data Science: with applications in R:\n\nChapter 12: Spatial Interpolation\nChapter 13: Multivariate and Spatiotemporal Geostatistics\n\n\n\nExercises for Today\n\nExercises of Ch 12: Spatial interpolation\n\n\n\n\n\n\n\nSummary\n\n\n\n\nIntro to gstat\nGeostatistical data\nSpatial correlation, variograms, stationarity\nKriging\nSimulating geostatistical data\nSpatiotemporal geostatistics\n\n\n\n\n\nSummary\n\nStationarity of mean, stationarity of covariance\nEstimating spatial covariance and semivariance\nModelling the variogram\nKriging interpolation\nConditional simulation",
+    "text": "Learning goals",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html#gstat",
+    "href": "day3.html#gstat",
+    "title": "\n3  Geostatistical data\n",
+    "section": "\n3.1 gstat\n",
+    "text": "3.1 gstat\n\nR package gstat was written in 2002/3, from a stand-alone C program that was released under the GPL in 1997. It implements “basic” geostatistical functions for modelling spatial dependence (variograms), kriging interpolation and conditional simulation. It can be used for multivariable kriging (cokriging), as well as for spatiotemporal variography and kriging. Recent updates included support for sf and stars objects.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html#what-are-geostatistical-data",
+    "href": "day3.html#what-are-geostatistical-data",
+    "title": "\n3  Geostatistical data\n",
+    "section": "\n3.2 What are geostatistical data?",
+    "text": "3.2 What are geostatistical data?\nRecall from day 1: locations + measured values\n\nThe value of interest is measured at a set of sample locations\nAt other location, this value exists but is missing\n\nThe interest is in estimating (predicting) this missing value (interpolation)\nThe actual sample locations are not of (primary) interest, the signal is in the measured values\n\n\nlibrary(sf)\n# Linking to GEOS 3.12.1, GDAL 3.8.3, PROJ 9.3.1; sf_use_s2() is TRUE\nno2 &lt;- read.csv(system.file(\"external/no2.csv\",\n    package = \"gstat\"))\ncrs &lt;- st_crs(\"EPSG:32632\") # a csv doesn't carry a CRS!\nst_as_sf(no2, crs = \"OGC:CRS84\", coords =\n    c(\"station_longitude_deg\", \"station_latitude_deg\")) |&gt;\n    st_transform(crs) -&gt; no2.sf\nlibrary(ggplot2)\n# plot(st_geometry(no2.sf))\n\"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg\" |&gt;\n  read_sf() |&gt;\n  st_transform(crs) -&gt; de\nggplot() + geom_sf(data = de) +\n    geom_sf(data = no2.sf, mapping = aes(col = NO2))",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html#spatial-correlation",
+    "href": "day3.html#spatial-correlation",
+    "title": "\n3  Geostatistical data\n",
+    "section": "\n3.3 Spatial correlation",
+    "text": "3.3 Spatial correlation\nLagged scatterplots\n\n(w = st_is_within_distance(no2.sf, no2.sf, units::set_units(70, km), \n                          retain_unique = TRUE))\n# Sparse geometry binary predicate list of length 74, where\n# the predicate was `is_within_distance', with retain_unique =\n# TRUE\n# first 10 elements:\n#  1: 19\n#  2: (empty)\n#  3: 4, 5, 26, 58\n#  4: 5, 26, 40\n#  5: 26, 36\n#  6: 30, 55, 56, 69, 72\n#  7: (empty)\n#  8: 28, 68\n#  9: (empty)\n#  10: (empty)\nd = as.data.frame(w)\nx = no2.sf$NO2[d$row.id]\ny = no2.sf$NO2[d$col.id]\ncor(x, y)\n# [1] 0.211\nplot(x, y, main = \"lagged scatterplot\")\nabline(0, 1)\n\n\n\n\n\n\n\n\nlibrary(gstat)\nhscat(NO2~1, no2.sf, breaks = c(0,50,100,150,200,250)*1000)\n\n\n\n\n\n\n\nVariogram\n“by hand”, base R:\n\nz = no2.sf$NO2\nz2 = 0.5 * outer(z, z, FUN = \"-\")^2\nd = as.matrix(st_distance(no2.sf))\nvcloud = data.frame(dist = as.vector(d), gamma = as.vector(z2))\nvcloud = vcloud[vcloud$dist != 0,]\nvcloud$dclass = cut(vcloud$dist, c(0, 50, 100, 150, 200, 250, 300, 350) * 1000)\nv = aggregate(gamma~dclass, vcloud, mean)\nplot(gamma ~ dclass, v, ylim = c(0, 20))\n\n\n\n\n\n\n\nusing gstat:\n\nvv = variogram(NO2~1, no2.sf, width = 50000, cutoff = 350000)\nvv$gamma - v$gamma\n# [1]  3.55e-15 -3.55e-15  5.33e-15 -5.33e-15  7.11e-15 -1.42e-14\n# [7]  5.33e-15\nplot(vv)\n\n\n\n\n\n\n\n\n\n\n\n\n\nBreakout session\n\n\n\nCompute the variogram of NO2 using argument cloud = TRUE.\n\nhow does the resulting object differ from the “regular” variogram\nwhat do the “left” and “right” fields refer to?\nwhen we plot the resulting object, does it still indicate spatial correlation?",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html#interpolation",
+    "href": "day3.html#interpolation",
+    "title": "\n3  Geostatistical data\n",
+    "section": "\n3.4 Interpolation",
+    "text": "3.4 Interpolation\n\n\n\n\n\n\nDensity or interpolation?\n\n\n\nBoth density maps shown in the Point Pattern section and interpolated maps shown in this section look very similar:\n\nraster maps with continuous values\nsmooth spatial patterns\n\nThe differences are huge!\n\npoint density estimates estimate the number of points per unit area; the values are (normalized) counts\n\ninterpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an attribute",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
+    ]
+  },
+  {
+    "objectID": "day3.html#further-reading",
+    "href": "day3.html#further-reading",
+    "title": "\n3  Geostatistical data\n",
+    "section": "\n3.5 Further reading",
+    "text": "3.5 Further reading\n\nPebesma, E.J., 2004. Multivariable geostatistics in S: the gstat package. Computers & Geosciences, 30: 683-691.\nBenedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016. Spatio-Temporal Interpolation using gstat. The R Journal 8(1), 204-218",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Geostatistical data</span>"
     ]

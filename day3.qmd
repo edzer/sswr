@@ -28,12 +28,122 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 
 :::
 
-### Summary
+## `gstat`
+
+R package `gstat` was written in 2002/3, from a stand-alone C
+program that was released under the GPL in 1997. It implements
+"basic" geostatistical functions for modelling spatial dependence
+(variograms), kriging interpolation and conditional simulation.
+It can be used for multivariable kriging (cokriging), as well as
+for spatiotemporal variography and kriging. Recent updates included
+support for `sf` and `stars` objects.
+
+## What are geostatistical data?
+
+Recall from day 1: locations + measured values
+
+* The value of interest is measured at a set of sample locations
+* At other location, this value exists but is _missing_
+* The interest is in estimating (predicting) this missing value (interpolation)
+* The actual sample locations are not of (primary) interest, the signal is in the measured values
+
+```{r}
+library(sf)
+no2 <- read.csv(system.file("external/no2.csv",
+    package = "gstat"))
+crs <- st_crs("EPSG:32632") # a csv doesn't carry a CRS!
+st_as_sf(no2, crs = "OGC:CRS84", coords =
+    c("station_longitude_deg", "station_latitude_deg")) |>
+    st_transform(crs) -> no2.sf
+library(ggplot2)
+# plot(st_geometry(no2.sf))
+"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg" |>
+  read_sf() |>
+  st_transform(crs) -> de
+ggplot() + geom_sf(data = de) +
+    geom_sf(data = no2.sf, mapping = aes(col = NO2))
+```
+
+## Spatial correlation
+
+### Lagged scatterplots
+
+"by hand", base R:
+```{r}
+(w = st_is_within_distance(no2.sf, no2.sf, units::set_units(50, km), 
+						  retain_unique = TRUE))
+d = as.data.frame(w)
+x = no2.sf$NO2[d$row.id]
+y = no2.sf$NO2[d$col.id]
+cor(x, y)
+plot(x, y, main = "lagged scatterplot")
+abline(0, 1)
+```
+
+using gstat:
+```{r}
+library(gstat)
+hscat(NO2~1, no2.sf, breaks = c(0,50,100,150,200,250)*1000)
+```
+
+### Variogram
+
+"by hand", base R:
+```{r}
+z = no2.sf$NO2
+z2 = 0.5 * outer(z, z, FUN = "-")^2
+d = as.matrix(st_distance(no2.sf))
+vcloud = data.frame(dist = as.vector(d), gamma = as.vector(z2))
+vcloud = vcloud[vcloud$dist != 0,]
+vcloud$dclass = cut(vcloud$dist, c(0, 50, 100, 150, 200, 250, 300, 350) * 1000)
+v = aggregate(gamma~dclass, vcloud, mean)
+plot(gamma ~ dclass, v, ylim = c(0, 20))
+```
+
+using gstat:
+```{r}
+vv = variogram(NO2~1, no2.sf, width = 50000, cutoff = 350000)
+vv$gamma - v$gamma
+plot(vv)
+```
+
+::: {.callout-note title="Breakout session"}
+
+Compute the variogram of NO2 using argument `cloud = TRUE`. 
+
+* how does the resulting object differ from the "regular" variogram 
+* what do the "left" and "right" fields refer to?
+* when we plot the resulting object, does it still indicate spatial correlation?
+
+:::
 
 
-* Stationarity of mean, stationarity of covariance
-* Estimating spatial covariance and semivariance
-* Modelling the variogram
-* Kriging interpolation
-* Conditional simulation
+##  Interpolation
+
+::: {.callout-important}
+## Density or interpolation?
+
+Both density maps shown in the Point Pattern section and interpolated
+maps shown in this section look very similar:
+
+* raster maps with continuous values
+* smooth spatial patterns
+
+The differences are huge!
+
+* point density estimates estimate the number of points per unit area; the values are (normalized) _counts_
+* interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_
+
+:::
+
+
+## Further reading
+
+* Pebesma, E.J., 2004. Multivariable geostatistics
+in S: the gstat package. Computers & Geosciences, 30:
+[683-691](https://doi.org/10.1016/j.cageo.2004.03.012).
+
+* Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016.
+Spatio-Temporal Interpolation using gstat.  The R Journal 8(1),
+[204-218](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)
 
