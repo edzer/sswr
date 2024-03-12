@@ -52,11 +52,86 @@ with vector geometries. It defines a set of classes for geometries and operation
 
 * see [here](https://ecoevo.social/@noamross/112055449473807578)
 
+### The larger geospatial open source ecosystem
+
+R and beyond:
+
 ```{r fig-gdal-fig-nodetails, echo = FALSE}
 #| code-fold: true
 #| out.width: '100%'
 #| fig.cap: "**sf** and its dependencies; arrows indicate strong dependency, dashed arrows weak dependency"
 knitr::include_graphics("sf_deps.png") 
+```
+
+### `sf` operators, how to understand?
+
+`sf` has objects at three nested "levels":
+    * `sfg`: a single geometry (without coordinate reference system)
+    * `sfc`: a set of `sfg` geometries, with a coordinate reference system
+    * `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
+
+* Operations _not_ involving geometry (`data.frame`; base R; tidyverse)
+    * geometry column + `sf` class is sticky!
+    * this can be convenient, and sometimes annoying
+    * use `as.data.frame` or `as_tibble` to strip the `sf` class label
+* Operations involving _only_ geometry
+    * **predicates** (resulting `TRUE`/`FALSE`)
+	    * unary
+		* binary: [DE9-IM](https://en.wikipedia.org/wiki/DE-9IM); work on two sets, result `sgbp`, which is a sparse logical matrix representation
+		    * is_within_distance
+    * **measures**
+        * unary: length, area
+        * binary: distance, `by_element = FALSE`
+    * **transformers**
+		* unary: buffer, centroid 
+        * binary: intersection, union, difference, symdifference
+        * n-ary: intersection, difference
+* Operations involving geometry _and_ attributes
+    * many of the above!
+    * `st_join`
+    * `aggregate`
+	* `st_interpolate_aw`: requires expression whether variable is spatially _extensive_ or _intensive_
+
+## `sf` and `spatstat`
+
+We can try to convert an `sf` object to a `ppp` (point pattern object in `spatstat`):
+```{r error=TRUE}
+library(sf)
+library(spatstat)
+demo(nc, echo = FALSE, ask = FALSE)
+pts = st_centroid(st_geometry(nc))
+as.ppp(pts) # ???
+```
+
+Note that `sf` interprets a `NA` CRS as: flat, projected (Cartesian) space.
+
+### Why is this important?
+
+```{r}
+(p1 = st_point(c(0, 0)))
+(p2 = st_point(c(1, 0)))
+st_distance(p1, p2)
+st_sfc(p1, crs = 'OGC:CRS84')
+st_distance(st_sfc(p1, crs = 'OGC:CRS84'), st_sfc(p2, crs = 'OGC:CRS84'))
+(p1 = st_point(c(0, 80)))
+(p2 = st_point(c(1, 80)))
+st_distance(p1, p2)
+st_distance(st_sfc(p1, crs = 'OGC:CRS84'), st_sfc(p2, crs = 'OGC:CRS84'))
+```
+
+Also areas:
+```{r}
+p = st_as_sfc("POLYGON((0 80, 120 80, 240 80, 0 80))")
+st_area(p)
+st_area(st_sfc(p, crs = 'OGC:CRS84')) |> units::set_units(km^2)
+```
+
+What to do with `nc`? Project to $R^2$ (flat space):
+```{r}
+nc |> st_transform('EPSG:32119') |> st_centroid() -> pts
+pts
+(pp = as.ppp(pts))
+st_as_sf(pp)
 ```
 
 ## Intro to `spatstat`
