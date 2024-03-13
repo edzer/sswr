@@ -125,7 +125,7 @@ vv$gamma - v$gamma
 plot(vv)
 ```
 
-::: {.callout-note title="Breakout session"}
+::: {.callout-note title="Breakout session 1"}
 
 Compute the variogram of NO2 using argument `cloud = TRUE`. 
 
@@ -192,8 +192,14 @@ v.fit = fit.variogram(v, vgm(1, "Exp", 50000))
 plot(v, v.fit)
 ```
 
+
+## BLUP/Kriging
+
 Given this model, we can interpolate using the _best unbiased linear
-predictor_ (BLUP), also called kriging predictor:
+predictor_ (BLUP), also called kriging predictor. Under the model
+$Z(s)=m+e(s)$ it estimates $m$ using generalized least squares, and
+predicts $e(s)$ using a weighted mean, where weights are chosen such
+that $Var(Z(s_0)-\hat{Z}(s_0))$ is minimized. 
 
 ```{r}
 k = krige(NO2~1, no2.sf, g3, v.fit)
@@ -215,7 +221,7 @@ maps shown in this section look very similar:
 * raster maps with continuous values
 * smooth spatial patterns
 
-The differences are huge!
+The differences could not be larger!
 
 * point density estimates estimate the number of points per unit area; the values are (normalized) _counts_
 * interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_
@@ -224,16 +230,25 @@ The differences are huge!
 To illustrate the difference between density and interpolated values:
 
 ```{r echo=FALSE}
+#| code-fold: true
+#| out.width: '100%'
 library(spatstat)
 p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))
 density(p) |> st_as_stars() |> plot(main = "station density (# m^-2)", reset = FALSE)
 plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 ```
 ```{r echo=FALSE}
+#| code-fold: true
+#| out.width: '100%'
 plot(i, main = "interpolation: NO2 (ppm)", reset = FALSE)
 plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 ```
 
+## Kriging with a non-constant mean
+
+Under the model $Z(s) = X(s)\beta + e(s)$, $\beta$ is estimated
+using generalized least squares, and the variogram of regression
+residuals is needed; see Ch 12.
 
 ## Conditional simulation
 
@@ -288,7 +303,8 @@ cs = krige(NO2~1, no2.sf, g3, v.fit, nsim = 50, nmax = 30)
 plot(cs[,,,1:10])
 ```
 
-We see that these simulations are much more alike;
+We see that these simulations are much more alike; also their
+mean and variance resemble that of the kriging mean and variance:
 ```{r}
 csm = st_apply(cs, c("x", "y"), mean)
 csm$kriging = krige(NO2~1, no2.sf, g3, v.fit)[1]
@@ -297,6 +313,14 @@ csv = st_apply(cs, c("x", "y"), var)
 csv$kr_var = krige(NO2~1, no2.sf, g3, v.fit)[2]
 plot(merge(csv), breaks = "equal")
 ```
+
+::: {.callout-note title="Breakout session 2"}
+
+What causes the differences between the mean and the variance
+of the simulations (left) and the mean and variance obtained
+by kriging (right)?
+
+:::
 
 ## SpatioTemporal geostatistics
 

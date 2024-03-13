@@ -212,14 +212,16 @@ window.Quarto = {
 </li>
   <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">3.4</span> Interpolation</a></li>
   <li><a href="#fit-a-variogram-model" id="toc-fit-a-variogram-model" class="nav-link" data-scroll-target="#fit-a-variogram-model"><span class="header-section-number">3.5</span> Fit a variogram model</a></li>
+  <li><a href="#blupkriging" id="toc-blupkriging" class="nav-link" data-scroll-target="#blupkriging"><span class="header-section-number">3.6</span> BLUP/Kriging</a></li>
+  <li><a href="#kriging-with-a-non-constant-mean" id="toc-kriging-with-a-non-constant-mean" class="nav-link" data-scroll-target="#kriging-with-a-non-constant-mean"><span class="header-section-number">3.7</span> Kriging with a non-constant mean</a></li>
   <li>
-<a href="#conditional-simulation" id="toc-conditional-simulation" class="nav-link" data-scroll-target="#conditional-simulation"><span class="header-section-number">3.6</span> Conditional simulation</a>
+<a href="#conditional-simulation" id="toc-conditional-simulation" class="nav-link" data-scroll-target="#conditional-simulation"><span class="header-section-number">3.8</span> Conditional simulation</a>
   <ul class="collapse">
 <li><a href="#simulating-spatially-correlated-data" id="toc-simulating-spatially-correlated-data" class="nav-link" data-scroll-target="#simulating-spatially-correlated-data">Simulating spatially correlated data</a></li>
   </ul>
 </li>
-  <li><a href="#spatiotemporal-geostatistics" id="toc-spatiotemporal-geostatistics" class="nav-link" data-scroll-target="#spatiotemporal-geostatistics"><span class="header-section-number">3.7</span> SpatioTemporal geostatistics</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.8</span> Further reading</a></li>
+  <li><a href="#spatiotemporal-geostatistics" id="toc-spatiotemporal-geostatistics" class="nav-link" data-scroll-target="#spatiotemporal-geostatistics"><span class="header-section-number">3.9</span> SpatioTemporal geostatistics</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.10</span> Further reading</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day3.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -409,13 +411,13 @@ h \in \tilde{h}\]</span></p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Breakout session">
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Breakout session
+Breakout session 1
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -502,7 +504,9 @@ Breakout session
 </div>
 </div>
 </div>
-<p>Given this model, we can interpolate using the <em>best unbiased linear predictor</em> (BLUP), also called kriging predictor:</p>
+</section><section id="blupkriging" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="blupkriging">
+<span class="header-section-number">3.6</span> BLUP/Kriging</h2>
+<p>Given this model, we can interpolate using the <em>best unbiased linear predictor</em> (BLUP), also called kriging predictor. Under the model <span class="math inline">\(Z(s)=m+e(s)\)</span> it estimates <span class="math inline">\(m\)</span> using generalized least squares, and predicts <span class="math inline">\(e(s)\)</span> using a weighted mean, where weights are chosen such that <span class="math inline">\(Var(Z(s_0)-\hat{Z}(s_0))\)</span> is minimized.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">k</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html">krige</a></span><span class="op">(</span><span class="va">NO2</span><span class="op">~</span><span class="fl">1</span>, <span class="va">no2.sf</span>, <span class="va">g3</span>, <span class="va">v.fit</span><span class="op">)</span></span>
 <span><span class="co"># [using ordinary kriging]</span></span>
@@ -535,7 +539,7 @@ Density or interpolation?
 <li>raster maps with continuous values</li>
 <li>smooth spatial patterns</li>
 </ul>
-<p>The differences are huge!</p>
+<p>The differences could not be larger!</p>
 <ul>
 <li>point density estimates estimate the number of points per unit area; the values are (normalized) <em>counts</em>
 </li>
@@ -582,8 +586,11 @@ Density or interpolation?
 </div>
 </div>
 </div>
-</section><section id="conditional-simulation" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="conditional-simulation">
-<span class="header-section-number">3.6</span> Conditional simulation</h2>
+</section><section id="kriging-with-a-non-constant-mean" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="kriging-with-a-non-constant-mean">
+<span class="header-section-number">3.7</span> Kriging with a non-constant mean</h2>
+<p>Under the model <span class="math inline">\(Z(s) = X(s)\beta + e(s)\)</span>, <span class="math inline">\(\beta\)</span> is estimated using generalized least squares, and the variogram of regression residuals is needed; see Ch 12.</p>
+</section><section id="conditional-simulation" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="conditional-simulation">
+<span class="header-section-number">3.8</span> Conditional simulation</h2>
 <section id="simulating-spatially-correlated-data" class="level3"><h3 class="anchored" data-anchor-id="simulating-spatially-correlated-data">Simulating spatially correlated data</h3>
 <p>Using a coarse grid, with base R:</p>
 <div class="cell">
@@ -667,7 +674,7 @@ Density or interpolation?
 </div>
 </div>
 </div>
-<p>We see that these simulations are much more alike;</p>
+<p>We see that these simulations are much more alike; also their mean and variance resemble that of the kriging mean and variance:</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">csm</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_apply.html">st_apply</a></span><span class="op">(</span><span class="va">cs</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span></span>
 <span><span class="va">csm</span><span class="op">$</span><span class="va">kriging</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/gstat/man/krige.html">krige</a></span><span class="op">(</span><span class="va">NO2</span><span class="op">~</span><span class="fl">1</span>, <span class="va">no2.sf</span>, <span class="va">g3</span>, <span class="va">v.fit</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
@@ -690,12 +697,25 @@ Density or interpolation?
 </div>
 </div>
 </div>
-</section></section><section id="spatiotemporal-geostatistics" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="spatiotemporal-geostatistics">
-<span class="header-section-number">3.7</span> SpatioTemporal geostatistics</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Breakout session 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What causes the differences between the mean and the variance of the simulations (left) and the mean and variance obtained by kriging (right)?</p>
+</div>
+</div>
+</section></section><section id="spatiotemporal-geostatistics" class="level2" data-number="3.9"><h2 data-number="3.9" class="anchored" data-anchor-id="spatiotemporal-geostatistics">
+<span class="header-section-number">3.9</span> SpatioTemporal geostatistics</h2>
 <ul>
 <li><a href="https://r-spatial.org/book/13-Geostatistics.html">Ch 13</a></li>
-</ul></section><section id="further-reading" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="further-reading">
-<span class="header-section-number">3.8</span> Further reading</h2>
+</ul></section><section id="further-reading" class="level2" data-number="3.10"><h2 data-number="3.10" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">3.10</span> Further reading</h2>
 <ul>
 <li><p>Pebesma, E.J., 2004. Multivariable geostatistics in S: the gstat package. Computers &amp; Geosciences, 30: <a href="https://doi.org/10.1016/j.cageo.2004.03.012">683-691</a>.</p></li>
 <li><p>Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016. Spatio-Temporal Interpolation using gstat. The R Journal 8(1), <a href="https://journal.r-project.org/archive/2016/RJ-2016-014/index.html">204-218</a></p></li>
@@ -1279,7 +1299,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vv)</span>
 <span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session"}</span>
+<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 1"}</span>
 <span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>Compute the variogram of NO2 using argument <span class="in">`cloud = TRUE`</span>. </span>
 <span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a></span>
@@ -1346,125 +1366,149 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-212"><a href="#cb22-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(v, v.fit)</span>
 <span id="cb22-213"><a href="#cb22-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-214"><a href="#cb22-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-215"><a href="#cb22-215" aria-hidden="true" tabindex="-1"></a>Given this model, we can interpolate using the _best unbiased linear</span>
-<span id="cb22-216"><a href="#cb22-216" aria-hidden="true" tabindex="-1"></a>predictor_ (BLUP), also called kriging predictor:</span>
+<span id="cb22-215"><a href="#cb22-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-216"><a href="#cb22-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## BLUP/Kriging</span></span>
 <span id="cb22-217"><a href="#cb22-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-220"><a href="#cb22-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-221"><a href="#cb22-221" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)</span>
-<span id="cb22-222"><a href="#cb22-222" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>idw <span class="ot">=</span> i<span class="sc">$</span>var1.pred</span>
-<span id="cb22-223"><a href="#cb22-223" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kriging <span class="ot">=</span> k<span class="sc">$</span>var1.pred</span>
-<span id="cb22-224"><a href="#cb22-224" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">=</span> <span class="cf">function</span>() {</span>
-<span id="cb22-225"><a href="#cb22-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">st_geometry</span>(no2.sf), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'yellow'</span>)</span>
-<span id="cb22-226"><a href="#cb22-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'red'</span>)</span>
-<span id="cb22-227"><a href="#cb22-227" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-228"><a href="#cb22-228" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(k[<span class="fu">c</span>(<span class="st">"kriging"</span>, <span class="st">"idw"</span>)]), <span class="at">hook =</span> hook, <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb22-229"><a href="#cb22-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-230"><a href="#cb22-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-231"><a href="#cb22-231" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb22-232"><a href="#cb22-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Density or interpolation?</span></span>
-<span id="cb22-233"><a href="#cb22-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-234"><a href="#cb22-234" aria-hidden="true" tabindex="-1"></a>Both density maps shown in the Point Pattern section and interpolated</span>
-<span id="cb22-235"><a href="#cb22-235" aria-hidden="true" tabindex="-1"></a>maps shown in this section look very similar:</span>
+<span id="cb22-218"><a href="#cb22-218" aria-hidden="true" tabindex="-1"></a>Given this model, we can interpolate using the _best unbiased linear</span>
+<span id="cb22-219"><a href="#cb22-219" aria-hidden="true" tabindex="-1"></a>predictor_ (BLUP), also called kriging predictor. Under the model</span>
+<span id="cb22-220"><a href="#cb22-220" aria-hidden="true" tabindex="-1"></a>$Z(s)=m+e(s)$ it estimates $m$ using generalized least squares, and</span>
+<span id="cb22-221"><a href="#cb22-221" aria-hidden="true" tabindex="-1"></a>predicts $e(s)$ using a weighted mean, where weights are chosen such</span>
+<span id="cb22-222"><a href="#cb22-222" aria-hidden="true" tabindex="-1"></a>that $Var(Z(s_0)-\hat{Z}(s_0))$ is minimized. </span>
+<span id="cb22-223"><a href="#cb22-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-226"><a href="#cb22-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-227"><a href="#cb22-227" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)</span>
+<span id="cb22-228"><a href="#cb22-228" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>idw <span class="ot">=</span> i<span class="sc">$</span>var1.pred</span>
+<span id="cb22-229"><a href="#cb22-229" aria-hidden="true" tabindex="-1"></a>k<span class="sc">$</span>kriging <span class="ot">=</span> k<span class="sc">$</span>var1.pred</span>
+<span id="cb22-230"><a href="#cb22-230" aria-hidden="true" tabindex="-1"></a>hook <span class="ot">=</span> <span class="cf">function</span>() {</span>
+<span id="cb22-231"><a href="#cb22-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">st_geometry</span>(no2.sf), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'yellow'</span>)</span>
+<span id="cb22-232"><a href="#cb22-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'red'</span>)</span>
+<span id="cb22-233"><a href="#cb22-233" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-234"><a href="#cb22-234" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(k[<span class="fu">c</span>(<span class="st">"kriging"</span>, <span class="st">"idw"</span>)]), <span class="at">hook =</span> hook, <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb22-235"><a href="#cb22-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb22-236"><a href="#cb22-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-237"><a href="#cb22-237" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>raster maps with continuous values</span>
-<span id="cb22-238"><a href="#cb22-238" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>smooth spatial patterns</span>
+<span id="cb22-237"><a href="#cb22-237" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb22-238"><a href="#cb22-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Density or interpolation?</span></span>
 <span id="cb22-239"><a href="#cb22-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-240"><a href="#cb22-240" aria-hidden="true" tabindex="-1"></a>The differences are huge!</span>
-<span id="cb22-241"><a href="#cb22-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-242"><a href="#cb22-242" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>point density estimates estimate the number of points per unit area; the values are (normalized) _counts_</span>
-<span id="cb22-243"><a href="#cb22-243" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_</span>
-<span id="cb22-244"><a href="#cb22-244" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-240"><a href="#cb22-240" aria-hidden="true" tabindex="-1"></a>Both density maps shown in the Point Pattern section and interpolated</span>
+<span id="cb22-241"><a href="#cb22-241" aria-hidden="true" tabindex="-1"></a>maps shown in this section look very similar:</span>
+<span id="cb22-242"><a href="#cb22-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-243"><a href="#cb22-243" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>raster maps with continuous values</span>
+<span id="cb22-244"><a href="#cb22-244" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>smooth spatial patterns</span>
 <span id="cb22-245"><a href="#cb22-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-246"><a href="#cb22-246" aria-hidden="true" tabindex="-1"></a>To illustrate the difference between density and interpolated values:</span>
+<span id="cb22-246"><a href="#cb22-246" aria-hidden="true" tabindex="-1"></a>The differences could not be larger!</span>
 <span id="cb22-247"><a href="#cb22-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-248"><a href="#cb22-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb22-249"><a href="#cb22-249" aria-hidden="true" tabindex="-1"></a><span class="in">library(spatstat)</span></span>
-<span id="cb22-250"><a href="#cb22-250" aria-hidden="true" tabindex="-1"></a><span class="in">p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))</span></span>
-<span id="cb22-251"><a href="#cb22-251" aria-hidden="true" tabindex="-1"></a><span class="in">density(p) |&gt; st_as_stars() |&gt; plot(main = "station density (# m^-2)", reset = FALSE)</span></span>
-<span id="cb22-252"><a href="#cb22-252" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')</span></span>
-<span id="cb22-253"><a href="#cb22-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-248"><a href="#cb22-248" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>point density estimates estimate the number of points per unit area; the values are (normalized) _counts_</span>
+<span id="cb22-249"><a href="#cb22-249" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_</span>
+<span id="cb22-250"><a href="#cb22-250" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-251"><a href="#cb22-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-252"><a href="#cb22-252" aria-hidden="true" tabindex="-1"></a>To illustrate the difference between density and interpolated values:</span>
+<span id="cb22-253"><a href="#cb22-253" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-254"><a href="#cb22-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
-<span id="cb22-255"><a href="#cb22-255" aria-hidden="true" tabindex="-1"></a><span class="in">plot(i, main = "interpolation: NO2 (ppm)", reset = FALSE)</span></span>
-<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')</span></span>
-<span id="cb22-257"><a href="#cb22-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-258"><a href="#cb22-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-259"><a href="#cb22-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conditional simulation</span></span>
-<span id="cb22-261"><a href="#cb22-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-262"><a href="#cb22-262" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulating spatially correlated data</span></span>
-<span id="cb22-263"><a href="#cb22-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-264"><a href="#cb22-264" aria-hidden="true" tabindex="-1"></a>Using a coarse grid, with base R:</span>
-<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-268"><a href="#cb22-268" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13579</span>)</span>
-<span id="cb22-269"><a href="#cb22-269" aria-hidden="true" tabindex="-1"></a>g2c <span class="ot">=</span> <span class="fu">st_as_stars</span>(<span class="fu">st_bbox</span>(de), <span class="at">dx =</span> <span class="dv">15000</span>)</span>
-<span id="cb22-270"><a href="#cb22-270" aria-hidden="true" tabindex="-1"></a>g3c <span class="ot">=</span> <span class="fu">st_crop</span>(g2c, de)</span>
-<span id="cb22-271"><a href="#cb22-271" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">st_as_sf</span>(g3c, <span class="at">as_points =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-272"><a href="#cb22-272" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(p)</span>
-<span id="cb22-273"><a href="#cb22-273" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">=</span> <span class="fu">variogramLine</span>(v.fit, <span class="at">covariance =</span> <span class="cn">TRUE</span>, <span class="at">dist_vector =</span> d)</span>
-<span id="cb22-274"><a href="#cb22-274" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb22-275"><a href="#cb22-275" aria-hidden="true" tabindex="-1"></a>ch <span class="ot">=</span> <span class="fu">chol</span>(Sigma)</span>
-<span id="cb22-276"><a href="#cb22-276" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> <span class="fu">nrow</span>(ch)), <span class="at">nrow =</span> n) <span class="sc">%*%</span> ch <span class="sc">+</span> <span class="fu">mean</span>(no2.sf<span class="sc">$</span>NO2)</span>
-<span id="cb22-277"><a href="#cb22-277" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
-<span id="cb22-278"><a href="#cb22-278" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">=</span> g3c[[<span class="dv">1</span>]]</span>
-<span id="cb22-279"><a href="#cb22-279" aria-hidden="true" tabindex="-1"></a>    m[<span class="sc">!</span><span class="fu">is.na</span>(m)] <span class="ot">=</span> sim[i,]</span>
-<span id="cb22-280"><a href="#cb22-280" aria-hidden="true" tabindex="-1"></a>    g3c[[ <span class="fu">paste0</span>(<span class="st">"sim"</span>, i) ]] <span class="ot">=</span> m</span>
-<span id="cb22-281"><a href="#cb22-281" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-282"><a href="#cb22-282" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(g3c[<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb22-283"><a href="#cb22-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-284"><a href="#cb22-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-285"><a href="#cb22-285" aria-hidden="true" tabindex="-1"></a>As a check, we could compute the variogram of some of the realisations:</span>
-<span id="cb22-288"><a href="#cb22-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-289"><a href="#cb22-289" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim4"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb22-290"><a href="#cb22-290" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb22-291"><a href="#cb22-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim4<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
-<span id="cb22-292"><a href="#cb22-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit)</span>
-<span id="cb22-293"><a href="#cb22-293" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim5"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb22-294"><a href="#cb22-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb22-295"><a href="#cb22-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim5<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
-<span id="cb22-296"><a href="#cb22-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">17.5</span>))</span>
-<span id="cb22-297"><a href="#cb22-297" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim6"</span>] <span class="sc">|&gt;</span> </span>
-<span id="cb22-298"><a href="#cb22-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb22-299"><a href="#cb22-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim6<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
-<span id="cb22-300"><a href="#cb22-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">17.5</span>))</span>
-<span id="cb22-301"><a href="#cb22-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-302"><a href="#cb22-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-303"><a href="#cb22-303" aria-hidden="true" tabindex="-1"></a>The mean of these simulations is constant, not related to measured values:</span>
-<span id="cb22-306"><a href="#cb22-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-307"><a href="#cb22-307" aria-hidden="true" tabindex="-1"></a><span class="fu">st_apply</span>(<span class="fu">merge</span>(g3c[<span class="sc">-</span><span class="dv">1</span>]), <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), mean) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb22-308"><a href="#cb22-308" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(no2.sf<span class="sc">$</span>NO2)</span>
-<span id="cb22-309"><a href="#cb22-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-310"><a href="#cb22-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-311"><a href="#cb22-311" aria-hidden="true" tabindex="-1"></a>Conditioning simulations on measured values can be done with <span class="in">`gstat`</span>, using</span>
-<span id="cb22-312"><a href="#cb22-312" aria-hidden="true" tabindex="-1"></a>_conditional simulation_</span>
-<span id="cb22-313"><a href="#cb22-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-316"><a href="#cb22-316" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-317"><a href="#cb22-317" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit, <span class="at">nsim =</span> <span class="dv">50</span>, <span class="at">nmax =</span> <span class="dv">30</span>)</span>
-<span id="cb22-318"><a href="#cb22-318" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cs[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
-<span id="cb22-319"><a href="#cb22-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-320"><a href="#cb22-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-321"><a href="#cb22-321" aria-hidden="true" tabindex="-1"></a>We see that these simulations are much more alike;</span>
-<span id="cb22-324"><a href="#cb22-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-325"><a href="#cb22-325" aria-hidden="true" tabindex="-1"></a>csm <span class="ot">=</span> <span class="fu">st_apply</span>(cs, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), mean)</span>
-<span id="cb22-326"><a href="#cb22-326" aria-hidden="true" tabindex="-1"></a>csm<span class="sc">$</span>kriging <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)[<span class="dv">1</span>]</span>
-<span id="cb22-327"><a href="#cb22-327" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(csm), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb22-328"><a href="#cb22-328" aria-hidden="true" tabindex="-1"></a>csv <span class="ot">=</span> <span class="fu">st_apply</span>(cs, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), var)</span>
-<span id="cb22-329"><a href="#cb22-329" aria-hidden="true" tabindex="-1"></a>csv<span class="sc">$</span>kr_var <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)[<span class="dv">2</span>]</span>
-<span id="cb22-330"><a href="#cb22-330" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(csv), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb22-331"><a href="#cb22-331" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-332"><a href="#cb22-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-333"><a href="#cb22-333" aria-hidden="true" tabindex="-1"></a><span class="fu">## SpatioTemporal geostatistics</span></span>
-<span id="cb22-334"><a href="#cb22-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-335"><a href="#cb22-335" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Ch 13</span><span class="co">](https://r-spatial.org/book/13-Geostatistics.html)</span></span>
-<span id="cb22-336"><a href="#cb22-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-337"><a href="#cb22-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
-<span id="cb22-338"><a href="#cb22-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-339"><a href="#cb22-339" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Pebesma, E.J., 2004. Multivariable geostatistics</span>
-<span id="cb22-340"><a href="#cb22-340" aria-hidden="true" tabindex="-1"></a>in S: the gstat package. Computers &amp; Geosciences, 30:</span>
-<span id="cb22-341"><a href="#cb22-341" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">683-691</span><span class="co">](https://doi.org/10.1016/j.cageo.2004.03.012)</span>.</span>
-<span id="cb22-342"><a href="#cb22-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-343"><a href="#cb22-343" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016.</span>
-<span id="cb22-344"><a href="#cb22-344" aria-hidden="true" tabindex="-1"></a>Spatio-Temporal Interpolation using gstat.  The R Journal 8(1),</span>
-<span id="cb22-345"><a href="#cb22-345" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">204-218</span><span class="co">](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)</span></span>
+<span id="cb22-255"><a href="#cb22-255" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
+<span id="cb22-257"><a href="#cb22-257" aria-hidden="true" tabindex="-1"></a><span class="in">library(spatstat)</span></span>
+<span id="cb22-258"><a href="#cb22-258" aria-hidden="true" tabindex="-1"></a><span class="in">p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))</span></span>
+<span id="cb22-259"><a href="#cb22-259" aria-hidden="true" tabindex="-1"></a><span class="in">density(p) |&gt; st_as_stars() |&gt; plot(main = "station density (# m^-2)", reset = FALSE)</span></span>
+<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')</span></span>
+<span id="cb22-261"><a href="#cb22-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-262"><a href="#cb22-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=FALSE}</span></span>
+<span id="cb22-263"><a href="#cb22-263" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb22-264"><a href="#cb22-264" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
+<span id="cb22-265"><a href="#cb22-265" aria-hidden="true" tabindex="-1"></a><span class="in">plot(i, main = "interpolation: NO2 (ppm)", reset = FALSE)</span></span>
+<span id="cb22-266"><a href="#cb22-266" aria-hidden="true" tabindex="-1"></a><span class="in">plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')</span></span>
+<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-268"><a href="#cb22-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-269"><a href="#cb22-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kriging with a non-constant mean</span></span>
+<span id="cb22-270"><a href="#cb22-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-271"><a href="#cb22-271" aria-hidden="true" tabindex="-1"></a>Under the model $Z(s) = X(s)\beta + e(s)$, $\beta$ is estimated</span>
+<span id="cb22-272"><a href="#cb22-272" aria-hidden="true" tabindex="-1"></a>using generalized least squares, and the variogram of regression</span>
+<span id="cb22-273"><a href="#cb22-273" aria-hidden="true" tabindex="-1"></a>residuals is needed; see Ch 12.</span>
+<span id="cb22-274"><a href="#cb22-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-275"><a href="#cb22-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conditional simulation</span></span>
+<span id="cb22-276"><a href="#cb22-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-277"><a href="#cb22-277" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulating spatially correlated data</span></span>
+<span id="cb22-278"><a href="#cb22-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-279"><a href="#cb22-279" aria-hidden="true" tabindex="-1"></a>Using a coarse grid, with base R:</span>
+<span id="cb22-282"><a href="#cb22-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-283"><a href="#cb22-283" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13579</span>)</span>
+<span id="cb22-284"><a href="#cb22-284" aria-hidden="true" tabindex="-1"></a>g2c <span class="ot">=</span> <span class="fu">st_as_stars</span>(<span class="fu">st_bbox</span>(de), <span class="at">dx =</span> <span class="dv">15000</span>)</span>
+<span id="cb22-285"><a href="#cb22-285" aria-hidden="true" tabindex="-1"></a>g3c <span class="ot">=</span> <span class="fu">st_crop</span>(g2c, de)</span>
+<span id="cb22-286"><a href="#cb22-286" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">st_as_sf</span>(g3c, <span class="at">as_points =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-287"><a href="#cb22-287" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(p)</span>
+<span id="cb22-288"><a href="#cb22-288" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">=</span> <span class="fu">variogramLine</span>(v.fit, <span class="at">covariance =</span> <span class="cn">TRUE</span>, <span class="at">dist_vector =</span> d)</span>
+<span id="cb22-289"><a href="#cb22-289" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb22-290"><a href="#cb22-290" aria-hidden="true" tabindex="-1"></a>ch <span class="ot">=</span> <span class="fu">chol</span>(Sigma)</span>
+<span id="cb22-291"><a href="#cb22-291" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> <span class="fu">nrow</span>(ch)), <span class="at">nrow =</span> n) <span class="sc">%*%</span> ch <span class="sc">+</span> <span class="fu">mean</span>(no2.sf<span class="sc">$</span>NO2)</span>
+<span id="cb22-292"><a href="#cb22-292" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n)) {</span>
+<span id="cb22-293"><a href="#cb22-293" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">=</span> g3c[[<span class="dv">1</span>]]</span>
+<span id="cb22-294"><a href="#cb22-294" aria-hidden="true" tabindex="-1"></a>    m[<span class="sc">!</span><span class="fu">is.na</span>(m)] <span class="ot">=</span> sim[i,]</span>
+<span id="cb22-295"><a href="#cb22-295" aria-hidden="true" tabindex="-1"></a>    g3c[[ <span class="fu">paste0</span>(<span class="st">"sim"</span>, i) ]] <span class="ot">=</span> m</span>
+<span id="cb22-296"><a href="#cb22-296" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-297"><a href="#cb22-297" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(g3c[<span class="dv">2</span><span class="sc">:</span><span class="dv">11</span>]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb22-298"><a href="#cb22-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-299"><a href="#cb22-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-300"><a href="#cb22-300" aria-hidden="true" tabindex="-1"></a>As a check, we could compute the variogram of some of the realisations:</span>
+<span id="cb22-303"><a href="#cb22-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-304"><a href="#cb22-304" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim4"</span>] <span class="sc">|&gt;</span> </span>
+<span id="cb22-305"><a href="#cb22-305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-306"><a href="#cb22-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim4<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
+<span id="cb22-307"><a href="#cb22-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit)</span>
+<span id="cb22-308"><a href="#cb22-308" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim5"</span>] <span class="sc">|&gt;</span> </span>
+<span id="cb22-309"><a href="#cb22-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-310"><a href="#cb22-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim5<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
+<span id="cb22-311"><a href="#cb22-311" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">17.5</span>))</span>
+<span id="cb22-312"><a href="#cb22-312" aria-hidden="true" tabindex="-1"></a>g3c[<span class="st">"sim6"</span>] <span class="sc">|&gt;</span> </span>
+<span id="cb22-313"><a href="#cb22-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-314"><a href="#cb22-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">variogram</span>(sim6<span class="sc">~</span><span class="dv">1</span>, <span class="at">data =</span> _) <span class="sc">|&gt;</span> </span>
+<span id="cb22-315"><a href="#cb22-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">model =</span> v.fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">17.5</span>))</span>
+<span id="cb22-316"><a href="#cb22-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-317"><a href="#cb22-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-318"><a href="#cb22-318" aria-hidden="true" tabindex="-1"></a>The mean of these simulations is constant, not related to measured values:</span>
+<span id="cb22-321"><a href="#cb22-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-322"><a href="#cb22-322" aria-hidden="true" tabindex="-1"></a><span class="fu">st_apply</span>(<span class="fu">merge</span>(g3c[<span class="sc">-</span><span class="dv">1</span>]), <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), mean) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb22-323"><a href="#cb22-323" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(no2.sf<span class="sc">$</span>NO2)</span>
+<span id="cb22-324"><a href="#cb22-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-325"><a href="#cb22-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-326"><a href="#cb22-326" aria-hidden="true" tabindex="-1"></a>Conditioning simulations on measured values can be done with <span class="in">`gstat`</span>, using</span>
+<span id="cb22-327"><a href="#cb22-327" aria-hidden="true" tabindex="-1"></a>_conditional simulation_</span>
+<span id="cb22-328"><a href="#cb22-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-331"><a href="#cb22-331" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-332"><a href="#cb22-332" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit, <span class="at">nsim =</span> <span class="dv">50</span>, <span class="at">nmax =</span> <span class="dv">30</span>)</span>
+<span id="cb22-333"><a href="#cb22-333" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cs[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span>
+<span id="cb22-334"><a href="#cb22-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-335"><a href="#cb22-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-336"><a href="#cb22-336" aria-hidden="true" tabindex="-1"></a>We see that these simulations are much more alike; also their</span>
+<span id="cb22-337"><a href="#cb22-337" aria-hidden="true" tabindex="-1"></a>mean and variance resemble that of the kriging mean and variance:</span>
+<span id="cb22-340"><a href="#cb22-340" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-341"><a href="#cb22-341" aria-hidden="true" tabindex="-1"></a>csm <span class="ot">=</span> <span class="fu">st_apply</span>(cs, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), mean)</span>
+<span id="cb22-342"><a href="#cb22-342" aria-hidden="true" tabindex="-1"></a>csm<span class="sc">$</span>kriging <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)[<span class="dv">1</span>]</span>
+<span id="cb22-343"><a href="#cb22-343" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(csm), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb22-344"><a href="#cb22-344" aria-hidden="true" tabindex="-1"></a>csv <span class="ot">=</span> <span class="fu">st_apply</span>(cs, <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), var)</span>
+<span id="cb22-345"><a href="#cb22-345" aria-hidden="true" tabindex="-1"></a>csv<span class="sc">$</span>kr_var <span class="ot">=</span> <span class="fu">krige</span>(NO2<span class="sc">~</span><span class="dv">1</span>, no2.sf, g3, v.fit)[<span class="dv">2</span>]</span>
+<span id="cb22-346"><a href="#cb22-346" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(csv), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb22-347"><a href="#cb22-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-348"><a href="#cb22-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-349"><a href="#cb22-349" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
+<span id="cb22-350"><a href="#cb22-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-351"><a href="#cb22-351" aria-hidden="true" tabindex="-1"></a>What causes the differences between the mean and the variance</span>
+<span id="cb22-352"><a href="#cb22-352" aria-hidden="true" tabindex="-1"></a>of the simulations (left) and the mean and variance obtained</span>
+<span id="cb22-353"><a href="#cb22-353" aria-hidden="true" tabindex="-1"></a>by kriging (right)?</span>
+<span id="cb22-354"><a href="#cb22-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-355"><a href="#cb22-355" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-356"><a href="#cb22-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-357"><a href="#cb22-357" aria-hidden="true" tabindex="-1"></a><span class="fu">## SpatioTemporal geostatistics</span></span>
+<span id="cb22-358"><a href="#cb22-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-359"><a href="#cb22-359" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Ch 13</span><span class="co">](https://r-spatial.org/book/13-Geostatistics.html)</span></span>
+<span id="cb22-360"><a href="#cb22-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-361"><a href="#cb22-361" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
+<span id="cb22-362"><a href="#cb22-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-363"><a href="#cb22-363" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Pebesma, E.J., 2004. Multivariable geostatistics</span>
+<span id="cb22-364"><a href="#cb22-364" aria-hidden="true" tabindex="-1"></a>in S: the gstat package. Computers &amp; Geosciences, 30:</span>
+<span id="cb22-365"><a href="#cb22-365" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">683-691</span><span class="co">](https://doi.org/10.1016/j.cageo.2004.03.012)</span>.</span>
+<span id="cb22-366"><a href="#cb22-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-367"><a href="#cb22-367" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016.</span>
+<span id="cb22-368"><a href="#cb22-368" aria-hidden="true" tabindex="-1"></a>Spatio-Temporal Interpolation using gstat.  The R Journal 8(1),</span>
+<span id="cb22-369"><a href="#cb22-369" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">204-218</span><span class="co">](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
