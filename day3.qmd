@@ -88,11 +88,29 @@ hscat(NO2~1, no2.sf, breaks = c(0,50,100,150,200,250)*1000)
 
 ### Variogram
 
-"by hand", base R:
+When we assume $Z(s)$ has a constant and unknown mean, the spatial
+dependence can be described by the variogram, defined as $\gamma(h)
+= 0.5 E(Z(s)-Z(s+h))^2$.  If the random process $Z(s)$ has a finite
+variance, then the variogram is related to the covariance function
+$C(h)$ by $\gamma(h) = C(0)-C(h)$.
+
+The variogram can be estimated from sample data by averaging squared differences:
+$$\hat{\gamma}(\tilde{h})=\frac{1}{2N_h}\sum_{i=1}^{N_h}(Z(s_i)-Z(s_i+h))^2 \ \
+h \in \tilde{h}$$
+
+* divide by $2N_h$:
+    * if finite, $\gamma(\infty)=\sigma^2=C(0)$
+    * _semi_ variance
+* if data are not gridded, group $N_h$ pairs $s_i,s_i+h$ for which $h \in \tilde{h}$, $\tilde{h}=[h_1,h_2]$
+* rule-of-thumb: choose about 10-25 distance intervals $\tilde{h}$, from length 0 to about on third of the area size
+* plot $\gamma$ against $\tilde{h}$ taken as the average value of all $h \in \tilde{h}$
+
+
+We can compute a variogram "by hand", using base R:
 ```{r}
 z = no2.sf$NO2
-z2 = 0.5 * outer(z, z, FUN = "-")^2
-d = as.matrix(st_distance(no2.sf))
+z2 = 0.5 * outer(z, z, FUN = "-")^2 # (Z(s)-Z(s+h))^2
+d = as.matrix(st_distance(no2.sf))  # h
 vcloud = data.frame(dist = as.vector(d), gamma = as.vector(z2))
 vcloud = vcloud[vcloud$dist != 0,]
 vcloud$dclass = cut(vcloud$dist, c(0, 50, 100, 150, 200, 250, 300, 350) * 1000)
@@ -201,19 +219,21 @@ The differences are huge!
 
 * point density estimates estimate the number of points per unit area; the values are (normalized) _counts_
 * interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_
+:::
+
+To illustrate the difference between density and interpolated values:
 
 ```{r echo=FALSE}
 library(spatstat)
 p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))
-density(p) |> st_as_stars() |> plot(main = "density: # / km^2", reset = FALSE)
+density(p) |> st_as_stars() |> plot(main = "station density (# m^-2)", reset = FALSE)
 plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 ```
 ```{r echo=FALSE}
-plot(i, main = "interpolation: NO2", reset = FALSE)
+plot(i, main = "interpolation: NO2 (ppm)", reset = FALSE)
 plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 ```
 
-:::
 
 ## Conditional simulation
 
@@ -222,7 +242,7 @@ plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 Using a coarse grid, with base R:
 ```{r}
 set.seed(13579)
-g2c = st_as_stars(st_bbox(de), dx = 20000)
+g2c = st_as_stars(st_bbox(de), dx = 15000)
 g3c = st_crop(g2c, de)
 p = st_as_sf(g3c, as_points = TRUE)
 d = st_distance(p)
@@ -243,15 +263,15 @@ As a check, we could compute the variogram of some of the realisations:
 g3c["sim4"] |> 
   st_as_sf() |> 
   variogram(sim4~1, data = _) |> 
-  plot(model = v.fit, ylim = c(0,16.5))
+  plot(model = v.fit)
 g3c["sim5"] |> 
   st_as_sf() |> 
   variogram(sim5~1, data = _) |> 
-  plot(model = v.fit, ylim = c(0,16.5))
+  plot(model = v.fit, ylim = c(0,17.5))
 g3c["sim6"] |> 
   st_as_sf() |> 
   variogram(sim6~1, data = _) |> 
-  plot(model = v.fit, ylim = c(0,16.5))
+  plot(model = v.fit, ylim = c(0,17.5))
 ```
 
 The mean of these simulations is constant, not related to measured values:
