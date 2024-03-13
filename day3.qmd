@@ -120,6 +120,74 @@ Compute the variogram of NO2 using argument `cloud = TRUE`.
 
 ##  Interpolation
 
+For interpolation, we first need a target grid (point patterns have
+an observation window, geostatistical data not!)
+
+A simple interpolator (that is hard to beat) is the inverse distance interpolator,
+$$\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)$$
+with $\lambda_j$ proportional to $||s_i - s_0||^{-p}$ and normalized to sum
+to one (weighted mean), and $p$ tunable but defaulting to 2.
+
+Using the data range:
+```{r}
+library(stars)
+g1 = st_as_stars(st_bbox(no2.sf))
+library(gstat)
+idw(NO2~1, no2.sf, g1) |> plot(reset = FALSE)
+plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
+```
+
+Better to use the outer polygon:
+```{r}
+g2 = st_as_stars(st_bbox(de))
+idw(NO2~1, no2.sf, g2) |> plot(reset = FALSE)
+plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
+```
+
+And crop to (mask out outside) the area of interest:
+```{r}
+g3 = st_crop(g2, de)
+i = idw(NO2~1, no2.sf, g3) 
+plot(i, reset = FALSE, main = "yearly mean NO2, rural background")
+plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
+```
+
+Geostatistical approaches compute weights based on covariances
+between observations $Z(s_i)$, and between observations and the
+value at the interpolation location $Z(s_0)$. These covariances
+are obtained from a model fitted to the sample variogram.
+
+## Fit a variogram model
+
+```{r}
+# The sample variogram:
+v = variogram(NO2~1, no2.sf)
+plot(v)
+```
+
+fit a model, e.g. an exponential model:
+```{r}
+v.fit = fit.variogram(v, vgm(1, "Exp", 50000))
+plot(v, v.fit)
+```
+
+Given this model, we can interpolate using the _best unbiased linear
+predictor_ (BLUP), also called kriging predictor:
+
+```{r}
+k = krige(NO2~1, no2.sf, g3, v.fit)
+k$idw = i$var1.pred
+k$kriging = k$var1.pred
+hook = function() {
+  plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+  plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
+}
+plot(merge(k[c("kriging", "idw")]), hook = hook, breaks = "equal")
+```
+
 ::: {.callout-important}
 ## Density or interpolation?
 
@@ -134,8 +202,85 @@ The differences are huge!
 * point density estimates estimate the number of points per unit area; the values are (normalized) _counts_
 * interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_
 
+```{r echo=FALSE}
+library(spatstat)
+p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))
+density(p) |> st_as_stars() |> plot(main = "density: # / km^2", reset = FALSE)
+plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+```
+```{r echo=FALSE}
+plot(i, main = "interpolation: NO2", reset = FALSE)
+plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
+```
+
 :::
 
+## Conditional simulation
+
+### Simulating spatially correlated data
+
+Using a coarse grid, with base R:
+```{r}
+set.seed(13579)
+g2c = st_as_stars(st_bbox(de), dx = 20000)
+g3c = st_crop(g2c, de)
+p = st_as_sf(g3c, as_points = TRUE)
+d = st_distance(p)
+Sigma = variogramLine(v.fit, covariance = TRUE, dist_vector = d)
+n = 100
+ch = chol(Sigma)
+sim = matrix(rnorm(n * nrow(ch)), nrow = n) %*% ch + mean(no2.sf$NO2)
+for (i in seq_len(n)) {
+	m = g3c[[1]]
+	m[!is.na(m)] = sim[i,]
+	g3c[[ paste0("sim", i) ]] = m
+}
+plot(merge(g3c[2:11]), breaks = "equal")
+```
+
+As a check, we could compute the variogram of some of the realisations:
+```{r}
+g3c["sim4"] |> 
+  st_as_sf() |> 
+  variogram(sim4~1, data = _) |> 
+  plot(model = v.fit, ylim = c(0,16.5))
+g3c["sim5"] |> 
+  st_as_sf() |> 
+  variogram(sim5~1, data = _) |> 
+  plot(model = v.fit, ylim = c(0,16.5))
+g3c["sim6"] |> 
+  st_as_sf() |> 
+  variogram(sim6~1, data = _) |> 
+  plot(model = v.fit, ylim = c(0,16.5))
+```
+
+The mean of these simulations is constant, not related to measured values:
+```{r}
+st_apply(merge(g3c[-1]), c("x", "y"), mean) |> plot()
+mean(no2.sf$NO2)
+```
+
+Conditioning simulations on measured values can be done with `gstat`, using
+_conditional simulation_
+
+```{r}
+cs = krige(NO2~1, no2.sf, g3, v.fit, nsim = 50, nmax = 30)
+plot(cs[,,,1:10])
+```
+
+We see that these simulations are much more alike;
+```{r}
+csm = st_apply(cs, c("x", "y"), mean)
+csm$kriging = krige(NO2~1, no2.sf, g3, v.fit)[1]
+plot(merge(csm), breaks = "equal")
+csv = st_apply(cs, c("x", "y"), var)
+csv$kr_var = krige(NO2~1, no2.sf, g3, v.fit)[2]
+plot(merge(csv), breaks = "equal")
+```
+
+## SpatioTemporal geostatistics
+
+* [Ch 13](https://r-spatial.org/book/13-Geostatistics.html)
 
 ## Further reading
 
