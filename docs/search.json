@@ -353,8 +353,18 @@
     "objectID": "day4.html#transferrability-of-models-area-of-applicability",
     "href": "day4.html#transferrability-of-models-area-of-applicability",
     "title": "\n4  Machine Learning methods applied to spatial data\n",
-    "section": "\n4.3 Transferrability of models: area of applicability",
-    "text": "4.3 Transferrability of models: area of applicability\n\naoa &lt;- aoa(r, tr)\n# No trainDI provided. Computing DI of training data...\n# note: Either no model was given or no CV was used for model training. The DI threshold is therefore based on all training data\n# Computing DI of newdata...\n# Computing AOA...\nplot(aoa)\n# Warning: Removed 395 rows containing non-finite outside the scale range\n# (`stat_density()`).\n\n\n\n\n\n\nplot(aoa$DI)\n\n\n\n\n\n\nplot(aoa$AOA)",
+    "section": "\n4.3 Transferrability of models: “area of applicability”",
+    "text": "4.3 Transferrability of models: “area of applicability”\nExplained here;\n\naoa &lt;- aoa(r, tr)\n# No trainDI provided. Computing DI of training data...\n# note: Either no model was given or no CV was used for model training. The DI threshold is therefore based on all training data\n# Computing DI of newdata...\n# Computing AOA...\nplot(aoa)\n# Warning: Removed 395 rows containing non-finite outside the scale range\n# (`stat_density()`).\n\n\n\n\n\n\nplot(aoa$DI)\n\n\n\n\n\n\nplot(aoa$AOA)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Machine Learning methods applied to spatial data</span>"
+    ]
+  },
+  {
+    "objectID": "day4.html#random-forests-for-spatially-dependent-data",
+    "href": "day4.html#random-forests-for-spatially-dependent-data",
+    "title": "\n4  Machine Learning methods applied to spatial data\n",
+    "section": "\n4.4 Random Forests for Spatially Dependent Data",
+    "text": "4.4 Random Forests for Spatially Dependent Data\nR package RandomForestGLS!\nCombines the good parts of RF and Gaussian processes, in a very smart way! (final paper, paywalled, here). The discussion on variable selection / variable importance under spatial correlated residuals is worth reading.\n\nlibrary(RandomForestsGLS)\ncc = st_coordinates(splotdata)\nload(\"rfgls.rda\")\nif (!exists(\"rfgls\")) {\n     rfgls = RFGLS_estimate_spatial(cc, as.double(y), x)\n}\ncc_pr = st_coordinates(split(r))\nhead(as.data.frame(split(r)))\n#       x     y bio_1 bio_4 bio_5 bio_6 bio_8 bio_9 bio_12 bio_13\n# 1 -75.6 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n# 2 -75.5 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n# 3 -75.5 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n# 4 -75.4 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n# 5 -75.3 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n# 6 -75.2 -17.6    NA    NA    NA    NA    NA    NA     NA     NA\n#   bio_14 bio_15 elev\n# 1     NA     NA   NA\n# 2     NA     NA   NA\n# 3     NA     NA   NA\n# 4     NA     NA   NA\n# 5     NA     NA   NA\n# 6     NA     NA   NA\npr = RFGLS_predict_spatial(rfgls, as.matrix(cc_pr), as.data.frame(split(r))[-(1:2)])\n# Warning in BRISC_estimation(coords, x = matrix(1, nrow(coords), 1), y = rfgls_residual, : The ordering of inputs x (covariates) and y (response) in BRISC_estimation has been changed BRISC 1.0.0 onwards.\n# Please check the new documentation with ?BRISC_estimation.\nout = split(r)\nout$rfgls = pr$prediction\nout$rf = predict(split(r), tr)\nplot(merge(out[c(\"rf\", \"rfgls\")]), breaks = \"equal\")",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Machine Learning methods applied to spatial data</span>"
     ]
@@ -363,8 +373,8 @@
     "objectID": "day4.html#maxent",
     "href": "day4.html#maxent",
     "title": "\n4  Machine Learning methods applied to spatial data\n",
-    "section": "\n4.4 MaxEnt",
-    "text": "4.4 MaxEnt\n\nA statistical explanation of MaxEnt for Ecologists\nR package maxnet does that using glmnet (lasso or elasticnet regularization on\nA paper detailing the equivalence and differences between point pattern models and MaxEnt, found here.",
+    "section": "\n4.5 MaxEnt",
+    "text": "4.5 MaxEnt\n\nA statistical explanation of MaxEnt for Ecologists\nR package maxnet does that using glmnet (lasso or elasticnet regularization on\nA paper detailing the equivalence and differences between point pattern models and MaxEnt, found here.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Machine Learning methods applied to spatial data</span>"
     ]

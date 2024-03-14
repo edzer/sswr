@@ -215,7 +215,9 @@ predict(split(r), tr) |> plot()
 
 ## Cross validation: random or spatially blocked?
 
-## Transferrability of models: area of applicability
+## Transferrability of models: "area of applicability"
+
+Explained [here](https://doi.org/10.1111/2041-210X.13650);
 
 ```{r}
 aoa <- aoa(r, tr)
@@ -223,6 +225,33 @@ plot(aoa)
 plot(aoa$DI)
 plot(aoa$AOA)
 ```
+
+## Random Forests for Spatially Dependent Data
+
+R package [RandomForestGLS](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)!
+
+Combines the good parts of RF and Gaussian processes, in a very
+[smart way](https://arxiv.org/abs/2007.15421)!  (final paper,
+paywalled, [here](https://doi.org/10.1080/01621459.2021.1950003)).
+The discussion on variable selection / variable importance under
+spatial correlated residuals is worth reading.
+
+```{r}
+library(RandomForestsGLS)
+cc = st_coordinates(splotdata)
+load("rfgls.rda")
+if (!exists("rfgls")) {
+	 rfgls = RFGLS_estimate_spatial(cc, as.double(y), x)
+}
+cc_pr = st_coordinates(split(r))
+head(as.data.frame(split(r)))
+pr = RFGLS_predict_spatial(rfgls, as.matrix(cc_pr), as.data.frame(split(r))[-(1:2)])
+out = split(r)
+out$rfgls = pr$prediction
+out$rf = predict(split(r), tr)
+plot(merge(out[c("rf", "rfgls")]), breaks = "equal")
+```
+
 
 ## MaxEnt
 
