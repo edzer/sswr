@@ -112,6 +112,16 @@ plot(g4["NO2_lm4"], breaks = "equal", reset = FALSE, main = "3rd order polynomia
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 ```
 
+
+::: {.callout-note title="Breakout session 1"}
+
+Discuss:
+
+* how would the predicted surface look like when instead of (functions of) coordinates, the variable _elevation_ were used (e.g. to predict average temperatures)?
+* what would be the value range, approximately, of the predicted values? 
+
+:::
+
 ### regression tree
 
 ```{r}
@@ -189,6 +199,7 @@ plot(g4["rf_dm"], breaks = "equal", reset = FALSE, main = "random forest")
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 ```
 
+
 ### Further approaches:
 
 * use linear regression on Gaussian kernel basis functions, $\exp(-h^2)$
@@ -196,6 +207,15 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 * use additional, non-distance/coordinate functions as base function(s)
     * provided they are available "everywhere" (as _coverage_)
     * examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands
+
+::: {.callout-note title="Breakout session 2"}
+
+Discuss:
+
+* How could you assess whether residuals from your fitted model are spatially correlated?
+* Does random cross validation assume that observations are independent?
+
+:::
 
 ### Example from CAST / caret
 

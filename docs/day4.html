@@ -544,6 +544,23 @@ Summary
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Breakout session 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discuss:</p>
+<ul>
+<li>how would the predicted surface look like when instead of (functions of) coordinates, the variable <em>elevation</em> were used (e.g.&nbsp;to predict average temperatures)?</li>
+<li>what would be the value range, approximately, of the predicted values?</li>
+</ul>
+</div>
+</div>
 </section><section id="regression-tree" class="level3"><h3 class="anchored" data-anchor-id="regression-tree">regression tree</h3>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bethatkinson/rpart">rpart</a></span><span class="op">)</span></span>
@@ -705,7 +722,7 @@ Summary
 <span><span class="co"># [201] "d_184"      "d_185"      "d_186"      "d_187"     </span></span>
 <span><span class="co"># [205] "d_188"      "d_189"      "d_190"      "d_191"     </span></span>
 <span><span class="co"># [209] "d_192"      "d_193"      "d_194"      "d_195"     </span></span>
-<span><span class="co"># [213] "d_196"      "d_197"      "d_198"      "d_199"</span></span>
+<span><span class="co"># [213] "d_196"      "d_197"</span></span>
 <span><span class="va">rf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span><span class="va">NO2</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">no2.sf</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NO2"</span>, <span class="va">n</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="va">n</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">g4</span><span class="op">$</span><span class="va">rf_dm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">g4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g4</span><span class="op">[</span><span class="st">"rf_dm"</span><span class="op">]</span>, breaks <span class="op">=</span> <span class="st">"equal"</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"random forest"</span><span class="op">)</span></span>
@@ -728,7 +745,25 @@ Summary
 <li>examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands</li>
 </ul>
 </li>
-</ul></section><section id="example-from-cast-caret" class="level3"><h3 class="anchored" data-anchor-id="example-from-cast-caret">Example from CAST / caret</h3>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Breakout session 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discuss:</p>
+<ul>
+<li>How could you assess whether residuals from your fitted model are spatially correlated?</li>
+<li>Does random cross validation assume that observations are independent?</li>
+</ul>
+</div>
+</div>
+</section><section id="example-from-cast-caret" class="level3"><h3 class="anchored" data-anchor-id="example-from-cast-caret">Example from CAST / caret</h3>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HannaMeyer/CAST">CAST</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
@@ -1411,152 +1446,172 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-124"><a href="#cb20-124" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
 <span id="cb20-125"><a href="#cb20-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-126"><a href="#cb20-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### regression tree</span></span>
-<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
-<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">=</span> <span class="fu">rpart</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>)])</span>
-<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>tree <span class="ot">=</span> <span class="fu">predict</span>(tree, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"tree"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"regression tree"</span>)</span>
-<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-127"><a href="#cb20-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-128"><a href="#cb20-128" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 1"}</span>
+<span id="cb20-129"><a href="#cb20-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-130"><a href="#cb20-130" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
+<span id="cb20-131"><a href="#cb20-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-132"><a href="#cb20-132" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>how would the predicted surface look like when instead of (functions of) coordinates, the variable _elevation_ were used (e.g. to predict average temperatures)?</span>
+<span id="cb20-133"><a href="#cb20-133" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>what would be the value range, approximately, of the predicted values? </span>
+<span id="cb20-134"><a href="#cb20-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-135"><a href="#cb20-135" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb20-136"><a href="#cb20-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-137"><a href="#cb20-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### regression tree</span></span>
 <span id="cb20-138"><a href="#cb20-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-139"><a href="#cb20-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random forest</span></span>
-<span id="cb20-140"><a href="#cb20-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>)])</span>
-<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
-<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-141"><a href="#cb20-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-142"><a href="#cb20-142" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb20-143"><a href="#cb20-143" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">=</span> <span class="fu">rpart</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>)])</span>
+<span id="cb20-144"><a href="#cb20-144" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>tree <span class="ot">=</span> <span class="fu">predict</span>(tree, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-145"><a href="#cb20-145" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"tree"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"regression tree"</span>)</span>
+<span id="cb20-146"><a href="#cb20-146" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-147"><a href="#cb20-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-148"><a href="#cb20-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-149"><a href="#cb20-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random forest</span></span>
 <span id="cb20-150"><a href="#cb20-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-151"><a href="#cb20-151" aria-hidden="true" tabindex="-1"></a>Rotated coordinates:</span>
-<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a>no2.sf<span class="sc">$</span>x1 <span class="ot">=</span> no2.sf<span class="sc">$</span>x <span class="sc">+</span> no2.sf<span class="sc">$</span>y</span>
-<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a>no2.sf<span class="sc">$</span>y1 <span class="ot">=</span> no2.sf<span class="sc">$</span>x <span class="sc">-</span> no2.sf<span class="sc">$</span>y</span>
-<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x1"</span>, <span class="st">"y1"</span>)])</span>
-<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>x1 <span class="ot">=</span> g4<span class="sc">$</span>x <span class="sc">+</span> g4<span class="sc">$</span>y</span>
-<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>y1 <span class="ot">=</span> g4<span class="sc">$</span>x <span class="sc">-</span> g4<span class="sc">$</span>y</span>
-<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_rot <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-162"><a href="#cb20-162" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_rot"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
-<span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using distance variables:</span></span>
-<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span> <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> <span class="fu">st_cast</span>(<span class="st">"POINT"</span>) <span class="ot">-&gt;</span> pts</span>
-<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">c</span>(pts[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(de)))</span>
-<span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
-<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
-<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
-<span id="cb20-178"><a href="#cb20-178" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-179"><a href="#cb20-179" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
-<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
-<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(g4[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)]))</span>
-<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
-<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
-<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_d <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_d"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
-<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-153"><a href="#cb20-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-154"><a href="#cb20-154" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb20-155"><a href="#cb20-155" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x"</span>, <span class="st">"y"</span>)])</span>
+<span id="cb20-156"><a href="#cb20-156" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-157"><a href="#cb20-157" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
+<span id="cb20-158"><a href="#cb20-158" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-159"><a href="#cb20-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-160"><a href="#cb20-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-161"><a href="#cb20-161" aria-hidden="true" tabindex="-1"></a>Rotated coordinates:</span>
+<span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a>no2.sf<span class="sc">$</span>x1 <span class="ot">=</span> no2.sf<span class="sc">$</span>x <span class="sc">+</span> no2.sf<span class="sc">$</span>y</span>
+<span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a>no2.sf<span class="sc">$</span>y1 <span class="ot">=</span> no2.sf<span class="sc">$</span>x <span class="sc">-</span> no2.sf<span class="sc">$</span>y</span>
+<span id="cb20-168"><a href="#cb20-168" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, <span class="st">"x1"</span>, <span class="st">"y1"</span>)])</span>
+<span id="cb20-169"><a href="#cb20-169" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>x1 <span class="ot">=</span> g4<span class="sc">$</span>x <span class="sc">+</span> g4<span class="sc">$</span>y</span>
+<span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>y1 <span class="ot">=</span> g4<span class="sc">$</span>x <span class="sc">-</span> g4<span class="sc">$</span>y</span>
+<span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_rot <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-172"><a href="#cb20-172" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_rot"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
+<span id="cb20-173"><a href="#cb20-173" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-174"><a href="#cb20-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-175"><a href="#cb20-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-176"><a href="#cb20-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using distance variables:</span></span>
+<span id="cb20-177"><a href="#cb20-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-180"><a href="#cb20-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-181"><a href="#cb20-181" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span> <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> <span class="fu">st_cast</span>(<span class="st">"POINT"</span>) <span class="ot">-&gt;</span> pts</span>
+<span id="cb20-182"><a href="#cb20-182" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">c</span>(pts[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="fu">st_centroid</span>(<span class="fu">st_geometry</span>(de)))</span>
+<span id="cb20-183"><a href="#cb20-183" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
+<span id="cb20-184"><a href="#cb20-184" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-185"><a href="#cb20-185" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
+<span id="cb20-186"><a href="#cb20-186" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-187"><a href="#cb20-187" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
+<span id="cb20-188"><a href="#cb20-188" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-189"><a href="#cb20-189" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
+<span id="cb20-190"><a href="#cb20-190" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-191"><a href="#cb20-191" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
+<span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(g4[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)]))</span>
 <span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adding more...</span></span>
-<span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">st_sample</span>(de, <span class="dv">200</span>, <span class="at">type =</span> <span class="st">"regular"</span>)</span>
-<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
-<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
-<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
-<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
-<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
-<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
-<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_dm <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_dm"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
-<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Further approaches:</span></span>
-<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use linear regression on Gaussian kernel basis functions, $\exp(-h^2)$</span>
-<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)</span>
-<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use additional, non-distance/coordinate functions as base function(s)</span>
-<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>provided they are available "everywhere" (as _coverage_)</span>
-<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands</span>
-<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example from CAST / caret</span></span>
+<span id="cb20-197"><a href="#cb20-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-198"><a href="#cb20-198" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
+<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_d <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_d"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
+<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adding more...</span></span>
+<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">st_sample</span>(de, <span class="dv">200</span>, <span class="at">type =</span> <span class="st">"regular"</span>)</span>
+<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
+<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
+<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
+<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
+<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
+<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_dm <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_dm"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
+<span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CAST)</span>
-<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(splotdata)</span>
-<span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(splotdata)</span>
-<span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">read_stars</span>(<span class="fu">system.file</span>(<span class="st">"extdata/predictors_chile.tif"</span>, </span>
-<span id="cb20-234"><a href="#cb20-234" aria-hidden="true" tabindex="-1"></a>                           <span class="at">package =</span> <span class="st">"CAST"</span>))</span>
-<span id="cb20-235"><a href="#cb20-235" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
-<span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">st_drop_geometry</span>(splotdata)[,<span class="dv">6</span><span class="sc">:</span><span class="dv">16</span>]</span>
-<span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> splotdata<span class="sc">$</span>Species_richness</span>
-<span id="cb20-238"><a href="#cb20-238" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">=</span> <span class="fu">train</span>(x, y) <span class="co"># chooses a random forest by default</span></span>
-<span id="cb20-239"><a href="#cb20-239" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="fu">split</span>(r), tr) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb20-240"><a href="#cb20-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### Further approaches:</span></span>
+<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use linear regression on Gaussian kernel basis functions, $\exp(-h^2)$</span>
+<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)</span>
+<span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>use additional, non-distance/coordinate functions as base function(s)</span>
+<span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>provided they are available "everywhere" (as _coverage_)</span>
+<span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands</span>
+<span id="cb20-234"><a href="#cb20-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-235"><a href="#cb20-235" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
+<span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
+<span id="cb20-238"><a href="#cb20-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-239"><a href="#cb20-239" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>How could you assess whether residuals from your fitted model are spatially correlated?</span>
+<span id="cb20-240"><a href="#cb20-240" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Does random cross validation assume that observations are independent?</span>
 <span id="cb20-241"><a href="#cb20-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-242"><a href="#cb20-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross validation: random or spatially blocked?</span></span>
+<span id="cb20-242"><a href="#cb20-242" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb20-243"><a href="#cb20-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-244"><a href="#cb20-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transferrability of models: "area of applicability"</span></span>
+<span id="cb20-244"><a href="#cb20-244" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example from CAST / caret</span></span>
 <span id="cb20-245"><a href="#cb20-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-246"><a href="#cb20-246" aria-hidden="true" tabindex="-1"></a>Explained <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span>;</span>
-<span id="cb20-247"><a href="#cb20-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-250"><a href="#cb20-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-251"><a href="#cb20-251" aria-hidden="true" tabindex="-1"></a>aoa <span class="ot">&lt;-</span> <span class="fu">aoa</span>(r, tr)</span>
-<span id="cb20-252"><a href="#cb20-252" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa)</span>
-<span id="cb20-253"><a href="#cb20-253" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>DI)</span>
-<span id="cb20-254"><a href="#cb20-254" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>AOA)</span>
-<span id="cb20-255"><a href="#cb20-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-256"><a href="#cb20-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-257"><a href="#cb20-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forests for Spatially Dependent Data</span></span>
-<span id="cb20-258"><a href="#cb20-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-259"><a href="#cb20-259" aria-hidden="true" tabindex="-1"></a>R package <span class="co">[</span><span class="ot">RandomForestGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)</span>!</span>
-<span id="cb20-260"><a href="#cb20-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-261"><a href="#cb20-261" aria-hidden="true" tabindex="-1"></a>Combines the good parts of RF and Gaussian processes, in a very</span>
-<span id="cb20-262"><a href="#cb20-262" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">smart way</span><span class="co">](https://arxiv.org/abs/2007.15421)</span>!  (final paper,</span>
-<span id="cb20-263"><a href="#cb20-263" aria-hidden="true" tabindex="-1"></a>paywalled, <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1080/01621459.2021.1950003)</span>).</span>
-<span id="cb20-264"><a href="#cb20-264" aria-hidden="true" tabindex="-1"></a>The discussion on variable selection / variable importance under</span>
-<span id="cb20-265"><a href="#cb20-265" aria-hidden="true" tabindex="-1"></a>spatial correlated residuals is worth reading.</span>
-<span id="cb20-266"><a href="#cb20-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-269"><a href="#cb20-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-270"><a href="#cb20-270" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RandomForestsGLS)</span>
-<span id="cb20-271"><a href="#cb20-271" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">=</span> <span class="fu">st_coordinates</span>(splotdata)</span>
-<span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"rfgls.rda"</span>)</span>
-<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">exists</span>(<span class="st">"rfgls"</span>)) {</span>
-<span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a>     rfgls <span class="ot">=</span> <span class="fu">RFGLS_estimate_spatial</span>(cc, <span class="fu">as.double</span>(y), x)</span>
-<span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a>cc_pr <span class="ot">=</span> <span class="fu">st_coordinates</span>(<span class="fu">split</span>(r))</span>
-<span id="cb20-277"><a href="#cb20-277" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(<span class="fu">split</span>(r)))</span>
-<span id="cb20-278"><a href="#cb20-278" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">=</span> <span class="fu">RFGLS_predict_spatial</span>(rfgls, <span class="fu">as.matrix</span>(cc_pr), <span class="fu">as.data.frame</span>(<span class="fu">split</span>(r))[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)])</span>
-<span id="cb20-279"><a href="#cb20-279" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">split</span>(r)</span>
-<span id="cb20-280"><a href="#cb20-280" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rfgls <span class="ot">=</span> pr<span class="sc">$</span>prediction</span>
-<span id="cb20-281"><a href="#cb20-281" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">split</span>(r), tr)</span>
-<span id="cb20-282"><a href="#cb20-282" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(out[<span class="fu">c</span>(<span class="st">"rf"</span>, <span class="st">"rfgls"</span>)]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb20-283"><a href="#cb20-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-284"><a href="#cb20-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-285"><a href="#cb20-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-286"><a href="#cb20-286" aria-hidden="true" tabindex="-1"></a><span class="fu">## MaxEnt</span></span>
-<span id="cb20-287"><a href="#cb20-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-288"><a href="#cb20-288" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">A statistical explanation of MaxEnt for Ecologists</span><span class="co">](https://doi.org/10.1111/j.1472-4642.2010.00725.x)</span></span>
-<span id="cb20-289"><a href="#cb20-289" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R package <span class="co">[</span><span class="ot">maxnet</span><span class="co">](https://cran.r-project.org/web/packages/maxnet/index.html)</span> does that using glmnet (lasso or elasticnet regularization on </span>
-<span id="cb20-290"><a href="#cb20-290" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A paper detailing the equivalence and differences between point pattern models and MaxEnt, found <span class="co">[</span><span class="ot">here</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352)</span>.</span>
+<span id="cb20-248"><a href="#cb20-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-249"><a href="#cb20-249" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CAST)</span>
+<span id="cb20-250"><a href="#cb20-250" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb20-251"><a href="#cb20-251" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(splotdata)</span>
+<span id="cb20-252"><a href="#cb20-252" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(splotdata)</span>
+<span id="cb20-253"><a href="#cb20-253" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">read_stars</span>(<span class="fu">system.file</span>(<span class="st">"extdata/predictors_chile.tif"</span>, </span>
+<span id="cb20-254"><a href="#cb20-254" aria-hidden="true" tabindex="-1"></a>                           <span class="at">package =</span> <span class="st">"CAST"</span>))</span>
+<span id="cb20-255"><a href="#cb20-255" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r)</span>
+<span id="cb20-256"><a href="#cb20-256" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">st_drop_geometry</span>(splotdata)[,<span class="dv">6</span><span class="sc">:</span><span class="dv">16</span>]</span>
+<span id="cb20-257"><a href="#cb20-257" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> splotdata<span class="sc">$</span>Species_richness</span>
+<span id="cb20-258"><a href="#cb20-258" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">=</span> <span class="fu">train</span>(x, y) <span class="co"># chooses a random forest by default</span></span>
+<span id="cb20-259"><a href="#cb20-259" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="fu">split</span>(r), tr) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb20-260"><a href="#cb20-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-261"><a href="#cb20-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-262"><a href="#cb20-262" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross validation: random or spatially blocked?</span></span>
+<span id="cb20-263"><a href="#cb20-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-264"><a href="#cb20-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transferrability of models: "area of applicability"</span></span>
+<span id="cb20-265"><a href="#cb20-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-266"><a href="#cb20-266" aria-hidden="true" tabindex="-1"></a>Explained <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span>;</span>
+<span id="cb20-267"><a href="#cb20-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-270"><a href="#cb20-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-271"><a href="#cb20-271" aria-hidden="true" tabindex="-1"></a>aoa <span class="ot">&lt;-</span> <span class="fu">aoa</span>(r, tr)</span>
+<span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa)</span>
+<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>DI)</span>
+<span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>AOA)</span>
+<span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-277"><a href="#cb20-277" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forests for Spatially Dependent Data</span></span>
+<span id="cb20-278"><a href="#cb20-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-279"><a href="#cb20-279" aria-hidden="true" tabindex="-1"></a>R package <span class="co">[</span><span class="ot">RandomForestGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)</span>!</span>
+<span id="cb20-280"><a href="#cb20-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-281"><a href="#cb20-281" aria-hidden="true" tabindex="-1"></a>Combines the good parts of RF and Gaussian processes, in a very</span>
+<span id="cb20-282"><a href="#cb20-282" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">smart way</span><span class="co">](https://arxiv.org/abs/2007.15421)</span>!  (final paper,</span>
+<span id="cb20-283"><a href="#cb20-283" aria-hidden="true" tabindex="-1"></a>paywalled, <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1080/01621459.2021.1950003)</span>).</span>
+<span id="cb20-284"><a href="#cb20-284" aria-hidden="true" tabindex="-1"></a>The discussion on variable selection / variable importance under</span>
+<span id="cb20-285"><a href="#cb20-285" aria-hidden="true" tabindex="-1"></a>spatial correlated residuals is worth reading.</span>
+<span id="cb20-286"><a href="#cb20-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-289"><a href="#cb20-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-290"><a href="#cb20-290" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RandomForestsGLS)</span>
+<span id="cb20-291"><a href="#cb20-291" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">=</span> <span class="fu">st_coordinates</span>(splotdata)</span>
+<span id="cb20-292"><a href="#cb20-292" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"rfgls.rda"</span>)</span>
+<span id="cb20-293"><a href="#cb20-293" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">exists</span>(<span class="st">"rfgls"</span>)) {</span>
+<span id="cb20-294"><a href="#cb20-294" aria-hidden="true" tabindex="-1"></a>     rfgls <span class="ot">=</span> <span class="fu">RFGLS_estimate_spatial</span>(cc, <span class="fu">as.double</span>(y), x)</span>
+<span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a>cc_pr <span class="ot">=</span> <span class="fu">st_coordinates</span>(<span class="fu">split</span>(r))</span>
+<span id="cb20-297"><a href="#cb20-297" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(<span class="fu">split</span>(r)))</span>
+<span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">=</span> <span class="fu">RFGLS_predict_spatial</span>(rfgls, <span class="fu">as.matrix</span>(cc_pr), <span class="fu">as.data.frame</span>(<span class="fu">split</span>(r))[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)])</span>
+<span id="cb20-299"><a href="#cb20-299" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">split</span>(r)</span>
+<span id="cb20-300"><a href="#cb20-300" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rfgls <span class="ot">=</span> pr<span class="sc">$</span>prediction</span>
+<span id="cb20-301"><a href="#cb20-301" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">split</span>(r), tr)</span>
+<span id="cb20-302"><a href="#cb20-302" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(out[<span class="fu">c</span>(<span class="st">"rf"</span>, <span class="st">"rfgls"</span>)]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb20-303"><a href="#cb20-303" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-304"><a href="#cb20-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-305"><a href="#cb20-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-306"><a href="#cb20-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## MaxEnt</span></span>
+<span id="cb20-307"><a href="#cb20-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-308"><a href="#cb20-308" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">A statistical explanation of MaxEnt for Ecologists</span><span class="co">](https://doi.org/10.1111/j.1472-4642.2010.00725.x)</span></span>
+<span id="cb20-309"><a href="#cb20-309" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R package <span class="co">[</span><span class="ot">maxnet</span><span class="co">](https://cran.r-project.org/web/packages/maxnet/index.html)</span> does that using glmnet (lasso or elasticnet regularization on </span>
+<span id="cb20-310"><a href="#cb20-310" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A paper detailing the equivalence and differences between point pattern models and MaxEnt, found <span class="co">[</span><span class="ot">here</span><span class="co">](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352)</span>.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
