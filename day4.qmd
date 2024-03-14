@@ -32,13 +32,200 @@ Area of Applicability:
 ### Summary
 
 * Data: coverages as predictors
-* Pitfalls: independence, known predictors, clustered data
-* Model assessment, cross validation strategies, area of applicability
+* Pitfalls: independence, known predictors, clustered data, different support / spatial unalignment
+* Model assessment and transferrability: cross validation strategies, area of applicability
 * RandomForestsGLS
 
-## Examples
+
+## Spatial coordinates as predictor
+
+We'll rename coordinates to `x` and `y`:
+```{r}
+library(dplyr)
+library(sf)
+crs <- st_crs("EPSG:32632") # a csv doesn't carry a CRS!
+no2 <- read.csv(system.file("external/no2.csv",
+    package = "gstat")) 
+no2 |> rename(x = station_longitude_deg, y = station_latitude_deg)  |> 
+  st_as_sf(crs = "OGC:CRS84", coords =
+    c("x", "y"), remove = FALSE) |>
+    st_transform(crs) -> no2.sf
+# we need to reassign x and y:
+cc = st_coordinates(no2.sf)
+no2.sf$x = cc[,1]
+no2.sf$y = cc[,2]
+head(no2.sf)
+"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg" |>
+  read_sf() |>
+  st_transform(crs) -> de
+```
+
+```{r}
+library(stars)
+g2 = st_as_stars(st_bbox(de))
+g3 = st_crop(g2, de)
+g4 = st_rasterize(de, g3)
+g4$ID_1[g4$ID_1 == 758] = NA
+g4$ID1 = as.factor(g4$ID_1) # now a factor:
+plot(g4["ID1"], reset = FALSE)
+plot(st_geometry(no2.sf), add = TRUE, col = 'green')
+no2.sf$ID1 = st_extract(g4, no2.sf)$ID1
+no2.sf$ID1 |> summary()
+```
+
+### Simple ANOVA type predictor:
+
+```{r}
+lm1 = lm(NO2~ID1, no2.sf)
+summary(lm1)
+g4$NO2_aov = predict(lm1, as.data.frame(g4))
+plot(g4["NO2_aov"], breaks = "equal", reset = FALSE)
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### Simple linear models in coordinates: trend surfaces
+
+```{r}
+lm2 = lm(NO2~x+y, no2.sf)
+summary(lm2)
+cc = st_coordinates(g4)
+g4$x = cc[,1]
+g4$y = cc[,2]
+g4$NO2_lm2 = predict(lm2, g4)
+plot(g4["NO2_lm2"], breaks = "equal", reset = FALSE, main = "1st order polynomial")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+```{r}
+lm3 = lm(NO2~x+y+I(x^2)+I(y^2)+I(x*y), no2.sf)
+summary(lm3)
+g4$NO2_lm3 = predict(lm3, g4)
+plot(g4["NO2_lm3"], breaks = "equal", reset = FALSE, main = "2nd order polynomial")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+```{r}
+lm4 = lm(NO2~x+y+I(x^2)+I(y^2)+I(x*y)+I(x^3)+I(x^2*y)+I(x*y^2)+I(y^3), no2.sf)
+summary(lm4)
+g4$NO2_lm4 = predict(lm4, g4)
+plot(g4["NO2_lm4"], breaks = "equal", reset = FALSE, main = "3rd order polynomial")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### regression tree
+
+```{r}
+library(rpart)
+tree = rpart(NO2~., as.data.frame(no2.sf)[c("NO2", "x", "y")])
+g4$tree = predict(tree, as.data.frame(g4))
+plot(g4["tree"], breaks = "equal", reset = FALSE, main = "regression tree")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### Random forest
+
+```{r}
+library(randomForest)
+rf = randomForest(NO2~., as.data.frame(no2.sf)[c("NO2", "x", "y")])
+g4$rf = predict(rf, as.data.frame(g4))
+plot(g4["rf"], breaks = "equal", reset = FALSE, main = "random forest")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+Rotated coordinates:
+```{r}
+library(randomForest)
+no2.sf$x1 = no2.sf$x + no2.sf$y
+no2.sf$y1 = no2.sf$x - no2.sf$y
+rf = randomForest(NO2~., as.data.frame(no2.sf)[c("NO2", "x1", "y1")])
+g4$x1 = g4$x + g4$y
+g4$y1 = g4$x - g4$y
+g4$rf_rot = predict(rf, as.data.frame(g4))
+plot(g4["rf_rot"], breaks = "equal", reset = FALSE, main = "random forest")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### Using distance variables:
+
+```{r}
+st_bbox(de) |> st_as_sfc() |> st_cast("POINT") -> pts
+pts = c(pts[1:4], st_centroid(st_geometry(de)))
+d = st_distance(st_as_sfc(g4, as_points = TRUE), pts)
+for (i in seq_len(ncol(d))) {
+	g4[[ paste0("d_", i) ]] = d[,i]
+}
+e = st_extract(g4, no2.sf)
+for (i in seq_len(ncol(d))) {
+	no2.sf[[ paste0("d_", i) ]] = e[[16+i]]
+}
+(n = names(g4))
+plot(merge(g4[grepl("d_", n)]))
+```
+
+```{r}
+library(randomForest)
+rf = randomForest(NO2~., as.data.frame(no2.sf)[c("NO2", n[grepl("d_", n)])])
+g4$rf_d = predict(rf, as.data.frame(g4))
+plot(g4["rf_d"], breaks = "equal", reset = FALSE, main = "random forest")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### Adding more...
+
+```{r}
+pts = st_sample(de, 200, type = "regular")
+d = st_distance(st_as_sfc(g4, as_points = TRUE), pts)
+for (i in seq_len(ncol(d))) {
+	g4[[ paste0("d_", i) ]] = d[,i]
+}
+e = st_extract(g4, no2.sf)
+for (i in seq_len(ncol(d))) {
+	no2.sf[[ paste0("d_", i) ]] = e[[16+i]]
+}
+(n = names(g4))
+rf = randomForest(NO2~., as.data.frame(no2.sf)[c("NO2", n[grepl("d_", n)])])
+g4$rf_dm = predict(rf, as.data.frame(g4))
+plot(g4["rf_dm"], breaks = "equal", reset = FALSE, main = "random forest")
+plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+```
+
+### Further approaches:
+
+* use linear regression on Gaussian kernel basis functions, $\exp(-h^2)$
+* use splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)
+* use additional, non-distance/coordinate functions as base function(s)
+    * provided they are available "everywhere" (as _coverage_)
+    * examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands
+
+### Example from CAST / caret
+
+```{r}
+library(CAST)
+library(caret)
+data(splotdata)
+class(splotdata)
+r = read_stars(system.file("extdata/predictors_chile.tif", 
+						   package = "CAST"))
+plot(r)
+x = st_drop_geometry(splotdata)[,6:16]
+y = splotdata$Species_richness
+tr = train(x, y) # chooses a random forest by default
+predict(split(r), tr) |> plot()
+```
+
+## Cross validation: random or spatially blocked?
+
+## Transferrability of models: area of applicability
+
+```{r}
+aoa <- aoa(r, tr)
+plot(aoa)
+plot(aoa$DI)
+plot(aoa$AOA)
+```
 
 ## MaxEnt
 
 * [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
 * R package [maxnet](https://cran.r-project.org/web/packages/maxnet/index.html) does that using glmnet (lasso or elasticnet regularization on 
+* A paper detailing the equivalence and differences between point pattern models and MaxEnt, found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
