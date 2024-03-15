@@ -45,16 +45,14 @@ but cost
 * people capacity to setup and maintain
 
 
-::: {.callout-tip title="There is no cloud!}
+### There is no cloud!
 
-... it's just someone else's computer!
+it's just someone else's computer!
 
 * which is true: the computers have a different shape, but are just like your laptop:
    * they have a CPU, main memory, hard drive, possibly a GPU
    * quite often you will find yourself on a virtual machine, which acts as a normal computer
    * but see below: they have object storage!
-
-:::
 
 
 ## What is a big dataset?
