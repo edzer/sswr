@@ -174,15 +174,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
   <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link" data-scroll-target="#reading-materials">Reading materials</a></li>
-  <li><a href="#what-is-a-big-dataset" id="toc-what-is-a-big-dataset" class="nav-link" data-scroll-target="#what-is-a-big-dataset"><span class="header-section-number">5.1</span> What is a big dataset?</a></li>
-  <li><a href="#access-mechanism" id="toc-access-mechanism" class="nav-link" data-scroll-target="#access-mechanism"><span class="header-section-number">5.2</span> Access mechanism</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">5.3</span> Examples</a></li>
+  <li><a href="#resource-constraints-in-data-science-projects" id="toc-resource-constraints-in-data-science-projects" class="nav-link" data-scroll-target="#resource-constraints-in-data-science-projects"><span class="header-section-number">5.1</span> Resource constraints in data science projects</a></li>
+  <li><a href="#what-is-a-big-dataset" id="toc-what-is-a-big-dataset" class="nav-link" data-scroll-target="#what-is-a-big-dataset"><span class="header-section-number">5.2</span> What is a big dataset?</a></li>
+  <li><a href="#r-for-big-tabular-datasets" id="toc-r-for-big-tabular-datasets" class="nav-link" data-scroll-target="#r-for-big-tabular-datasets"><span class="header-section-number">5.3</span> R for big, tabular datasets</a></li>
+  <li><a href="#big-geospatial" id="toc-big-geospatial" class="nav-link" data-scroll-target="#big-geospatial"><span class="header-section-number">5.4</span> Big geospatial</a></li>
+  <li><a href="#access-mechanism" id="toc-access-mechanism" class="nav-link" data-scroll-target="#access-mechanism"><span class="header-section-number">5.5</span> Access mechanism</a></li>
+  <li><a href="#examples-openeo" id="toc-examples-openeo" class="nav-link" data-scroll-target="#examples-openeo"><span class="header-section-number">5.6</span> Examples openEO</a></li>
+  <li><a href="#example-rstac" id="toc-example-rstac" class="nav-link" data-scroll-target="#example-rstac"><span class="header-section-number">5.7</span> Example <code>rstac</code></a></li>
+  <li><a href="#further-examples-from-r-spatial.org" id="toc-further-examples-from-r-spatial.org" class="nav-link" data-scroll-target="#further-examples-from-r-spatial.org"><span class="header-section-number">5.8</span> Further examples from r-spatial.org:</a></li>
+  <li><a href="#examples-vsixxx" id="toc-examples-vsixxx" class="nav-link" data-scroll-target="#examples-vsixxx"><span class="header-section-number">5.9</span> Examples <code>/vsixxx</code></a></li>
+  <li><a href="#simple-analysis-on-large-datasets" id="toc-simple-analysis-on-large-datasets" class="nav-link" data-scroll-target="#simple-analysis-on-large-datasets"><span class="header-section-number">5.10</span> “Simple” analysis on large datasets</a></li>
   <li>
-<a href="#spatial-statistics-on-large-datasets" id="toc-spatial-statistics-on-large-datasets" class="nav-link" data-scroll-target="#spatial-statistics-on-large-datasets"><span class="header-section-number">5.4</span> Spatial statistics on large datasets</a>
+<a href="#spatial-statistics-on-large-datasets" id="toc-spatial-statistics-on-large-datasets" class="nav-link" data-scroll-target="#spatial-statistics-on-large-datasets"><span class="header-section-number">5.11</span> Spatial statistics on large datasets</a>
   <ul class="collapse">
 <li><a href="#geostatistics" id="toc-geostatistics" class="nav-link" data-scroll-target="#geostatistics">Geostatistics</a></li>
   </ul>
 </li>
+  <li><a href="#if-time-is-left" id="toc-if-time-is-left" class="nav-link" data-scroll-target="#if-time-is-left"><span class="header-section-number">5.12</span> If time is left</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day5.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -204,7 +212,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><section id="learning-goals" class="level3"><h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
-</section><section id="reading-materials" class="level3"><h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
+<p>Understand</p>
+<ul>
+<li>how big big datasets are, or can be</li>
+<li>the difference between big vector and raster datasets, and datacubes</li>
+<li>how to find data in complex programs</li>
+<li>how to work with big data: download, or compute in the cloud near the data?</li>
+</ul></section><section id="reading-materials" class="level3"><h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
 <p>From <a href="https://r-spatial.org/book/">Spatial Data Science: with applications in R</a>:</p>
 <ul>
 <li>Chapter 9: Large data and cloud native</li>
@@ -228,8 +242,38 @@ Summary
 </ul>
 </div>
 </div>
-</section><section id="what-is-a-big-dataset" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="what-is-a-big-dataset">
-<span class="header-section-number">5.1</span> What is a big dataset?</h2>
+</section><section id="resource-constraints-in-data-science-projects" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="resource-constraints-in-data-science-projects">
+<span class="header-section-number">5.1</span> Resource constraints in data science projects</h2>
+<p>Constraints concern the availability of:</p>
+<ul>
+<li>time (your time, time of team members)</li>
+<li>compute (pc’s, cluster, private cloud)</li>
+<li>money (e.g.&nbsp;to hire and/or (re)train people, or to rent public cloud infrastructure)</li>
+</ul>
+<p>Public clouds provide:</p>
+<ul>
+<li>infinite (in practice) compute</li>
+<li>infinite (in practice) storage</li>
+</ul>
+<p>but cost</p>
+<ul>
+<li>hard money to use (compute, storage, network/data access)</li>
+<li>people capacity to setup and maintain</li>
+</ul>
+<p>::: {.callout-tip title=“There is no cloud!}</p>
+<p>… it’s just someone else’s computer!</p>
+<ul>
+<li>which is true: the computers have a different shape, but are just like your laptop:
+<ul>
+<li>they have a CPU, main memory, hard drive, possibly a GPU</li>
+<li>quite often you will find yourself on a virtual machine, which acts as a normal computer</li>
+<li>but see below: they have object storage!</li>
+</ul>
+</li>
+</ul>
+<p>:::</p>
+</section><section id="what-is-a-big-dataset" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="what-is-a-big-dataset">
+<span class="header-section-number">5.2</span> What is a big dataset?</h2>
 <ul>
 <li>What is big?
 <ul>
@@ -240,7 +284,38 @@ Summary
 <li>too big to move (copy) to your institution (100 Tb - Pb)</li>
 </ul>
 </li>
-<li>Large vector datasets, examples
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Breakout session 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discuss:</p>
+<ul>
+<li>Have you used datasets obtained from cloud storage? For which case(s)?</li>
+<li>Have you used cloud processing? For which case(s)</li>
+</ul>
+</div>
+</div>
+</section><section id="r-for-big-tabular-datasets" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="r-for-big-tabular-datasets">
+<span class="header-section-number">5.3</span> R for big, tabular datasets</h2>
+<ul>
+<li>In-memory solutions: <code>data.table</code>, <code>duckdb</code>, <code>polars</code> improve speed (use indexes)</li>
+<li>Out-of-memory solution: <code>DBI</code> or <code>tidyverse</code> via <code>dbplyr</code>, connect to
+<ul>
+<li>a local, on-disc database like MariaDB, PostgreSQL, or MySQL</li>
+<li>cloud-based databases like Google BigQuery, Snowflake,</li>
+</ul>
+</li>
+</ul></section><section id="big-geospatial" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="big-geospatial">
+<span class="header-section-number">5.4</span> Big geospatial</h2>
+<ul>
+<li>Large <strong>vector</strong> datasets, examples:
 <ul>
 <li>all building footprints of a continents, <a href="https://github.com/microsoft/USBuildingFootprints">link</a>
 </li>
@@ -252,26 +327,30 @@ Summary
 </li>
 </ul>
 </li>
-<li>Large raster datasets, image collections and data cubes
+<li>Large <strong>raster</strong> datasets, image collections and data cubes:
 <ul>
-<li>ERA-5</li>
-<li>CMIP-6</li>
-<li>Copernicus (Sentinel-1, 2, 3, 5p, etc)</li>
-<li>Landsat, MODIS, …</li>
+<li><a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview">ERA-5</a></li>
+<li>
+<a href="https://pcmdi.llnl.gov/CMIP6/">CMIP-6</a>, partly on <a href="https://console.cloud.google.com/marketplace/product/noaa-public/cmip6?project=erudite-gate-281920">google</a> and <a href="https://registry.opendata.aws/cmip6/">AWS</a>
+</li>
+<li>Copernicus (Sentinel-1, 2, 3, 5p, etc), e.g.&nbsp;on <a href="https://dataspace.copernicus.eu/">CDSE</a>
+</li>
+<li>Landsat, MODIS, … <a href="https://earthexplorer.usgs.gov/">download</a>
+</li>
 </ul>
 </li>
-<li>Cloud solutions, cloud platforms, with platform lock-in
+<li>Cloud solutions, cloud platforms, <em>with</em> platform lock-in:
 <ul>
-<li>ArcGIS online</li>
-<li>Sentinel Hub</li>
-<li>Google Earth Engine</li>
-<li>Microsoft Planetary Computer</li>
-<li>Earth on Amazon (AWS US-west Oregon: COGS + STAC for S1 + S2)</li>
-<li>Copernicus Data Space Ecosystem (has openEO: a fully open source software stack)</li>
+<li><a href="https://www.esri.com/en-us/arcgis/products/arcgis-online/overview">ArcGIS online</a></li>
+<li><a href="https://www.sentinel-hub.com/">Sentinel Hub</a></li>
+<li><a href="https://earthengine.google.com/">Google Earth Engine</a></li>
+<li><a href="https://planetarycomputer.microsoft.com/">Microsoft Planetary Computer</a></li>
+<li>
+<a href="https://aws.amazon.com/earth/">Earth on Amazon</a> (AWS US-west Oregon: COGS + STAC for S1 + S2)</li>
+<li>Copernicus Data Space Ecosystem (but has <a href="https://openeo.org/">openEO</a>: a fully open standard and open source software stack)</li>
 </ul>
 </li>
-</ul></section><section id="access-mechanism" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="access-mechanism">
-<span class="header-section-number">5.2</span> Access mechanism</h2>
+</ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -304,36 +383,224 @@ Clouds and object storage
 </ul>
 </div>
 </div>
+</section><section id="access-mechanism" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="access-mechanism">
+<span class="header-section-number">5.5</span> Access mechanism</h2>
 <ul>
-<li>API: openEO, CDS,</li>
+<li>API:
+<ul>
+<li>process: <a href="https://openeo.cloud/">openEO cloud</a>, <a href="https://openeo.dataspace.copernicus.eu/">openEO on CDSE</a>,</li>
+<li>select, download, process: <a href="https://cds.climate.copernicus.eu/#!/home">Climate Data Store</a>
+</li>
+<li>find “assets” (files): <a href="https://stacspec.org/en">STAC</a>, <a href="https://stacindex.org/">stacindex</a>
+</li>
+</ul>
+</li>
 <li>partial reads of data cubes: variable, bounding box, strided (low resolution), time period</li>
 <li>vector tiles: pmtiles, flatgeobuf</li>
-</ul></section><section id="examples" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="examples">
-<span class="header-section-number">5.3</span> Examples</h2>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cloud-optimized, cloud-native geoospatial
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Cloud-optimized formats let you read <em>sections</em> of large, remote files using HTTP range requests</li>
+<li>examples: Cloud-optimized GeoTIFF (COG), GeoZarr, GeoParquet</li>
+<li>These are described in the <a href="https://guide.cloudnativegeo.org/">Cloud-Optimized Geospatial Formats Guide</a>
+</li>
+</ul>
+</div>
+</div>
+</section><section id="examples-openeo" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="examples-openeo">
+<span class="header-section-number">5.6</span> Examples openEO</h2>
+<p>Two video’s from me taken during the 2023 OpenGeoHub Summerschool, on the topic “Cloud-based analysis of Earth Observation data using openEO Platform, R and Python” can be found here:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=NurpU0V6JG8">part 1</a></li>
+<li><a href="https://www.youtube.com/watch?v=mrY8VKOoz3c">part 2</a></li>
+</ul></section><section id="example-rstac" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="example-rstac">
+<span class="header-section-number">5.7</span> Example <a href="https://cran.r-project.org/web/packages/rstac/index.html"><code>rstac</code></a>
+</h2>
+<p>Using <a href="https://registry.opendata.aws/sentinel-2-l2a-cogs/">Sentinel-2 COGs at AWS</a>, and its <a href="https://earth-search.aws.element84.com/v1">stac</a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/curl_download.html">curl_download</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://brazil-data-cube.github.io/rstac/">rstac</a></span><span class="op">)</span> <span class="co"># modified from the package docs:</span></span>
+<span><span class="va">s_obj</span> <span class="op">=</span> <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/stac.html">stac</a></span><span class="op">(</span><span class="st">"https://earth-search.aws.element84.com/v1"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/collections.html">collections</a></span><span class="op">(</span><span class="va">s_obj</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/request.html">get_request</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># ###Collections</span></span>
+<span><span class="co"># - collections (8 item(s)):</span></span>
+<span><span class="co">#   - cop-dem-glo-30</span></span>
+<span><span class="co">#   - naip</span></span>
+<span><span class="co">#   - sentinel-2-l2a</span></span>
+<span><span class="co">#   - sentinel-2-l1c</span></span>
+<span><span class="co">#   - cop-dem-glo-90</span></span>
+<span><span class="co">#   - landsat-c2-l2</span></span>
+<span><span class="co">#   - sentinel-1-grd</span></span>
+<span><span class="co">#   - sentinel-2-c1-l2a</span></span>
+<span><span class="co"># - field(s): collections, links, context</span></span>
+<span><span class="va">it_obj</span> <span class="op">&lt;-</span> <span class="va">s_obj</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/stac_search.html">stac_search</a></span><span class="op">(</span>collections <span class="op">=</span> <span class="st">"sentinel-2-l2a"</span>,</span>
+<span>              bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">47.02148</span>, <span class="op">-</span><span class="fl">17.35063</span>, <span class="op">-</span><span class="fl">42.53906</span>, <span class="op">-</span><span class="fl">12.98314</span><span class="op">)</span>,</span>
+<span>              datetime <span class="op">=</span> <span class="st">"2022-02-12T00:00:00Z/2022-03-18T00:00:00Z"</span>,</span>
+<span>              limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/request.html">get_request</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">it_obj</span></span>
+<span><span class="co"># ###Items</span></span>
+<span><span class="co"># - matched feature(s): 361</span></span>
+<span><span class="co"># - features (1 item(s) / 360 not fetched):</span></span>
+<span><span class="co">#   - S2A_23KMA_20220317_0_L2A</span></span>
+<span><span class="co"># - assets: </span></span>
+<span><span class="co"># aot, aot-jp2, blue, blue-jp2, coastal, coastal-jp2, granule_metadata, green, green-jp2, nir, nir-jp2, nir08, nir08-jp2, nir09, nir09-jp2, red, red-jp2, rededge1, rededge1-jp2, rededge2, rededge2-jp2, rededge3, rededge3-jp2, scl, scl-jp2, swir16, swir16-jp2, swir22, swir22-jp2, thumbnail, tileinfo_metadata, visual, visual-jp2, wvp, wvp-jp2</span></span>
+<span><span class="co"># - item's fields: </span></span>
+<span><span class="co"># assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>then, download (here only one item):</p>
+<pre data-eval="FALSE"><code>download_items &lt;- it_obj |&gt;
+  assets_download(assets_name = "thumbnail", items_max = 1, overwrite = TRUE)</code></pre>
+<p>and examine</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.3, PROJ 9.3.1; sf_use_s2() is TRUE</span></span>
+<span><span class="va">tif</span> <span class="op">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/gdal_utils.html">gdal_utils</a></span><span class="op">(</span><span class="st">"info"</span>, <span class="va">tif</span><span class="op">)</span></span>
+<span><span class="co"># Driver: GTiff/GeoTIFF</span></span>
+<span><span class="co"># Files: sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif</span></span>
+<span><span class="co"># Size is 10980, 10980</span></span>
+<span><span class="co"># Coordinate System is:</span></span>
+<span><span class="co"># PROJCRS["WGS 84 / UTM zone 23S",</span></span>
+<span><span class="co">#     BASEGEOGCRS["WGS 84",</span></span>
+<span><span class="co">#         DATUM["World Geodetic System 1984",</span></span>
+<span><span class="co">#             ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">#                 LENGTHUNIT["metre",1]]],</span></span>
+<span><span class="co">#         PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">#             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">#         ID["EPSG",4326]],</span></span>
+<span><span class="co">#     CONVERSION["UTM zone 23S",</span></span>
+<span><span class="co">#         METHOD["Transverse Mercator",</span></span>
+<span><span class="co">#             ID["EPSG",9807]],</span></span>
+<span><span class="co">#         PARAMETER["Latitude of natural origin",0,</span></span>
+<span><span class="co">#             ANGLEUNIT["degree",0.0174532925199433],</span></span>
+<span><span class="co">#             ID["EPSG",8801]],</span></span>
+<span><span class="co">#         PARAMETER["Longitude of natural origin",-45,</span></span>
+<span><span class="co">#             ANGLEUNIT["degree",0.0174532925199433],</span></span>
+<span><span class="co">#             ID["EPSG",8802]],</span></span>
+<span><span class="co">#         PARAMETER["Scale factor at natural origin",0.9996,</span></span>
+<span><span class="co">#             SCALEUNIT["unity",1],</span></span>
+<span><span class="co">#             ID["EPSG",8805]],</span></span>
+<span><span class="co">#         PARAMETER["False easting",500000,</span></span>
+<span><span class="co">#             LENGTHUNIT["metre",1],</span></span>
+<span><span class="co">#             ID["EPSG",8806]],</span></span>
+<span><span class="co">#         PARAMETER["False northing",10000000,</span></span>
+<span><span class="co">#             LENGTHUNIT["metre",1],</span></span>
+<span><span class="co">#             ID["EPSG",8807]]],</span></span>
+<span><span class="co">#     CS[Cartesian,2],</span></span>
+<span><span class="co">#         AXIS["(E)",east,</span></span>
+<span><span class="co">#             ORDER[1],</span></span>
+<span><span class="co">#             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#         AXIS["(N)",north,</span></span>
+<span><span class="co">#             ORDER[2],</span></span>
+<span><span class="co">#             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">#     USAGE[</span></span>
+<span><span class="co">#         SCOPE["Navigation and medium accuracy spatial referencing."],</span></span>
+<span><span class="co">#         AREA["Between 48°W and 42°W, southern hemisphere between 80°S and equator, onshore and offshore. Brazil."],</span></span>
+<span><span class="co">#         BBOX[-80,-48,0,-42]],</span></span>
+<span><span class="co">#     ID["EPSG",32723]]</span></span>
+<span><span class="co"># Data axis to CRS axis mapping: 1,2</span></span>
+<span><span class="co"># Origin = (399960.000000000000000,8100040.000000000000000)</span></span>
+<span><span class="co"># Pixel Size = (10.000000000000000,-10.000000000000000)</span></span>
+<span><span class="co"># Metadata:</span></span>
+<span><span class="co">#   AREA_OR_POINT=Area</span></span>
+<span><span class="co">#   OVR_RESAMPLING_ALG=AVERAGE</span></span>
+<span><span class="co"># Image Structure Metadata:</span></span>
+<span><span class="co">#   COMPRESSION=DEFLATE</span></span>
+<span><span class="co">#   INTERLEAVE=BAND</span></span>
+<span><span class="co">#   PREDICTOR=2</span></span>
+<span><span class="co"># Corner Coordinates:</span></span>
+<span><span class="co"># Upper Left  (  399960.000, 8100040.000) ( 45d56'26.60"W, 17d10'56.12"S)</span></span>
+<span><span class="co"># Lower Left  (  399960.000, 7990240.000) ( 45d56'45.24"W, 18d10'28.55"S)</span></span>
+<span><span class="co"># Upper Right (  509760.000, 8100040.000) ( 44d54'29.58"W, 17d11' 3.94"S)</span></span>
+<span><span class="co"># Lower Right (  509760.000, 7990240.000) ( 44d54'27.77"W, 18d10'36.85"S)</span></span>
+<span><span class="co"># Center      (  454860.000, 8045140.000) ( 45d25'32.30"W, 17d40'48.86"S)</span></span>
+<span><span class="co"># Band 1 Block=1024x1024 Type=UInt16, ColorInterp=Gray</span></span>
+<span><span class="co">#   NoData Value=0</span></span>
+<span><span class="co">#   Overviews: 5490x5490, 2745x2745, 1373x1373, 687x687</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
+<span><span class="co"># Loading required package: abind</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">tif</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># downsample set to 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Breakout session 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Breakout session 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discuss:</p>
+<ul>
+<li>Have you used any cloud platforms for processing geospatial data?</li>
+<li>What is your position with respect to platform lock-in?</li>
+</ul>
+</div>
+</div>
+</section><section id="further-examples-from-r-spatial.org" class="level2" data-number="5.8"><h2 data-number="5.8" class="anchored" data-anchor-id="further-examples-from-r-spatial.org">
+<span class="header-section-number">5.8</span> Further examples from r-spatial.org:</h2>
+<ul>
+<li><a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes</a></li>
+<li><a href="https://r-spatial.org/r/2022/09/13/zarr.html">Reading Zarr files with R package stars</a></li>
+<li><a href="https://r-spatial.org/r/2022/11/24/openeo.html">Processing large scale satellite imagery with openEO Platform and R</a></li>
+</ul></section><section id="examples-vsixxx" class="level2" data-number="5.9"><h2 data-number="5.9" class="anchored" data-anchor-id="examples-vsixxx">
+<span class="header-section-number">5.9</span> Examples <code>/vsixxx</code>
+</h2>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/curl_download.html">curl_download</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg"</span>,</span>
 <span>  <span class="st">"nshn_water_line.gpkg"</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.3, PROJ 9.3.1; sf_use_s2() is TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"nshn_water_line.gpkg"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"nshn_water_line.gpkg"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>From https://github.com/microsoft/USBuildingFootprints downloaded <a href="https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip">Maine.geojson.zip</a>, and read with</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/Maine.geojson.zip"</span><span class="op">)</span> <span class="co"># /vsizip: indicates data source is a zipped file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/Maine.geojson.zip"</span><span class="op">)</span> <span class="co"># /vsizip: indicates data source is a zipped file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>or read directly from github into R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip"</span><span class="op">)</span></span>
 <span><span class="co"># /vsicurl: indicates data source is a URL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="spatial-statistics-on-large-datasets" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="spatial-statistics-on-large-datasets">
-<span class="header-section-number">5.4</span> Spatial statistics on large datasets</h2>
+</section><section id="simple-analysis-on-large-datasets" class="level2" data-number="5.10"><h2 data-number="5.10" class="anchored" data-anchor-id="simple-analysis-on-large-datasets">
+<span class="header-section-number">5.10</span> “Simple” analysis on large datasets</h2>
+<ul>
+<li>process full archives, compute <em>in</em> the cloud</li>
+<li>select subsets, download, process locally:
+<ul>
+<li>spatial subset</li>
+<li>temporal subset</li>
+<li>sampled at lower resolution (spatially, temporally)</li>
+<li>aggregated (=processed?) to lower resolution</li>
+</ul>
+</li>
+<li>in some disciplines (Earth Observation?) there seems to be a belief that processing at the <em>full</em> resolution is the only thing that produces real science</li>
+<li>there is surprisingly little literature on the loss of information when processing at lower resolution, e.g.&nbsp;when the goal is to create a curve of yearly deforestation over an area as large as Brazil</li>
+</ul></section><section id="spatial-statistics-on-large-datasets" class="level2" data-number="5.11"><h2 data-number="5.11" class="anchored" data-anchor-id="spatial-statistics-on-large-datasets">
+<span class="header-section-number">5.11</span> Spatial statistics on large datasets</h2>
 <section id="geostatistics" class="level3"><h3 class="anchored" data-anchor-id="geostatistics">Geostatistics</h3>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/RandomForestsGLS/">RandomForestsGLS</a></li>
@@ -341,11 +608,16 @@ Clouds and object storage
 <li><a href="https://cran.r-project.org/web/packages/FRK/index.html">FRK</a></li>
 </ul>
 <p>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al.&nbsp;2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">DOI</a>.</p>
+</section></section><section id="if-time-is-left" class="level2" data-number="5.12"><h2 data-number="5.12" class="anchored" data-anchor-id="if-time-is-left">
+<span class="header-section-number">5.12</span> If time is left</h2>
+<ul>
+<li><a href="https://r-spatial.org/book/09-Large.html#exercises">Exercises chapter 9</a></li>
+</ul>
 
 
 <!-- -->
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -790,120 +1062,259 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Big spatial datasets</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning goals</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>: </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 9: Large data and cloud native</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">stars vignettes 2: proxy objects</span><span class="co">](https://r-spatial.github.io/stars/articles/stars2.html)</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is big?</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Raster or vector?</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>How to access large data sets?</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatial statistics on large datasets</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is a big dataset?</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is big?</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to handle in main memory (with some copying) (Gb)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to fit in memory (20 Gb)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to download (Tb)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to fit on the hard drive, or local file storage (10 Tb)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to move (copy) to your institution (100 Tb - Pb)</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Large vector datasets, examples</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all building footprints of a continents, <span class="co">[</span><span class="ot">link</span><span class="co">](https://github.com/microsoft/USBuildingFootprints)</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all rivers, e.g. of the US, <span class="co">[</span><span class="ot">link</span><span class="co">](https://www.arcgis.com/home/item.html?id=1e29e33360c8441bbb018663273a046e)</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>OpenStreetMap, <span class="co">[</span><span class="ot">link</span><span class="co">](https://wiki.openstreetmap.org/wiki/Downloading_data)</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all agricultural parcels of a continent, e.g. <span class="co">[</span><span class="ot">EuroCrops</span><span class="co">](https://github.com/maja601/EuroCrops)</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Large raster datasets, image collections and data cubes</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>ERA-5</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>CMIP-6</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Copernicus (Sentinel-1, 2, 3, 5p, etc)</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Landsat, MODIS, ...</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Cloud solutions, cloud platforms, with platform lock-in</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>ArcGIS online</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Sentinel Hub</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Google Earth Engine</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Microsoft Planetary Computer</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Earth on Amazon (AWS US-west Oregon: COGS + STAC for S1 + S2)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Copernicus Data Space Ecosystem (has openEO: a fully open source software stack)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## Access mechanism</span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Clouds and object storage</span></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>Object storage abstracts away hard drives and file systems!</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>e.g. S3 bucket (AWS/OpenStack): </span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>total size is unlimited</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>maximum object size 5 Tb (AWS S3)</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>idea: write once, read many times</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>large objects: write piece-wise</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>http range requests</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>price depends on size, access speed, amount of requests</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>tabular data: Parquet</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>large data processing: collocate processing and storage</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>avoid network between locations / data centers</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>network inside a data center is fast / cheap</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>API: openEO, CDS, </span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>partial reads of data cubes: variable, bounding box, strided (low resolution), time period</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>vector tiles: pmtiles, flatgeobuf</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples</span></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="in">curl::curl_download(</span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="in">  "https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg",</span></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">  "nshn_water_line.gpkg"</span></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a><span class="in">(w &lt;- read_sf("nshn_water_line.gpkg"))</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>From https://github.com/microsoft/USBuildingFootprints downloaded <span class="co">[</span><span class="ot">Maine.geojson.zip</span><span class="co">](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip)</span>, and read with</span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="in">m = st_read("/vsizip/Maine.geojson.zip") # /vsizip: indicates data source is a zipped file</span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>or read directly from github into R:</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a><span class="in">m = st_read("/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip")</span></span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="in"># /vsicurl: indicates data source is a URL</span></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics on large datasets</span></span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistics</span></span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">RandomForestsGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/)</span></span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">spNNGP</span><span class="co">](https://cran.r-project.org/web/packages/spNNGP/index.html)</span></span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">FRK</span><span class="co">](https://cran.r-project.org/web/packages/FRK/index.html)</span></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <span class="co">[</span><span class="ot">DOI</span><span class="co">](https://doi.org/10.1007/s13253-018-00348-w)</span>.</span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Big spatial datasets</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning goals</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Understand </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>how big big datasets are, or can be</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>the difference between big vector and raster datasets, and datacubes</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>how to find data in complex programs</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>how to work with big data: download, or compute in the cloud near the data?</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>: </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Chapter 9: Large data and cloud native</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">stars vignettes 2: proxy objects</span><span class="co">](https://r-spatial.github.io/stars/articles/stars2.html)</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is big?</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Raster or vector?</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>How to access large data sets?</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Spatial statistics on large datasets</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resource constraints in data science projects</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>Constraints concern the availability of:</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>time (your time, time of team members) </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>compute (pc's, cluster, private cloud)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>money (e.g. to hire and/or (re)train people, or to rent public cloud infrastructure)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>Public clouds provide:</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>infinite (in practice) compute</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>infinite (in practice) storage</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>but cost</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>hard money to use (compute, storage, network/data access)</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>people capacity to setup and maintain</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="There is no cloud!}</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>... it's just someone else's computer!</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>which is true: the computers have a different shape, but are just like your laptop:</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>they have a CPU, main memory, hard drive, possibly a GPU</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>quite often you will find yourself on a virtual machine, which acts as a normal computer</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>but see below: they have object storage!</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is a big dataset?</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is big?</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to handle in main memory (with some copying) (Gb)</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to fit in memory (20 Gb)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to download (Tb)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to fit on the hard drive, or local file storage (10 Tb)</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>too big to move (copy) to your institution (100 Tb - Pb)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 1"}</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Have you used datasets obtained from cloud storage? For which case(s)?</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Have you used cloud processing? For which case(s)</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## R for big, tabular datasets</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>In-memory solutions: <span class="in">`data.table`</span>, <span class="in">`duckdb`</span>, <span class="in">`polars`</span> improve speed (use indexes)</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Out-of-memory solution: <span class="in">`DBI`</span> or <span class="in">`tidyverse`</span> via <span class="in">`dbplyr`</span>, connect to </span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>a local, on-disc database like MariaDB, PostgreSQL, or MySQL </span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>cloud-based databases like Google BigQuery, Snowflake, </span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Big geospatial</span></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Large **vector** datasets, examples:</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all building footprints of a continents, <span class="co">[</span><span class="ot">link</span><span class="co">](https://github.com/microsoft/USBuildingFootprints)</span></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all rivers, e.g. of the US, <span class="co">[</span><span class="ot">link</span><span class="co">](https://www.arcgis.com/home/item.html?id=1e29e33360c8441bbb018663273a046e)</span></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>OpenStreetMap, <span class="co">[</span><span class="ot">link</span><span class="co">](https://wiki.openstreetmap.org/wiki/Downloading_data)</span></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>all agricultural parcels of a continent, e.g. <span class="co">[</span><span class="ot">EuroCrops</span><span class="co">](https://github.com/maja601/EuroCrops)</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Large **raster** datasets, image collections and data cubes:</span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">ERA-5</span><span class="co">](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels?tab=overview)</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">CMIP-6</span><span class="co">](https://pcmdi.llnl.gov/CMIP6/)</span>, partly on <span class="co">[</span><span class="ot">google</span><span class="co">](https://console.cloud.google.com/marketplace/product/noaa-public/cmip6?project=erudite-gate-281920)</span> and <span class="co">[</span><span class="ot">AWS</span><span class="co">](https://registry.opendata.aws/cmip6/)</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Copernicus (Sentinel-1, 2, 3, 5p, etc), e.g. on <span class="co">[</span><span class="ot">CDSE</span><span class="co">](https://dataspace.copernicus.eu/)</span></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Landsat, MODIS, ... <span class="co">[</span><span class="ot">download</span><span class="co">](https://earthexplorer.usgs.gov/)</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Cloud solutions, cloud platforms, _with_ platform lock-in:</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">ArcGIS online</span><span class="co">](https://www.esri.com/en-us/arcgis/products/arcgis-online/overview)</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">Sentinel Hub</span><span class="co">](https://www.sentinel-hub.com/)</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">Google Earth Engine</span><span class="co">](https://earthengine.google.com/)</span></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">Microsoft Planetary Computer</span><span class="co">](https://planetarycomputer.microsoft.com/)</span></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span><span class="co">[</span><span class="ot">Earth on Amazon</span><span class="co">](https://aws.amazon.com/earth/)</span> (AWS US-west Oregon: COGS + STAC for S1 + S2)</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Copernicus Data Space Ecosystem (but has <span class="co">[</span><span class="ot">openEO</span><span class="co">](https://openeo.org/)</span>: a fully open standard and open source software stack)</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Clouds and object storage</span></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>Object storage abstracts away hard drives and file systems!</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>e.g. S3 bucket (AWS/OpenStack): </span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>total size is unlimited</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>maximum object size 5 Tb (AWS S3)</span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>idea: write once, read many times</span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>large objects: write piece-wise</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>http range requests</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>price depends on size, access speed, amount of requests</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>tabular data: Parquet</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>large data processing: collocate processing and storage</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>avoid network between locations / data centers</span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>network inside a data center is fast / cheap</span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Access mechanism</span></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>API: </span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>process: <span class="co">[</span><span class="ot">openEO cloud</span><span class="co">](https://openeo.cloud/)</span>, <span class="co">[</span><span class="ot">openEO on CDSE</span><span class="co">](https://openeo.dataspace.copernicus.eu/)</span>, </span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>select, download, process: <span class="co">[</span><span class="ot">Climate Data Store</span><span class="co">](https://cds.climate.copernicus.eu/#!/home)</span></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>find "assets" (files): <span class="co">[</span><span class="ot">STAC</span><span class="co">](https://stacspec.org/en)</span>, <span class="co">[</span><span class="ot">stacindex</span><span class="co">](https://stacindex.org/)</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>partial reads of data cubes: variable, bounding box, strided (low resolution), time period</span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>vector tiles: pmtiles, flatgeobuf</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cloud-optimized, cloud-native geoospatial</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Cloud-optimized formats let you read _sections_ of large, remote files using HTTP range requests</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>examples: Cloud-optimized GeoTIFF (COG), GeoZarr, GeoParquet</span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>These are described in the <span class="co">[</span><span class="ot">Cloud-Optimized Geospatial Formats Guide</span><span class="co">](https://guide.cloudnativegeo.org/)</span></span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples openEO</span></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a>Two video's from me taken during the 2023 OpenGeoHub Summerschool,</span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>on the topic "Cloud-based analysis of Earth Observation data using</span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a>openEO Platform, R and Python" can be found here:</span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">part 1</span><span class="co">](https://www.youtube.com/watch?v=NurpU0V6JG8)</span></span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">part 2</span><span class="co">](https://www.youtube.com/watch?v=mrY8VKOoz3c)</span></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Example [`rstac`](https://cran.r-project.org/web/packages/rstac/index.html)</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a>Using <span class="co">[</span><span class="ot">Sentinel-2 COGs at AWS</span><span class="co">](https://registry.opendata.aws/sentinel-2-l2a-cogs/)</span>, and its <span class="co">[</span><span class="ot">stac</span><span class="co">](https://earth-search.aws.element84.com/v1)</span>:</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstac) <span class="co"># modified from the package docs:</span></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a>s_obj <span class="ot">=</span> <span class="fu">stac</span>(<span class="st">"https://earth-search.aws.element84.com/v1"</span>)</span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="fu">collections</span>(s_obj) <span class="sc">|&gt;</span> <span class="fu">get_request</span>()</span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a>it_obj <span class="ot">&lt;-</span> s_obj <span class="sc">|&gt;</span></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stac_search</span>(<span class="at">collections =</span> <span class="st">"sentinel-2-l2a"</span>,</span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a>              <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">47.02148</span>, <span class="sc">-</span><span class="fl">17.35063</span>, <span class="sc">-</span><span class="fl">42.53906</span>, <span class="sc">-</span><span class="fl">12.98314</span>),</span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a>              <span class="at">datetime =</span> <span class="st">"2022-02-12T00:00:00Z/2022-03-18T00:00:00Z"</span>,</span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a>              <span class="at">limit =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a>it_obj</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a>then, download (here only one item):</span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{eval=FALSE}</span></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a><span class="in">download_items &lt;- it_obj |&gt;</span></span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a><span class="in">  assets_download(assets_name = "thumbnail", items_max = 1, overwrite = TRUE)</span></span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>and examine</span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a><span class="fu">gdal_utils</span>(<span class="st">"info"</span>, tif)</span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="fu">read_stars</span>(tif) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Have you used any cloud platforms for processing geospatial data?</span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is your position with respect to platform lock-in?</span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further examples from r-spatial.org:</span></span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>[Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes</span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a>](https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html)</span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Reading Zarr files with R package stars</span><span class="co">](https://r-spatial.org/r/2022/09/13/zarr.html)</span></span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Processing large scale satellite imagery with openEO Platform and R</span><span class="co">](https://r-spatial.org/r/2022/11/24/openeo.html)</span></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples `/vsixxx`</span></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a><span class="in">curl::curl_download(</span></span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a><span class="in">  "https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg",</span></span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a><span class="in">  "nshn_water_line.gpkg"</span></span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a><span class="in">(w &lt;- read_sf("nshn_water_line.gpkg"))</span></span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>From https://github.com/microsoft/USBuildingFootprints downloaded <span class="co">[</span><span class="ot">Maine.geojson.zip</span><span class="co">](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip)</span>, and read with</span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a><span class="in">m = st_read("/vsizip/Maine.geojson.zip") # /vsizip: indicates data source is a zipped file</span></span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a>or read directly from github into R:</span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a><span class="in">m = st_read("/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip")</span></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a><span class="in"># /vsicurl: indicates data source is a URL</span></span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a><span class="fu">## "Simple" analysis on large datasets</span></span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>process full archives, compute _in_ the cloud</span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>select subsets, download, process locally: </span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>spatial subset</span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>temporal subset</span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>sampled at lower resolution (spatially, temporally)</span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>aggregated (=processed?) to lower resolution</span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>in some disciplines (Earth Observation?) there seems to be a belief that processing at the _full_ resolution is the only thing that produces real science</span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>there is surprisingly little literature on the loss of information when processing at lower resolution, e.g. when the goal is to create a curve of yearly deforestation over an area as large as Brazil</span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics on large datasets</span></span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistics</span></span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">RandomForestsGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/)</span></span>
+<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">spNNGP</span><span class="co">](https://cran.r-project.org/web/packages/spNNGP/index.html)</span></span>
+<span id="cb9-252"><a href="#cb9-252" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">FRK</span><span class="co">](https://cran.r-project.org/web/packages/FRK/index.html)</span></span>
+<span id="cb9-253"><a href="#cb9-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-254"><a href="#cb9-254" aria-hidden="true" tabindex="-1"></a>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <span class="co">[</span><span class="ot">DOI</span><span class="co">](https://doi.org/10.1007/s13253-018-00348-w)</span>.</span>
+<span id="cb9-255"><a href="#cb9-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-256"><a href="#cb9-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-257"><a href="#cb9-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## If time is left</span></span>
+<span id="cb9-258"><a href="#cb9-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-259"><a href="#cb9-259" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Exercises chapter 9</span><span class="co">](https://r-spatial.org/book/09-Large.html#exercises)</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

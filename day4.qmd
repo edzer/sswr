@@ -117,8 +117,8 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 
 Discuss:
 
-* how would the predicted surface look like when instead of (functions of) coordinates, the variable _elevation_ were used (e.g. to predict average temperatures)?
-* what would be the value range, approximately, of the predicted values? 
+* how will the predicted surface look like when instead of (functions of) coordinates, the variable _elevation_ is used (e.g. to predict average temperatures)?
+* what will be the value range, approximately, of the resulting predicted values? 
 
 :::
 
@@ -212,8 +212,8 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 
 Discuss:
 
-* How could you assess whether residuals from your fitted model are spatially correlated?
-* Does random cross validation assume that observations are independent?
+* How would you assess whether residuals from your fitted model are spatially correlated?
+* Does resampling using _random_ partitioning (as is done in random forest) implicitly assume that observations are independent?
 
 :::
 
@@ -226,11 +226,16 @@ data(splotdata)
 class(splotdata)
 r = read_stars(system.file("extdata/predictors_chile.tif", 
 						   package = "CAST"))
-plot(r)
 x = st_drop_geometry(splotdata)[,6:16]
 y = splotdata$Species_richness
 tr = train(x, y) # chooses a random forest by default
 predict(split(r), tr) |> plot()
+```
+
+Clustered data?
+```{r}
+plot(r[,,,1], reset = FALSE)
+plot(st_geometry(splotdata), add = TRUE, col = 'green')
 ```
 
 ## Cross validation: random or spatially blocked?
