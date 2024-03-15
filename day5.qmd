@@ -17,6 +17,10 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 
 [stars vignettes 2: proxy objects](https://r-spatial.github.io/stars/articles/stars2.html)
 
+## Exercises for Today
+
+* Exercises of Ch 9: Big Data and Cloud Native
+
 ::: {.callout-tip title="Summary"}
 
 * What is big?
@@ -166,7 +170,7 @@ it_obj <- s_obj |>
 it_obj
 ```
 then, download (here only one item):
-```{eval=FALSE}
+```{r eval=FALSE}
 download_items <- it_obj |>
   assets_download(assets_name = "thumbnail", items_max = 1, overwrite = TRUE)
 ```
