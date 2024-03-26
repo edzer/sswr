@@ -81,9 +81,9 @@ install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/",
 * Most researchers in spatial statistics who share code have used or use R
 * R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)
 * R spatial packages have gone full cycle: 
-    * the first generation has been deprecated
-    *  removed from CRAN, and 
-    * replaced by modern versions
+    * the first generation has been deprecated (`rgdal`, `rgeos`, `maptools`),
+    * then removed from CRAN, and 
+    * superseded by modern versions (`sf`, `stars`, `terra`)
 * R is a data science language that allows you [to work reproducibly](https://eartharxiv.org/repository/view/3216/)
 * Because we have [CRAN](https://cran.r-project.org/) and CRAN Taskviews: [Spatial](https://cran.r-project.org/web/views/Spatial.html), [SpatioTemporal](https://cran.r-project.org/web/views/SpatioTemporal.html), [Tracking](https://cran.r-project.org/web/views/Tracking.html)
 
