@@ -1,8 +1,6 @@
 # Introduction {.unnumbered}
 
-## Slack channel:
-
-[https://spatialstatis-7gb9460.slack.com](slack channel)
+[slack channel](https://spatialstatis-7gb9460.slack.com)
 
 ## Required packages
 

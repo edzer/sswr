@@ -1,6 +1,8 @@
 project:
   type: book
 
+editor: visual
+
 prefer-html: true
 
 book:
