@@ -94,8 +94,8 @@ install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/",
 * Go to [https://github.com/edzer/sswr/](https://github.com/edzer/sswr/)
 * Go to "Code", then "copy URL to clipboard"
 * Clone this repo to your hard drive
-* Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling
-* Run the code sections!
-* Reproduce these course materials by 
-    * installing [quarto](https://quarto.org/) and 
-	* running `quarto render` in the course directory
+* Start RStudio by double clickign the `sswr.Rproj` file in the source directory
+* Reproduce these course materials by [installing quarto](https://quarto.org/docs/get-started/) and 
+    * in RStudio: run `build` - `render book`, or
+    * on the command line: run `quarto render` in the course directory 
+* Run individual code sections in RStudio, and modify them!

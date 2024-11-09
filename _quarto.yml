@@ -25,10 +25,10 @@ book:
   chapters:
     - index.qmd
     - day1.qmd
-#   - day2.qmd
-#   - day3.qmd
-#   - day4.qmd
-#   - day5.qmd
+    - day2.qmd
+    - day3.qmd
+    - day4.qmd
+    - day5.qmd
 
 # bibliography: 
 # - packages.bib

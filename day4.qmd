@@ -277,9 +277,3 @@ out$rf = predict(split(r), tr)
 plot(merge(out[c("rf", "rfgls")]), breaks = "equal")
 ```
 
-
-## MaxEnt
-
-* [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
-* R package [maxnet](https://cran.r-project.org/web/packages/maxnet/index.html) does that using glmnet (lasso or elasticnet regularization on 
-* A paper detailing the equivalence and differences between point pattern models and MaxEnt, found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).

@@ -255,7 +255,7 @@ kppm(Y, ~x)
 * A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.
 * J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.
 
-::: {.callout-tip title="MaxEnt"}
+::: {.callout-tip title="MaxEnt and species distribution modelling"}
 
 It seems that
 [MaxEnt](https://biodiversityinformatics.amnh.org/open_source/maxent/) fits
@@ -266,9 +266,15 @@ Starting from presence (only) observations, it
 * adds background (absence) points, uniformly _in space_
 * fits logistic regression models to the 0/1 data, using environmental covariates
 * ignores spatial interactions, spatial distances
-* will be discussed on Day 4: **Machine Learning methods applied to spatial data**
 
-A paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
+R package [maxnet](https://cran.r-project.org/web/packages/maxnet/index.html) does that using glmnet (lasso or elasticnet regularization on)
+
+A maxnet example [using stars](https://github.com/BigelowLab/maxnet/wiki/stars) is available in the development version, which can be installed directly from github by `remotes::install_github("mrmaxent/maxnet")` ; and the same [maxnet example using terra](https://github.com/BigelowLab/maxnet/wiki/terra) (thanks to Ben Tupper).
+
+Relevant papers:
+
+* a paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
+* [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
 
 :::
 
