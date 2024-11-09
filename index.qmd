@@ -1,5 +1,9 @@
 # Introduction {.unnumbered}
 
+## Slack channel:
+
+[https://spatialstatis-7gb9460.slack.com](slack channel)
+
 ## Required packages
 
 The following packages may be used during the course; it is assumed
@@ -45,9 +49,9 @@ install.packages(c("classInt",
 
 ```{r eval=FALSE}
 install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", 
-				 type = "source")
+				 type = "source") # 23 Mb
 install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/", 
-				 type = "source")
+				 type = "source") # 1 Gb
 ```
 
 ### Introduction to the course
@@ -69,10 +73,10 @@ install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/",
 
 ### Resources
 
-* [Spatial Data Science: With applications in R](https://r-spatial.org/book/), by Pebesma and Bivand 2023 (open online)
+* [Spatial Data Science: With applications in R](https://r-spatial.org/book/), by Pebesma and Bivand 2023 (open online, hard copy from [CRC](https://www.routledge.com/Spatial-Data-Science-With-Applications-in-R/Pebesma-Bivand/p/book/9781138311183))
 * Vignettes of [sf](https://r-spatial.github.io/sf/): tab "Articles"
 * Vignettes of [stars](https://r-spatial.github.io/stars/): tab "Articles"
-* All these material are written using R-markdown (or [quarto](https://quarto.org/))
+* All these material are written using [quarto](https://quarto.org/) or R-markdown
 
 ## Why R for spatial statistics?
 
@@ -83,14 +87,17 @@ install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/",
 * R spatial packages have gone full cycle: 
     * the first generation has been deprecated (`rgdal`, `rgeos`, `maptools`),
     * then removed from CRAN, and 
-    * superseded by modern versions (`sf`, `stars`, `terra`)
+    * superseded by modern versions (`sf` and `stars` replaced `sp`, `terra` replaced `raster`)
 * R is a data science language that allows you [to work reproducibly](https://eartharxiv.org/repository/view/3216/)
 * Because we have [CRAN](https://cran.r-project.org/) and CRAN Taskviews: [Spatial](https://cran.r-project.org/web/views/Spatial.html), [SpatioTemporal](https://cran.r-project.org/web/views/SpatioTemporal.html), [Tracking](https://cran.r-project.org/web/views/Tracking.html)
 
-### Reproducing the current course
+### Reproducing or recreating the current course
 
 * Go to [https://github.com/edzer/sswr/](https://github.com/edzer/sswr/)
-* Go to "Code", "copy URL to clipboard"
+* Go to "Code", then "copy URL to clipboard"
 * Clone this repo to your hard drive
 * Start one of the qmd files by double clicking, or on the command line with RStudio, or using some other tooling
 * Run the code sections!
+* Reproduce these course materials by 
+    * installing [quarto](https://quarto.org/) and 
+	* running `quarto render` in the course directory

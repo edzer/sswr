@@ -33,10 +33,10 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 
 ## What is special about spatial data?
 
-* **Coordinates**. What are coordinates? Dimension(s)?
-* **Location**. Does location always involve coordinates?
-* **Time**. If not explicit, there is an implicit time reference. Dimension(s)?
-* **Attributes**. _at_ specific locations we measure specific properties
+* **Location**. Does location always involve coordinates? Relative/absolute, qualitative/quantitative
+* **Coordinates**. What are coordinates? Dimension(s), unit
+* **Time**. If not explicit, there is an implicit time reference. Dimension(s), unit, datetime
+* **Attributes**. _at_ specific locations we measure (observe) specific properties
 * Quite often, we want to know _where_ things change (**space-time interactions**).
 * **Reference systems** for space, time, and attributes: what are they?
 * **Support**: if we have an attribute value associated with a line, polygon or grid cell:
@@ -92,8 +92,9 @@ ne_countries() |> st_geometry() |> plot(axes=TRUE)
 
 ... or what _are_ statistics?
 
-* statistic: a descriptive measure summarising some data
-* Statistics: a scientific disciplin aiming at modelling data, using probability theory
+* statistic: singular; a descriptive measure summarising some data
+* statistics: plural; "minimum and maximum are two statistics"
+* Statistics: singular; a scientific disciplin aiming at modelling data, using probability theory
     * where does randomness come from? Design-based vs. model-based
     * are parameters random or fixed? Bayesian vs. frequentist 
     * inference, prediction, simulations

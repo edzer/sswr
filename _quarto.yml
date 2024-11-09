@@ -1,0 +1,60 @@
+project:
+  type: book
+
+prefer-html: true
+
+book:
+  title: "Spatial Statistics with R"
+  author:
+    - name: Edzer Pebesma
+      orcid: 0000-0001-8049-7069
+      email: edzer.pebesma@uni-muenster.de
+      url: https://www.uni-muenster.de/Geoinformatics/institute/staff/index.php/119/Edzer_Pebesma
+      affiliations:
+      - name: Universität Münster
+        url: https://www.uni-muenster.de/en/
+        city: Münster
+        country: Germany
+  date: today
+  site-url: https://edzer.github.io/sswr/
+  repo-url: https://github.com/edzer/sswr/
+  repo-branch: main
+  repo-actions: [edit]
+  chapters:
+    - index.qmd
+    - day1.qmd
+#   - day2.qmd
+#   - day3.qmd
+#   - day4.qmd
+#   - day5.qmd
+
+# bibliography: 
+# - packages.bib
+# - book.bib
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#" 
+    R.options:
+      knitr.graphics.auto_pdf: true
+      dplyr.print_min: 6
+      dplyr.print_max: 6
+      stars.crs: 17
+      digits: 3
+
+format:
+  html:
+    grid:
+      sidebar-width: 300px
+    number-depth: 2
+    theme: cosmo
+    code-fold: false
+    code-summary: "Code"
+    code-tools: true
+    code-link: true
+    knitr:
+      opts_chunk:
+        out.width: 100%
+        R.options:
+          width: 68
