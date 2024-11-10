@@ -2,50 +2,42 @@
 
 ### Learning goals
 
-* Get familiar with geostatistical data and spatial interpolation
-* Get familiar with concepts of geostatistics: stationarity, variogram, kriging, conditional simulation
-* Get an idea what spatiotemporal geostatistics is about
+-   Get familiar with geostatistical data and spatial interpolation
+-   Get familiar with concepts of geostatistics: stationarity, variogram, kriging, conditional simulation
+-   Get an idea what spatiotemporal geostatistics is about
 
 ### Reading materials
 
-From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/):
 
-* Chapter 12: Spatial Interpolation
-* Chapter 13: Multivariate and Spatiotemporal Geostatistics
+-   Chapter 12: Spatial Interpolation
+-   Chapter 13: Multivariate and Spatiotemporal Geostatistics
 
 ### Exercises for Today
 
-* Exercises of Ch 12: Spatial interpolation
+-   Exercises of Ch 12: Spatial interpolation
 
 ::: {.callout-tip title="Summary"}
-
-* Intro to `gstat`
-* Geostatistical data
-* Spatial correlation, variograms, stationarity
-* Kriging
-* Simulating geostatistical data
-* Spatiotemporal geostatistics
-
+-   Intro to `gstat`
+-   Geostatistical data
+-   Spatial correlation, variograms, stationarity
+-   Kriging
+-   Simulating geostatistical data
+-   Spatiotemporal geostatistics
 :::
 
 ## `gstat`
 
-R package `gstat` was written in 2002/3, from a stand-alone C
-program that was released under the GPL in 1997. It implements
-"basic" geostatistical functions for modelling spatial dependence
-(variograms), kriging interpolation and conditional simulation.
-It can be used for multivariable kriging (cokriging), as well as
-for spatiotemporal variography and kriging. Recent updates included
-support for `sf` and `stars` objects.
+R package `gstat` was written in 2002/3, from a stand-alone C program that was released under the GPL in 1997. It implements "basic" geostatistical functions for modelling spatial dependence (variograms), kriging interpolation and conditional simulation. It can be used for multivariable kriging (cokriging), as well as for spatiotemporal variography and kriging. Recent updates included support for `sf` and `stars` objects.
 
 ## What are geostatistical data?
 
 Recall from day 1: locations + measured values
 
-* The value of interest is measured at a set of sample locations
-* At other location, this value exists but is _missing_
-* The interest is in estimating (predicting) this missing value (interpolation)
-* The actual sample locations are not of (primary) interest, the signal is in the measured values
+-   The value of interest is measured at a set of sample locations
+-   At other location, this value exists but is *missing*
+-   The interest is in estimating (predicting) this missing value (interpolation)
+-   The actual sample locations are not of (primary) interest, the signal is in the measured values
 
 ```{r}
 library(sf)
@@ -69,6 +61,7 @@ ggplot() + geom_sf(data = de) +
 ### Lagged scatterplots
 
 "by hand", base R:
+
 ```{r}
 (w = st_is_within_distance(no2.sf, no2.sf, units::set_units(50, km), 
 						  retain_unique = TRUE))
@@ -81,6 +74,7 @@ abline(0, 1)
 ```
 
 using gstat:
+
 ```{r}
 library(gstat)
 hscat(NO2~1, no2.sf, breaks = c(0,50,100,150,200,250)*1000)
@@ -88,25 +82,21 @@ hscat(NO2~1, no2.sf, breaks = c(0,50,100,150,200,250)*1000)
 
 ### Variogram
 
-When we assume $Z(s)$ has a constant and unknown mean, the spatial
-dependence can be described by the variogram, defined as $\gamma(h)
-= 0.5 E(Z(s)-Z(s+h))^2$.  If the random process $Z(s)$ has a finite
-variance, then the variogram is related to the covariance function
-$C(h)$ by $\gamma(h) = C(0)-C(h)$.
+When we assume $Z(s)$ has a constant and unknown mean, the spatial dependence can be described by the variogram, defined as $\gamma(h)
+= 0.5 E(Z(s)-Z(s+h))^2$. If the random process $Z(s)$ has a finite variance, then the variogram is related to the covariance function $C(h)$ by $\gamma(h) = C(0)-C(h)$.
 
-The variogram can be estimated from sample data by averaging squared differences:
-$$\hat{\gamma}(\tilde{h})=\frac{1}{2N_h}\sum_{i=1}^{N_h}(Z(s_i)-Z(s_i+h))^2 \ \
+The variogram can be estimated from sample data by averaging squared differences: $$\hat{\gamma}(\tilde{h})=\frac{1}{2N_h}\sum_{i=1}^{N_h}(Z(s_i)-Z(s_i+h))^2 \ \
 h \in \tilde{h}$$
 
-* divide by $2N_h$:
-    * if finite, $\gamma(\infty)=\sigma^2=C(0)$
-    * _semi_ variance
-* if data are not gridded, group $N_h$ pairs $s_i,s_i+h$ for which $h \in \tilde{h}$, $\tilde{h}=[h_1,h_2]$
-* rule-of-thumb: choose about 10-25 distance intervals $\tilde{h}$, from length 0 to about on third of the area size
-* plot $\gamma$ against $\tilde{h}$ taken as the average value of all $h \in \tilde{h}$
-
+-   divide by $2N_h$:
+    -   if finite, $\gamma(\infty)=\sigma^2=C(0)$
+    -   *semi* variance
+-   if data are not gridded, group $N_h$ pairs $s_i,s_i+h$ for which $h \in \tilde{h}$, $\tilde{h}=[h_1,h_2]$
+-   rule-of-thumb: choose about 10-25 distance intervals $\tilde{h}$, from length 0 to about on third of the area size
+-   plot $\gamma$ against $\tilde{h}$ taken as the average value of all $h \in \tilde{h}$
 
 We can compute a variogram "by hand", using base R:
+
 ```{r}
 z = no2.sf$NO2
 z2 = 0.5 * outer(z, z, FUN = "-")^2 # (Z(s)-Z(s+h))^2
@@ -119,6 +109,7 @@ plot(gamma ~ dclass, v, ylim = c(0, 20))
 ```
 
 using gstat:
+
 ```{r}
 vv = variogram(NO2~1, no2.sf, width = 50000, cutoff = 350000)
 vv$gamma - v$gamma
@@ -126,27 +117,21 @@ plot(vv)
 ```
 
 ::: {.callout-note title="Breakout session 1"}
+Compute the variogram of NO2 using argument `cloud = TRUE`.
 
-Compute the variogram of NO2 using argument `cloud = TRUE`. 
-
-* how does the resulting object differ from the "regular" variogram 
-* what do the "left" and "right" fields refer to?
-* when we plot the resulting object, does it still indicate spatial correlation?
-
+-   how does the resulting object differ from the "regular" variogram
+-   what do the "left" and "right" fields refer to?
+-   when we plot the resulting object, does it still indicate spatial correlation?
 :::
 
+## Interpolation
 
-##  Interpolation
+For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data not!)
 
-For interpolation, we first need a target grid (point patterns have
-an observation window, geostatistical data not!)
-
-A simple interpolator (that is hard to beat) is the inverse distance interpolator,
-$$\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)$$
-with $\lambda_j$ proportional to $||s_i - s_0||^{-p}$ and normalized to sum
-to one (weighted mean), and $p$ tunable but defaulting to 2.
+A simple interpolator (that is hard to beat) is the inverse distance interpolator, $$\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)$$ with $\lambda_j$ proportional to $||s_i - s_0||^{-p}$ and normalized to sum to one (weighted mean), and $p$ tunable but defaulting to 2.
 
 Using the data range:
+
 ```{r}
 library(stars)
 g1 = st_as_stars(st_bbox(no2.sf))
@@ -157,6 +142,7 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
 ```
 
 Better to use the outer polygon:
+
 ```{r}
 g2 = st_as_stars(st_bbox(de))
 idw(NO2~1, no2.sf, g2) |> plot(reset = FALSE)
@@ -165,6 +151,7 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
 ```
 
 And crop to (mask out outside) the area of interest:
+
 ```{r}
 g3 = st_crop(g2, de)
 i = idw(NO2~1, no2.sf, g3) 
@@ -173,10 +160,7 @@ plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'red')
 ```
 
-Geostatistical approaches compute weights based on covariances
-between observations $Z(s_i)$, and between observations and the
-value at the interpolation location $Z(s_0)$. These covariances
-are obtained from a model fitted to the sample variogram.
+Geostatistical approaches compute weights based on covariances between observations $Z(s_i)$, and between observations and the value at the interpolation location $Z(s_0)$. These covariances are obtained from a model fitted to the sample variogram.
 
 ## Fit a variogram model
 
@@ -187,19 +171,15 @@ plot(v)
 ```
 
 fit a model, e.g. an exponential model:
+
 ```{r}
 v.fit = fit.variogram(v, vgm(1, "Exp", 50000))
 plot(v, v.fit)
 ```
 
-
 ## BLUP/Kriging
 
-Given this model, we can interpolate using the _best unbiased linear
-predictor_ (BLUP), also called kriging predictor. Under the model
-$Z(s)=m+e(s)$ it estimates $m$ using generalized least squares, and
-predicts $e(s)$ using a weighted mean, where weights are chosen such
-that $Var(Z(s_0)-\hat{Z}(s_0))$ is minimized. 
+Given this model, we can interpolate using the *best unbiased linear predictor* (BLUP), also called kriging predictor. Under the model $Z(s)=m+e(s)$ it estimates $m$ using generalized least squares, and predicts $e(s)$ using a weighted mean, where weights are chosen such that $Var(Z(s_0)-\hat{Z}(s_0))$ is minimized.
 
 ```{r}
 k = krige(NO2~1, no2.sf, g3, v.fit)
@@ -212,19 +192,18 @@ hook = function() {
 plot(merge(k[c("kriging", "idw")]), hook = hook, breaks = "equal")
 ```
 
-::: {.callout-important}
+::: callout-important
 ## Density or interpolation?
 
-Both density maps shown in the Point Pattern section and interpolated
-maps shown in this section look very similar:
+Both density maps shown in the Point Pattern section and interpolated maps shown in this section look very similar:
 
-* raster maps with continuous values
-* smooth spatial patterns
+-   raster maps with continuous values
+-   smooth spatial patterns
 
 The differences could not be larger!
 
-* point density estimates estimate the number of points per unit area; the values are (normalized) _counts_
-* interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an _attribute_
+-   point density estimates estimate the number of points per unit area; the values are (normalized) *counts*
+-   interpolated maps estimate an unmeasured continuous variable; the values are weighted averages of an *attribute*
 :::
 
 To illustrate the difference between density and interpolated values:
@@ -237,6 +216,7 @@ p = as.ppp(st_geometry(no2.sf), W = as.owin(st_union(st_geometry(de))))
 density(p) |> st_as_stars() |> plot(main = "station density (# m^-2)", reset = FALSE)
 plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 ```
+
 ```{r echo=FALSE}
 #| code-fold: true
 #| out.width: '100%'
@@ -246,15 +226,14 @@ plot(st_geometry(no2.sf), add = TRUE, col = 'yellow')
 
 ## Kriging with a non-constant mean
 
-Under the model $Z(s) = X(s)\beta + e(s)$, $\beta$ is estimated
-using generalized least squares, and the variogram of regression
-residuals is needed; see Ch 12.
+Under the model $Z(s) = X(s)\beta + e(s)$, $\beta$ is estimated using generalized least squares, and the variogram of regression residuals is needed; see Ch 12.
 
 ## Conditional simulation
 
 ### Simulating spatially correlated data
 
 Using a coarse grid, with base R:
+
 ```{r}
 set.seed(13579)
 g2c = st_as_stars(st_bbox(de), dx = 15000)
@@ -274,6 +253,7 @@ plot(merge(g3c[2:11]), breaks = "equal")
 ```
 
 As a check, we could compute the variogram of some of the realisations:
+
 ```{r}
 g3c["sim4"] |> 
   st_as_sf() |> 
@@ -290,21 +270,21 @@ g3c["sim6"] |>
 ```
 
 The mean of these simulations is constant, not related to measured values:
+
 ```{r}
 st_apply(merge(g3c[-1]), c("x", "y"), mean) |> plot()
 mean(no2.sf$NO2)
 ```
 
-Conditioning simulations on measured values can be done with `gstat`, using
-_conditional simulation_
+Conditioning simulations on measured values can be done with `gstat`, using *conditional simulation*
 
 ```{r}
 cs = krige(NO2~1, no2.sf, g3, v.fit, nsim = 50, nmax = 30)
 plot(cs[,,,1:10])
 ```
 
-We see that these simulations are much more alike; also their
-mean and variance resemble that of the kriging mean and variance:
+We see that these simulations are much more alike; also their mean and variance resemble that of the kriging mean and variance:
+
 ```{r}
 csm = st_apply(cs, c("x", "y"), mean)
 csm$kriging = krige(NO2~1, no2.sf, g3, v.fit)[1]
@@ -315,24 +295,15 @@ plot(merge(csv), breaks = "equal")
 ```
 
 ::: {.callout-note title="Breakout session 2"}
-
-What causes the differences between the mean and the variance
-of the simulations (left) and the mean and variance obtained
-by kriging (right)?
-
+What causes the differences between the mean and the variance of the simulations (left) and the mean and variance obtained by kriging (right)?
 :::
 
 ## SpatioTemporal geostatistics
 
-* [Ch 13](https://r-spatial.org/book/13-Geostatistics.html)
+-   [Ch 13](https://r-spatial.org/book/13-Geostatistics.html)
 
 ## Further reading
 
-* Pebesma, E.J., 2004. Multivariable geostatistics
-in S: the gstat package. Computers & Geosciences, 30:
-[683-691](https://doi.org/10.1016/j.cageo.2004.03.012).
+-   Pebesma, E.J., 2004. Multivariable geostatistics in S: the gstat package. Computers & Geosciences, 30: [683-691](https://doi.org/10.1016/j.cageo.2004.03.012).
 
-* Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016.
-Spatio-Temporal Interpolation using gstat.  The R Journal 8(1),
-[204-218](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)
-
+-   Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016. Spatio-Temporal Interpolation using gstat. The R Journal 8(1), [204-218](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)

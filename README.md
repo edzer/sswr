@@ -18,6 +18,7 @@ held Mar 11-15, 2024, online.
 * Interactions of point processes
 * Simulating point process
 * Modelling density as a function of external variables
+* MaxEnt
 
 ## Day 3: Geostatistical data
 
@@ -33,13 +34,13 @@ held Mar 11-15, 2024, online.
 * Pitfalls: independence, known predictors, clustered data
 * Model assessment, cross validation strategies
 
-## Day 5: Big spatial datasets
+## Day 5: Lattice data, big spatial datasets
 
+* Analysing lattice data: neighbours, weights, models
 * What is big?
 * Large vector datasets
 * Large raster datasets, image collections and data cubes
 * Cloud solutions, cloud platforms, platform lock-in
-
 
 ## License
 

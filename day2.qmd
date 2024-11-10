@@ -2,55 +2,50 @@
 
 ### Learning goals
 
-* Understand spatial data structures used in R
-* Understand what a point pattern and a point process is
-* Understand what an observation window is
-* Get familiar with the tools used in point pattern data analysis
-* See the alignment with MaxEnt
+-   Understand spatial data structures used in R
+-   Understand what a point pattern and a point process is
+-   Understand what an observation window is
+-   Get familiar with the tools used in point pattern data analysis
+-   See the alignment with MaxEnt
 
 ### Reading materials
 
-From [Spatial Data Science: with applications in R](https://r-spatial.org/book/): 
+From [Spatial Data Science: with applications in R](https://r-spatial.org/book/):
 
-* Chapter 11: Point Patterns
-* Chapter 7: `sf` and `stars`
+-   Chapter 11: Point Patterns
+-   Chapter 7: `sf` and `stars`
 
 ## Exercises for Today
 
-* Exercises of Ch 11: Point Patterns
+-   Exercises of Ch 11: Point Patterns
 
 ::: {.callout-tip title="Summary"}
-
-* Intro to `sf` and `stars`
-* Intro to `spatstat`
-* Point patterns, density functions
-* Interactions in point processes
-* Simulating point process
-* Modelling density as a function of external variables
-
+-   Intro to `sf` and `stars`
+-   Intro to `spatstat`
+-   Point patterns, density functions
+-   Interactions in point processes
+-   Simulating point process
+-   Modelling density as a function of external variables
 :::
 
 ## Intro to `sf` and `stars`
 
-* Briefly: `sf` provides classes and methods for _simple features_
-    * a feature is a "thing", with geometrical properties (point(s), line(s), polygon(s)) and attributes
-    * `sf` stores data in `data.frame`s with a list-column (of class `sfc`) that holds the geometries
+-   Briefly: `sf` provides classes and methods for *simple features*
+    -   a feature is a "thing", with geometrical properties (point(s), line(s), polygon(s)) and attributes
+    -   `sf` stores data in `data.frame`s with a list-column (of class `sfc`) that holds the geometries
 
 ::: {.callout-tip title="the Simple Feature standard"}
+"Simple Feature Access" is an [open standard](https://www.ogc.org/standard/sfa/) for data with vector geometries. It defines a set of classes for geometries and operations on them.
 
-"Simple Feature Access" is an [open standard](https://www.ogc.org/standard/sfa/) for data
-with vector geometries. It defines a set of classes for geometries and operations on them.
-
-* "simple" refers to curves that are "simply" represented by points connected by straight lines
-* connecting lines are not allowed to [self-intersect](https://r-spatial.org/book/03-Geometries.html#sec-valid)
-* polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.
-* All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...
-
+-   "simple" refers to curves that are "simply" represented by points connected by straight lines
+-   connecting lines are not allowed to [self-intersect](https://r-spatial.org/book/03-Geometries.html#sec-valid)
+-   polygons can have holes, and have validity constraints: holes cannot extrude the outer ring etc.
+-   All spatial software uses this: ArcGIS, QGIS, PostGIS, other spatial databases, ...
 :::
 
 ### Why do all functions in `sf` start with `st_`?
 
-* see [here](https://ecoevo.social/@noamross/112055449473807578)
+-   see [here](https://ecoevo.social/@noamross/112055449473807578)
 
 ### The larger geospatial open source ecosystem
 
@@ -67,35 +62,43 @@ knitr::include_graphics("sf_deps.png")
 
 `sf` has objects at three nested "levels":
 
-* `sfg`: a single geometry (without coordinate reference system)
-* `sfc`: a set of `sfg` geometries, with a coordinate reference system
-* `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
+-   `sfg`: a single geometry (without coordinate reference system)
 
-* Operations _not_ involving geometry (`data.frame`; base R; tidyverse)
-    * geometry column + `sf` class is sticky!
-    * this can be convenient, and sometimes annoying
-    * use `as.data.frame` or `as_tibble` to strip the `sf` class label
-* Operations involving _only_ geometry
-    * **predicates** (resulting `TRUE`/`FALSE`)
-	    * unary
-		* binary: [DE9-IM](https://en.wikipedia.org/wiki/DE-9IM); work on two sets, result `sgbp`, which is a sparse logical matrix representation
-		    * is_within_distance
-    * **measures**
-        * unary: length, area
-        * binary: distance, `by_element = FALSE`
-    * **transformers**
-		* unary: buffer, centroid 
-        * binary: intersection, union, difference, symdifference
-        * n-ary: intersection, difference
-* Operations involving geometry _and_ attributes
-    * many of the above!
-    * `st_join`
-    * `aggregate`
-	* `st_interpolate_aw`: requires expression whether variable is spatially _extensive_ or _intensive_
+-   `sfc`: a set of `sfg` geometries, with a coordinate reference system
+
+-   `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
+
+-   Operations *not* involving geometry (`data.frame`; base R; tidyverse)
+
+    -   geometry column + `sf` class is sticky!
+    -   this can be convenient, and sometimes annoying
+    -   use `as.data.frame` or `as_tibble` to strip the `sf` class label
+
+-   Operations involving *only* geometry
+
+    -   **predicates** (resulting `TRUE`/`FALSE`)
+        -   unary
+        -   binary: [DE9-IM](https://en.wikipedia.org/wiki/DE-9IM); work on two sets, result `sgbp`, which is a sparse logical matrix representation
+            -   is_within_distance
+    -   **measures**
+        -   unary: length, area
+        -   binary: distance, `by_element = FALSE`
+    -   **transformers**
+        -   unary: buffer, centroid
+        -   binary: intersection, union, difference, symdifference
+        -   n-ary: intersection, difference
+
+-   Operations involving geometry *and* attributes
+
+    -   many of the above!
+    -   `st_join`
+    -   `aggregate`
+    -   `st_interpolate_aw`: requires expression whether variable is spatially *extensive* or *intensive*
 
 ## `sf` and `spatstat`
 
 We can try to convert an `sf` object to a `ppp` (point pattern object in `spatstat`):
+
 ```{r error=TRUE}
 library(sf)
 library(spatstat)
@@ -121,6 +124,7 @@ st_distance(st_sfc(p1, crs = 'OGC:CRS84'), st_sfc(p2, crs = 'OGC:CRS84'))
 ```
 
 Also areas:
+
 ```{r}
 p = st_as_sfc("POLYGON((0 80, 120 80, 240 80, 0 80))")
 st_area(p)
@@ -131,6 +135,7 @@ st_intersects(st_sfc(pole, crs = 'OGC:CRS84'), st_sfc(p, crs = 'OGC:CRS84'))
 ```
 
 What to do with `nc`? Project to $R^2$ (flat space):
+
 ```{r}
 nc |> st_transform('EPSG:32119') |> st_centroid() -> pts
 pts
@@ -142,21 +147,20 @@ st_as_sf(pp)
 
 Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`:
 
-1. assuming these are coordinates in a a Cartesian space
-2. assuming these are geodetic coordinates
+1.  assuming these are coordinates in a a Cartesian space
+2.  assuming these are geodetic coordinates
 
 ## Intro to `spatstat`
 
-Consider a point pattern that consist of 
+Consider a point pattern that consist of
 
-* a set of known coordinates
-* an observation window
+-   a set of known coordinates
+-   an observation window
 
-We can ask ourselves: our point **pattern** be a realisation of a _completely spatially random_ (CSR) **process**? A CSR process
-has 
+We can ask ourselves: our point **pattern** be a realisation of a *completely spatially random* (CSR) **process**? A CSR process has
 
-1. a spatially constant intensity (_mean_: first order property)
-2. completely independent locations (_interactions_: second order property)
+1.  a spatially constant intensity (*mean*: first order property)
+2.  completely independent locations (*interactions*: second order property)
 
 e.g.
 
@@ -207,8 +211,8 @@ plot(q)
 
 ## Estimating density
 
-* main parameter: bandwidth (`sigma`): determines the amound of smoothing.
-* if `sigma` is not specified: uses `bw.diggle`, an automatically tuned bandwidth
+-   main parameter: bandwidth (`sigma`): determines the amound of smoothing.
+-   if `sigma` is not specified: uses `bw.diggle`, an automatically tuned bandwidth
 
 Correction for `edge` effect?
 
@@ -223,9 +227,7 @@ plot(ppi, add = TRUE, col = 'green')
 
 ## Assessing interactions: clustering/inhibition
 
-The K-function ("Ripley's K") is the expected number of additional
-random (CSR) points within a distance r of a typical random point
-in the observation window.
+The K-function ("Ripley's K") is the expected number of additional random (CSR) points within a distance r of a typical random point in the observation window.
 
 The G-function (nearest neighbour distance distribution) is the cumulative distribution function G of the distance from a typical random point of X to the nearest other point of X.
 
@@ -239,8 +241,8 @@ envelope(Y , Lest) |> plot()
 envelope(Y , Linhom) |> plot()
 ```
 
-
 ## Fitting models to clustered data
+
 ```{r}
 # assuming Inhomogeneous Poisson:
 ppm(ppi, ~x)
@@ -248,24 +250,15 @@ ppm(ppi, ~x)
 kppm(Y, ~x)
 ```
 
+## MaxEnt and species distribution modelling"
 
-## Further reading
-
-* E. Pebesma, 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, [439-446](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html).
-* A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.
-* J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.
-
-::: {.callout-tip title="MaxEnt and species distribution modelling"}
-
-It seems that
-[MaxEnt](https://biodiversityinformatics.amnh.org/open_source/maxent/) fits
-an [inhomogeneous Poisson process](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049) 
+It seems that [MaxEnt](https://biodiversityinformatics.amnh.org/open_source/maxent/) fits an [inhomogeneous Poisson process](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049)
 
 Starting from presence (only) observations, it
 
-* adds background (absence) points, uniformly _in space_
-* fits logistic regression models to the 0/1 data, using environmental covariates
-* ignores spatial interactions, spatial distances
+-   adds background (absence) points, uniformly *in space*
+-   fits logistic regression models to the 0/1 data, using environmental covariates
+-   ignores spatial interactions, spatial distances
 
 R package [maxnet](https://cran.r-project.org/web/packages/maxnet/index.html) does that using glmnet (lasso or elasticnet regularization on)
 
@@ -273,8 +266,11 @@ A maxnet example [using stars](https://github.com/BigelowLab/maxnet/wiki/stars) 
 
 Relevant papers:
 
-* a paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
-* [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
+-   a paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
+-   [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
 
-:::
+## Further reading
 
+-   E. Pebesma, 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10:1, [439-446](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html).
+-   A. Baddeley, E. Rubak and R Turner, 2016. Spatial Point Patterns: methodology and Applications in R; Chapman and Hall/CRC 810 pages.
+-   J. Illian, A. Penttinen, H. Stoyan and D. Stoyan, 2008. Statistical Analysis and Modelling of Spatial Point Patterns; Wiley, 534 pages.
