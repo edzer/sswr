@@ -2,7 +2,7 @@
 
 Materials used in the course [Spatial Statistics with
 R](https://www.physalia-courses.org/courses-workshops/spatial-statistics/),
-held Mar 11-15, 2024, online.
+held Mar 11-15, 2024, and again on Nov 11-15, 2024, online.
 
 ## Day 1: Introduction to spatial data
 

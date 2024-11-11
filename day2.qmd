@@ -15,9 +15,6 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 -   Chapter 11: Point Patterns
 -   Chapter 7: `sf` and `stars`
 
-## Exercises for Today
-
--   Exercises of Ch 11: Point Patterns
 
 ::: {.callout-tip title="Summary"}
 -   Intro to `sf` and `stars`
@@ -64,7 +61,7 @@ knitr::include_graphics("sf_deps.png")
 
 -   `sfg`: a single geometry (without coordinate reference system)
 
--   `sfc`: a set of `sfg` geometries, with a coordinate reference system
+-   `sfc`: a set of `sfg` geometries, with a coordinate reference system and bounding box
 
 -   `sf`: a `data.frame` or tibble with at least one geometry (`sfc`) column
 
@@ -143,12 +140,11 @@ pts
 st_as_sf(pp)
 ```
 
-### Breakout session
+### Exercises
 
-Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`:
-
-1.  assuming these are coordinates in a a Cartesian space
-2.  assuming these are geodetic coordinates
+1. Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`, assuming (i) these are coordinates in a Cartesian space, and (ii) these are geodetic coordinates. What are the units of the result?
+2. Load the `nc` dataset into your session (e.g. using `library(sf); demo(nc)`) and convert it into a `stars` object using (i) `st_as_stars()`, (ii) `st_rasterize()`, (iii) `st_interpolate_aw()`
+3. Load the `L7_ETMs` dataset into your session (e.g. using `library(stars); L7_ETMs = st_as_stars(L7_ETMs)`), and convert the object to an `sf` object (i) using `st_as_sf()`, (ii) using `st_as_sf(..., as_points = TRUE)`, and explain the differences (also plot the resulting `sf` objects). Randomly sample 100 points from the bounding box of `L7_ETMs`, and extract the image values at these points using `st_extract()`, and convert the result into an `sf` object.
 
 ## Intro to `spatstat`
 
@@ -268,6 +264,10 @@ Relevant papers:
 
 -   a paper detailing the equivalence and differences between point pattern models and MaxEnt is found [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12352).
 -   [A statistical explanation of MaxEnt for Ecologists](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
+
+## Exercises 
+
+-   Exercises of [Ch 11: Point Patterns](https://r-spatial.org/book/11-PointPattern.html#exercises)
 
 ## Further reading
 
