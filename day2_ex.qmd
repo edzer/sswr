@@ -1,0 +1,94 @@
+Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`, assuming (i) these are coordinates in a Cartesian space, and (ii) these are geodetic coordinates. What are the units of the result?
+```{r}
+library(sf)
+st_as_sfc(c("POINT(10 -90)", "POINT(50 -90)")) |> 
+		st_distance()
+st_as_sfc(c("POINT(10 -90)", "POINT(50 -90)"), crs = st_crs('OGC:CRS84')) |> 
+		st_distance()
+```
+
+Load the `nc` dataset into your session (e.g. using `library(sf); demo(nc)`) and convert it into a `stars` object using (i) `st_as_stars()`, (ii) `st_rasterize()`, (iii) `st_interpolate_aw()`
+```{r}
+demo(nc, echo = FALSE, ask = FALSE)
+library(stars)
+(r1 <- st_as_stars(nc))
+(r2 <- st_rasterize(nc))
+# gr = st_make_grid(nc)
+gr = st_as_stars(st_bbox(nc), nx = 10, ny = 10)
+(r3 <- st_interpolate_aw(nc["SID74"], gr, extensive = TRUE))
+```
+
+Load the `L7_ETMs` dataset into your session (e.g. using `library(stars); L7_ETMs = st_as_stars(L7_ETMs)`), and convert the object to an `sf` object (i) using `st_as_sf()`, (ii) using `st_as_sf(..., as_points = TRUE)`, and explain the differences (also plot the resulting `sf` objects). Randomly sample 100 points from the bounding box of `L7_ETMs`, and extract the image values at these points using `st_extract()`, and convert the result into an `sf` object.
+```{r}
+L7_ETMs = st_as_stars(L7_ETMs)
+(s1 <- st_as_sf(L7_ETMs))
+(s2 <- st_as_sf(L7_ETMs, as_points = TRUE))
+plot(s1)
+plot(s2)
+pts = st_sample(st_bbox(L7_ETMs), 100)
+(e1 <- st_extract(L7_ETMs, pts) |> st_as_sf())
+(e2 <- st_intersection(s1, pts))
+all.equal(e1, e2, check.attributes = FALSE)
+(e3 <- st_intersection(s2, pts))
+```
+
+
+From the point pattern shown in section 1.3, download the GeoPackage, and read into R
+```{r}
+library(sf)
+library(rnaturalearth)
+w = read_sf("Windkraftanlagen_DE_5521464311407255742.gpkg")
+```
+
+Read the boundary of Germany using `rnaturalearth::ne_countries(scale = "larger", country = "Germany")
+```{r}
+g = ne_countries(scale = "large", country = "Germany") |> st_transform(st_crs(w))
+```
+
+Create a plot showing both the observation window and 
+```{r}
+plot(st_geometry(g))
+plot(st_geometry(w), add = TRUE, pch = 3, cex = .2)
+```
+
+Do all observations fall inside the observation window?
+```{r}
+st_disjoint(w, g) |> lengths() |> sum()
+```
+
+Create a ppp object from the points and the window
+```{r}
+library(spatstat)
+c(st_geometry(g), st_geometry(w)) |> as.ppp() -> pp
+# or, with marks:
+pp <- as.ppp(w[g, ], W = as.owin(g))
+```
+
+Create a density map of the wind turbines, with the turbines added
+```{r}
+plot(density(pp))
+plot(pp, add = TRUE, pch = 3, cex = .2, col = 'green')
+```
+
+CSR?
+```{r}
+(q = quadrat.test(pp))
+plot(q)
+```
+
+density:
+```{r}
+d <- density(pp)
+# verify density:
+mean(d) * st_area(g) |> units::drop_units()
+nobjects(pp)
+```
+
+# interactions?
+```{r}
+Kest(pp) |> plot()
+Lest(pp) |> plot()
+Linhom(pp) |> plot()
+envelope(pp, Lest) |> plot()
+envelope(pp, Linhom) |> plot()
+```
