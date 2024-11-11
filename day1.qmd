@@ -2,7 +2,7 @@
 
 ### Learning goals
 
--   learn the different data types considerd in spatial statistics, and get familiar with simple features, as well as with the difference between discrete and continuous variability in *space* and in *attributes*
+-   learn the different data types considered in spatial statistics, and get familiar with simple features, as well as with the difference between discrete and continuous variability in *space* and in *attributes*
 -   learn what spatial dependence is about, and cases where it can be ignored
 -   introduce spatial point patterns and processes
 
@@ -90,7 +90,7 @@ ne_countries() |> st_geometry() |> plot(axes=TRUE)
 
 -   statistic: singular; a descriptive measure summarising some data
 -   statistics: plural; "minimum and maximum are two statistics"
--   Statistics: singular; a scientific disciplin aiming at modelling data, using probability theory
+-   Statistics: singular; a scientific discipline aiming at modelling data, using probability theory
     -   where does randomness come from? Design-based vs. model-based
     -   are parameters random or fixed? Bayesian vs. frequentist
     -   inference, prediction, simulations
@@ -121,7 +121,7 @@ In the regression literature this is called a (linear) mixed model, because $e$ 
 
 $$Z(s) = X(s)\beta + w(s) + \epsilon$$
 
-with $w(s)$ the spatial signal, and \epsilon a noise compenent e.g. due to measurement error.
+with $w(s)$ the spatial signal, and $\epsilon$ a noise compenent e.g. due to measurement error.
 
 Predicting $Z(s_0)$ will involve (GLS) estimation of $\beta$, but also prediction of $e(s_0)$ using correlated, nearby observations (day 3: geostatistics).
 
@@ -130,7 +130,7 @@ Predicting $Z(s_0)$ will involve (GLS) estimation of $\beta$, but also predictio
 -   design-based requires a random sample, if that is the case it needs no further assumptions
 -   model-based requires stationarity assumptions to estimate $\Sigma$
 -   model-based is typically more effective for interpolation problems
--   design-based can be most effective when estimation e.g. average mapping errors
+-   design-based can be most effective when estimating, e.g. average mapping errors
 
 ### Using coordinates as covariates?
 
@@ -242,7 +242,7 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 -   A temporal snapshot (time slice) of a set of moving things forms a point pattern
 -   We often analyse trajectories by
     -   estimating densities, for space-time blocks, per individual or together
-    -   analyising interactions (alibi problem, mating animals, home range, UDF etc)
+    -   analysing interactions (alibi problem, mating animals, home range, UDF etc)
 
 ## Checklist if you have spatial data
 
@@ -255,12 +255,12 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 
 ## Exercises
 
-* What is the coordinate reference system of the `ne_countries()` dataset, imported above?
-* Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.
-* Why is this projection called _The simplest of all projections_?
-* Project `ne_countries` to Plate Carrée, and plot it with `axes=TRUE`. What has changed? (Hint: `st_crs()` accepts a _proj string_ to define a coordinate reference system (CRS); `st_transform()` transforms a dataset to a new CRS.)
-* Project the same dataset to Eckert IV projection. What has changed?
-* Also try plotting this dataset after transforming it to an orthographic projection with `+proj=ortho`; what went wrong?
+-   What is the coordinate reference system of the `ne_countries()` dataset, imported above?
+-   Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.
+-   Why is this projection called *The simplest of all projections*?
+-   Project `ne_countries` to Plate Carrée, and plot it with `axes=TRUE`. What has changed? (Hint: `st_crs()` accepts a *proj string* to define a coordinate reference system (CRS); `st_transform()` transforms a dataset to a new CRS.)
+-   Project the same dataset to Eckert IV projection. What has changed?
+-   Also try plotting this dataset after transforming it to an orthographic projection with `+proj=ortho`; what went wrong?
 
 ## Further reading
 

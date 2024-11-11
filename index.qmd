@@ -113,9 +113,10 @@ Further:
 
 ## Exercises
 
-1. Copy the course material from GitHub to your local machine
-2. Open it in RStudio
-3. Open the `day1.qmd` file. Try to identify a code chunk.
-4. Run the first code chunk.
-5. Skip to the last code chunk; run all code chunks above it (by a single click), and then run this last code chunk.
+1. Install the `spDataLarge` package (see instructions above)
+2. Copy the course material from GitHub to your local machine
+3. Open it in RStudio
+4. Open the `day1.qmd` file. Try to identify a code chunk.
+5. Run the first code chunk.
+6. Skip to the last code chunk; run all code chunks above it (by a single click), and then run this last code chunk.
 6. Render the entire course "book", view the result by opening `_book/index.html` in a web browser (from Rstudio)
