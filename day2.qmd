@@ -54,6 +54,14 @@ R and beyond:
 knitr::include_graphics("sf_deps.png") 
 ```
 
+```{r fig-gdal-sdsl, echo = FALSE}
+#| code-fold: true
+#| out.width: '100%'
+#| fig.cap: upstream dependencies on OSGEO and other C/C++ libraries in R and Python spatial data sciece packages
+knitr::include_graphics("geopythonR.png") 
+```
+
+
 ### `sf` operators, how to understand?
 
 `sf` has objects at three nested "levels":
@@ -266,7 +274,16 @@ Relevant papers:
 
 ## Exercises
 
-See exercises of [Ch 11: Point Patterns](https://r-spatial.org/book/11-PointPattern.html#exercises)
+1. From the point pattern shown in section 1.3, download the data as GeoPackage, and read into R
+1. Read the boundary of Germany using `rnaturalearth::ne_countries(scale = "larger", country = "Germany")
+1. Create a plot showing both the observation window and the point pattern
+1. Do all observations fall inside the observation window?
+1. Create a ppp object from the points and the window
+1. Create a density map of the wind turbines, with the turbines added
+1. Test whether the point pattern is homogeneous
+1. Create a plot with the (estimated) density of the wind turbines, with the turbine points added
+1. Verify that the mean density multiplied by the area of the window approximates the number of turbines
+1. Test for interaction: create diagnostic plots to verify whether the point pattern is clustered, or exhibits repulsion
 
 ## Further reading
 
