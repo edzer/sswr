@@ -253,7 +253,7 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 -   Were the data obtained by random sampling, and if yes, do you have sampling weights?
 -   Do you know the *extent* ($B$) from which your data were sampled, or collected?
 
-## Exercises:
+## Exercises
 
 * What is the coordinate reference system of the `ne_countries()` dataset, imported above?
 * Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.

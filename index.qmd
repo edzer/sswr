@@ -111,7 +111,7 @@ Further:
     * on the command line: run `quarto render` in the course directory 
 * Run individual code sections in RStudio, and modify them!
 
-## Exercise:
+## Exercises
 
 1. Copy the course material from GitHub to your local machine
 2. Open it in RStudio

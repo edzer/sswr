@@ -250,7 +250,7 @@ ppm(ppi, ~x)
 kppm(Y, ~x)
 ```
 
-## MaxEnt and species distribution modelling"
+## MaxEnt and species distribution modelling
 
 It seems that [MaxEnt](https://biodiversityinformatics.amnh.org/open_source/maxent/) fits an [inhomogeneous Poisson process](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/ecog.03049)
 
