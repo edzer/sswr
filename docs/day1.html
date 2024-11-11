@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>1&nbsp; Introduction to spatial data – Spatial Statistics with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./day2.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day1.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Spatial Statistics with R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/edzer/sswr/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geostatistical data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning methods applied to spatial data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#learning-goals" id="toc-learning-goals" class="nav-link active" data-scroll-target="#learning-goals">Learning goals</a></li>
+  <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link" data-scroll-target="#reading-materials">Reading materials</a></li>
+  <li><a href="#exercises-that-can-be-prepared-for-the-first-day" id="toc-exercises-that-can-be-prepared-for-the-first-day" class="nav-link" data-scroll-target="#exercises-that-can-be-prepared-for-the-first-day">Exercises that can be prepared for the first day:</a></li>
+  <li>
+<a href="#what-is-special-about-spatial-data" id="toc-what-is-special-about-spatial-data" class="nav-link" data-scroll-target="#what-is-special-about-spatial-data"><span class="header-section-number">1.1</span> What is special about spatial data?</a>
+  <ul class="collapse">
+<li><a href="#support-examples" id="toc-support-examples" class="nav-link" data-scroll-target="#support-examples">Support: examples</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#spatial-vs.-geospatial" id="toc-spatial-vs.-geospatial" class="nav-link" data-scroll-target="#spatial-vs.-geospatial"><span class="header-section-number">1.2</span> Spatial vs.&nbsp;Geospatial</a>
+  <ul class="collapse">
+<li><a href="#design-based-statistics" id="toc-design-based-statistics" class="nav-link" data-scroll-target="#design-based-statistics">Design-based statistics</a></li>
+  <li><a href="#model-based-statistics" id="toc-model-based-statistics" class="nav-link" data-scroll-target="#model-based-statistics">Model-based statistics</a></li>
+  <li><a href="#design--or-model-based" id="toc-design--or-model-based" class="nav-link" data-scroll-target="#design--or-model-based">Design- or model-based?</a></li>
+  <li><a href="#using-coordinates-as-covariates" id="toc-using-coordinates-as-covariates" class="nav-link" data-scroll-target="#using-coordinates-as-covariates">Using coordinates as covariates?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#spatial-statistics-data-types" id="toc-spatial-statistics-data-types" class="nav-link" data-scroll-target="#spatial-statistics-data-types"><span class="header-section-number">1.3</span> Spatial statistics: data types</a>
+  <ul class="collapse">
+<li><a href="#point-patterns" id="toc-point-patterns" class="nav-link" data-scroll-target="#point-patterns">Point Patterns</a></li>
+  <li><a href="#geostatistical-data" id="toc-geostatistical-data" class="nav-link" data-scroll-target="#geostatistical-data">Geostatistical data</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#locations-measured-values" id="toc-locations-measured-values" class="nav-link" data-scroll-target="#locations-measured-values"><span class="header-section-number">2</span> locations + measured values</a>
+  <ul class="collapse">
+<li><a href="#areal-data" id="toc-areal-data" class="nav-link" data-scroll-target="#areal-data">Areal data</a></li>
+  <li>
+<a href="#data-types-that-received-less-attention-in-the-spatial-statistics-literature" id="toc-data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="nav-link" data-scroll-target="#data-types-that-received-less-attention-in-the-spatial-statistics-literature"><span class="header-section-number">2.1</span> Data types that received less attention in the spatial statistics literature</a>
+  <ul class="collapse">
+<li><a href="#image-data" id="toc-image-data" class="nav-link" data-scroll-target="#image-data">Image data</a></li>
+  <li><a href="#tracking-data-trajectories" id="toc-tracking-data-trajectories" class="nav-link" data-scroll-target="#tracking-data-trajectories">Tracking data, trajectories</a></li>
+  </ul>
+</li>
+  <li><a href="#checklist-if-you-have-spatial-data" id="toc-checklist-if-you-have-spatial-data" class="nav-link" data-scroll-target="#checklist-if-you-have-spatial-data"><span class="header-section-number">2.2</span> Checklist if you have spatial data</a></li>
+  <li><a href="#exercises-for-day-2" id="toc-exercises-for-day-2" class="nav-link" data-scroll-target="#exercises-for-day-2"><span class="header-section-number">2.3</span> Exercises for Day 2</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">2.4</span> Further reading</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="learning-goals" class="level3"><h3 class="anchored" data-anchor-id="learning-goals">Learning goals</h3>
+<ul>
+<li>learn the different data types considerd in spatial statistics, and get familiar with simple features, as well as with the difference between discrete and continuous variability in <em>space</em> and in <em>attributes</em>
+</li>
+<li>learn what spatial dependence is about, and cases where it can be ignored</li>
+<li>introduce spatial point patterns and processes</li>
+</ul></section><section id="reading-materials" class="level3"><h3 class="anchored" data-anchor-id="reading-materials">Reading materials</h3>
+<p>From <a href="https://r-spatial.org/book/">Spatial Data Science: with applications in R</a>:</p>
+<ul>
+<li>Preface</li>
+<li>Chapter 1: Getting started</li>
+<li>Chapter 2: Coordinates</li>
+<li>Chapter 10: Statistical modelling of spatial data</li>
+</ul></section><section id="exercises-that-can-be-prepared-for-the-first-day" class="level3"><h3 class="anchored" data-anchor-id="exercises-that-can-be-prepared-for-the-first-day">Exercises that can be prepared for the first day:</h3>
+<ul>
+<li>Section 10.6: Exercises</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Summary">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Introduction to spatial data, support, coordinate reference systems</li>
+<li>Introduction to spatial statistical data types: point patterns, geostatistical data, lattice data; imagery, tracks/trajectories</li>
+<li>Is spatial dependence a fact? And is it a curse, or a blessing?</li>
+<li>Spatial sampling, design-based and model-based inference</li>
+<li>Intro to point patterns and point processes, observation window, first and second order properties</li>
+<li>Checklist for your spatial data</li>
+</ul>
+</div>
+</div>
+</section><section id="what-is-special-about-spatial-data" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="what-is-special-about-spatial-data">
+<span class="header-section-number">1.1</span> What is special about spatial data?</h2>
+<ul>
+<li>
+<strong>Location</strong>. Does location always involve coordinates? Relative/absolute, qualitative/quantitative</li>
+<li>
+<strong>Coordinates</strong>. What are coordinates? Dimension(s), unit</li>
+<li>
+<strong>Time</strong>. If not explicit, there is an implicit time reference. Dimension(s), unit, datetime</li>
+<li>
+<strong>Attributes</strong>. <em>at</em> specific locations we measure (observe) specific properties</li>
+<li>Quite often, we want to know <em>where</em> things change (<strong>space-time interactions</strong>).</li>
+<li>
+<strong>Reference systems</strong> for space, time, and attributes: what are they?</li>
+<li>
+<strong>Support</strong>: if we have an attribute value associated with a line, polygon or grid cell:
+<ul>
+<li>does the value summarise all values at points? (line/area/cell support), or</li>
+<li>is the value constant throughout the line/area/cell (point support)?</li>
+</ul>
+</li>
+<li>
+<strong>Continuity</strong>:
+<ul>
+<li>is a variable <em>spatially</em> continuous? Yes for geostatitical data, no for point patterns</li>
+<li>is an <em>attribute variable</em> continuous? <a href="https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ">Stevens’s measurement scales</a>: yes if <em>Interval</em> or <em>Ratio</em>.</li>
+</ul>
+</li>
+</ul>
+<section id="support-examples" class="level3"><h3 class="anchored" data-anchor-id="support-examples">Support: examples</h3>
+<ul>
+<li>Road properties
+<ul>
+<li>road type: gravel, brick, asphalt (point support: everywhere on the whole road)</li>
+<li>mean width: block support (summary value)</li>
+<li>minimum width: block support (although the minimum width may be the value at a single (point) location, it summarizes all widths of the road–we no longer know the width at any specific point location)</li>
+</ul>
+</li>
+<li>Land use/land cover
+<ul>
+<li>when we classify e.g.&nbsp;30 m x 30 m Landsat pixels into a single class, this single class is not constant throughout this pixel</li>
+<li>road type is a land cover type, but a road never covers a 30 m x 30 m pixel</li>
+<li>a land cover type like “urban” is associated with a positive (non-point) support: we don’t say a point in a garden or park is urban, or a point on a roof, but these are part of a (block support) urban fabric</li>
+</ul>
+</li>
+<li>Elevation
+<ul>
+<li>in principle, we can measure elevation at a point; in practice, every measuring device has a physical (non-point) size</li>
+</ul>
+</li>
+<li>Further reading: <a href="https://r-spatial.org/book/05-Attributes.html">Chapter 5: Attributes and Support</a>
+</li>
+</ul></section></section><section id="spatial-vs.-geospatial" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="spatial-vs.-geospatial">
+<span class="header-section-number">1.2</span> Spatial vs.&nbsp;Geospatial</h2>
+<ul>
+<li>Spatial refers (physical) spaces, 2- or 3-dimensional (<span class="math inline">\(R^2\)</span> or <span class="math inline">\(R^3\)</span>)
+<ul>
+<li>Most often spatial statistics considers 2-dimensional problems</li>
+<li>3-d: meteorology, climate science, geophysics, groundwater hydrology, aeronautics, …</li>
+</ul>
+</li>
+<li>“Geo” refers to the Earth</li>
+<li>For Earth coordinates, we always need a <em>datum</em>, consisting of an ellipsoid (shape) and the way it is fixed to the Earth (origin)
+<ul>
+<li>The Earth is modelled by an ellipsoid, which is nearly round</li>
+<li>If we consider Earth-bound areas as flat, for larger areas we get the distances wrong</li>
+<li>We can (and do) also work on <span class="math inline">\(S^2\)</span>, the surface of a sphere, rather than <span class="math inline">\(R^2\)</span>, to get distances right, but this creates a number of challenges (such as plotting on a 2D device)</li>
+</ul>
+</li>
+<li>Non-geospatial spaces could be:
+<ul>
+<li>Associated with other bodies (moon, Mars)</li>
+<li>Astrophysics, places/directions in the universe</li>
+<li>Locations in a building (where we use “engineering coordinates”, relative to a building corner and orientation)</li>
+<li>Microscope images</li>
+<li>MRT scans (3-D), places in a human body</li>
+<li>locations on a genome?</li>
+</ul>
+</li>
+</ul>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rnaturalearth/">rnaturalearth</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span> <span class="op">+</span> <span class="fl">.1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>axes<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>world map, with longitude and latitude map linearly to x and y (<a href="https://en.wikipedia.org/wiki/Equirectangular_projection">Plate Caree</a>)</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="What is Statistics">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What is Statistics
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>… or what <em>are</em> statistics?</p>
+<ul>
+<li>statistic: singular; a descriptive measure summarising some data</li>
+<li>statistics: plural; “minimum and maximum are two statistics”</li>
+<li>Statistics: singular; a scientific disciplin aiming at modelling data, using probability theory
+<ul>
+<li>where does randomness come from? Design-based vs.&nbsp;model-based</li>
+<li>are parameters random or fixed? Bayesian vs.&nbsp;frequentist</li>
+<li>inference, prediction, simulations</li>
+</ul>
+</li>
+<li>Typical approach: observation = signal + noise, noise modelled by random variables</li>
+</ul>
+</div>
+</div>
+<section id="design-based-statistics" class="level3"><h3 class="anchored" data-anchor-id="design-based-statistics">Design-based statistics</h3>
+<p>In design-based statistics, randomness comes from random sampling. Consider an area <span class="math inline">\(B\)</span>, from which we take samples <span class="math display">\[z(s),
+s \in B,\]</span> with <span class="math inline">\(s\)</span> a location for instance two-dimensional: <span class="math inline">\(s_i =
+\{x_i,y_i\}\)</span>. If we select the samples <em>randomly</em>, we can consider <span class="math inline">\(S \in B\)</span> a random variable, and <span class="math inline">\(z(S)\)</span> a random sample. Note the randomness in <span class="math inline">\(S\)</span>, not in <span class="math inline">\(z\)</span>.</p>
+<p>Two variables <span class="math inline">\(z(S_1)\)</span> and <span class="math inline">\(z(S_2)\)</span> are <em>independent</em> if <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are sampled independently. For estimation we need to know the inclusion probabilities, which need to be non-negative for every location.</p>
+<p>If inclusion probabilities are constant (simple random sampling; or complete spatial randomness: day 2, point patterns) then we can estimate the mean of <span class="math inline">\(Z(B)\)</span> by the sample mean <span class="math display">\[\frac{1}{n}\sum_{j=1}^n
+z(s_j).\]</span> This also predicts the value of a <em>randomly</em> chosen observation <span class="math inline">\(z(S)\)</span>. It cannot be used to predict the value <span class="math inline">\(z(s_0)\)</span> for a non-randomly chosen location <span class="math inline">\(s_0\)</span>; for this we need a model.</p>
+</section><section id="model-based-statistics" class="level3"><h3 class="anchored" data-anchor-id="model-based-statistics">Model-based statistics</h3>
+<p>Model-based statistics assumes randomness in the measured responses; consider a regression model <span class="math inline">\(y = X\beta + e\)</span>, where <span class="math inline">\(e\)</span> is a random variable and as a consequence <span class="math inline">\(y\)</span>, the response variable is a random variable. In the spatial context we replace <span class="math inline">\(y\)</span> with <span class="math inline">\(z\)</span>, and capitalize it to indicate it is a random variable, and write <span class="math display">\[Z(s) = X(s)\beta + e(s)\]</span> to stress that</p>
+<ul>
+<li>
+<span class="math inline">\(Z(s)\)</span> is a random function (random variables <span class="math inline">\(Z\)</span> as a function of <span class="math inline">\(s\)</span>)</li>
+<li>
+<span class="math inline">\(X(s)\)</span> is the matrix with covariates, which depend on <span class="math inline">\(s\)</span>
+</li>
+<li>
+<span class="math inline">\(\beta\)</span> are (spatially) constant coefficients, not depening on <span class="math inline">\(s\)</span>
+</li>
+<li>
+<span class="math inline">\(e(s)\)</span> is a random function with mean zero and covariance matrix <span class="math inline">\(\Sigma\)</span>
+</li>
+</ul>
+<p>In the regression literature this is called a (linear) mixed model, because <span class="math inline">\(e\)</span> is not i.i.d. If <span class="math inline">\(e(s)\)</span> contains an iid component <span class="math inline">\(\epsilon\)</span> we can write this as</p>
+<p><span class="math display">\[Z(s) = X(s)\beta + w(s) + \epsilon\]</span></p>
+<p>with <span class="math inline">\(w(s)\)</span> the spatial signal, and a noise compenent e.g.&nbsp;due to measurement error.</p>
+<p>Predicting <span class="math inline">\(Z(s_0)\)</span> will involve (GLS) estimation of <span class="math inline">\(\beta\)</span>, but also prediction of <span class="math inline">\(e(s_0)\)</span> using correlated, nearby observations (day 3: geostatistics).</p>
+</section><section id="design--or-model-based" class="level3"><h3 class="anchored" data-anchor-id="design--or-model-based">Design- or model-based?</h3>
+<ul>
+<li>design-based requires a random sample, if that is the case it needs no further assumptions</li>
+<li>model-based requires stationarity assumptions to estimate <span class="math inline">\(\Sigma\)</span>
+</li>
+<li>model-based is typically more effective for interpolation problems</li>
+<li>design-based can be most effective when estimation e.g.&nbsp;average mapping errors</li>
+</ul></section><section id="using-coordinates-as-covariates" class="level3"><h3 class="anchored" data-anchor-id="using-coordinates-as-covariates">Using coordinates as covariates?</h3>
+<ul>
+<li>(day 4)</li>
+</ul></section></section><section id="spatial-statistics-data-types" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="spatial-statistics-data-types">
+<span class="header-section-number">1.3</span> Spatial statistics: data types</h2>
+<section id="point-patterns" class="level3"><h3 class="anchored" data-anchor-id="point-patterns">Point Patterns</h3>
+<ul>
+<li>Points (locations) + observation window</li>
+<li>Example from <a href="https://opendata-esri-de.opendata.arcgis.com/datasets/dc6d012f47d94fde99deacc316721f30/explore?location=51.099061%2C10.453852%2C7.45">here</a>
+</li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-gdal-fig-nodetails" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gdal-fig-nodetails-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="turbines.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gdal-fig-nodetails-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Wind turbine parks in Germany
+</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The locations contain the information</li>
+<li>Points may have (discrete or continuous) <em>marks</em> (attributes)</li>
+<li>The observation window is, apart from the points, <em>empty</em>
+</li>
+</ul></section><section id="geostatistical-data" class="level3"><h3 class="anchored" data-anchor-id="geostatistical-data">Geostatistical data</h3>
+</section></section><section id="locations-measured-values" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> locations + measured values</h1>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="va">no2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/no2.csv"</span>,</span>
+<span>    package <span class="op">=</span> <span class="st">"gstat"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">crs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="st">"EPSG:32632"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">no2</span>, crs <span class="op">=</span> <span class="st">"OGC:CRS84"</span>, coords <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">crs</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">no2.sf</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="co"># plot(st_geometry(no2.sf))</span></span>
+<span><span class="st">"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg"</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">crs</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">de</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">de</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">no2.sf</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">NO2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>NO2 measurements at rural background stations (EEA)</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The value of interest is measured at a set of sample locations</li>
+<li>At other location, this value exists but is <em>missing</em>
+</li>
+<li>The interest is in estimating (predicting) this missing value (interpolation)</li>
+<li>The actual sample locations are not of (primary) interest, the signal is in the measured values</li>
+</ul>
+<section id="areal-data" class="level3"><h3 class="anchored" data-anchor-id="areal-data">Areal data</h3>
+<ul>
+<li>polygons (or grid cells) + polygon summary values</li>
+</ul>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
+<span><span class="va">de</span><span class="op">$</span><span class="va">GDP_percap</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">45200</span>, <span class="fl">46100</span>, <span class="fl">37900</span>, <span class="fl">27800</span>, <span class="fl">49700</span>, <span class="fl">64700</span>, <span class="fl">45000</span>, <span class="fl">26700</span>, <span class="fl">36500</span>, <span class="fl">38700</span>, <span class="fl">35700</span>, <span class="fl">35300</span>, <span class="fl">29900</span>, <span class="fl">27400</span>, <span class="fl">32400</span>, <span class="fl">28900</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">de</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">de</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">GDP_percap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="va">de</span>, <span class="st">"MULTILINESTRING"</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>NO2 rural background, average values per NUTS1 region</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The polygons contain polygon summary (polygon support) values, not values that are constant throughout the polygon (as in a soil, lithology or land cover map)</li>
+<li>Neighbouring polygons are typically related: spatial correlation</li>
+<li>neighbour-neighbour correlation: Moran’s I</li>
+<li>regression models with correlated errors, spatial lag models, CAR models, GMRFs, …</li>
+<li>see Ch 14-17 of <a href="https://r-spatial.org/book/">SDSWR</a>
+</li>
+<li>briefly addressed on Friday</li>
+</ul></section><section id="data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="data-types-that-received-less-attention-in-the-spatial-statistics-literature">
+<span class="header-section-number">2.1</span> Data types that received less attention in the spatial statistics literature</h2>
+<section id="image-data" class="level3"><h3 class="anchored" data-anchor-id="image-data">Image data</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
+<span><span class="co"># Loading required package: abind</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">L7_ETMs</span>, rgb <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>RGB image from a Landsat scene</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>are these geostatistical data, or areal data?</li>
+<li>If we identify objects from images, can we see them as point patterns?</li>
+</ul></section><section id="tracking-data-trajectories" class="level3"><h3 class="anchored" data-anchor-id="tracking-data-trajectories">Tracking data, trajectories</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co"># ── Attaching core tidyverse packages ──────────── tidyverse 2.0.0 ──</span></span>
+<span><span class="co"># ✔ dplyr     1.1.4     ✔ readr     2.1.5</span></span>
+<span><span class="co"># ✔ forcats   1.0.0     ✔ stringr   1.5.1</span></span>
+<span><span class="co"># ✔ lubridate 1.9.3     ✔ tibble    3.2.1</span></span>
+<span><span class="co"># ✔ purrr     1.0.2     ✔ tidyr     1.3.1</span></span>
+<span><span class="co"># ── Conflicts ────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co"># ✖ dplyr::filter() masks stats::filter()</span></span>
+<span><span class="co"># ✖ dplyr::lag()    masks stats::lag()</span></span>
+<span><span class="co"># ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
+<span><span class="va">storms.sf</span> <span class="op">&lt;-</span> <span class="va">storms</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>, <span class="st">"lat"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="va">storms.sf</span> <span class="op">&lt;-</span> <span class="va">storms.sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">year</span>,<span class="va">month</span>,<span class="va">day</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span>, </span>
+<span>                                   <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">hour</span>, <span class="st">":00"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">month</span>, <span class="op">-</span><span class="va">day</span>, <span class="op">-</span><span class="va">hour</span><span class="op">)</span></span>
+<span><span class="va">storms.nest</span> <span class="op">&lt;-</span> <span class="va">storms.sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">nest</span></span>
+<span><span class="va">to_line</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">tr</span><span class="op">)</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_combine</a></span><span class="op">(</span><span class="va">tr</span><span class="op">)</span>, <span class="st">"LINESTRING"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> </span>
+<span><span class="va">tracks</span> <span class="op">&lt;-</span> <span class="va">storms.nest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">to_line</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span>crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
+<span><span class="va">storms.tr</span> <span class="op">&lt;-</span> <span class="va">storms.nest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span>geometry <span class="op">=</span> <span class="va">tracks</span><span class="op">)</span></span>
+<span><span class="va">storms.tr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="day1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Storm/hurricane trajectories colored by year</figcaption></figure>
+</div>
+</div>
+</div>
+<ul>
+<li>A temporal snapshot (time slice) of a set of moving things forms a point pattern</li>
+<li>We often analyse trajectories by
+<ul>
+<li>estimating densities, for space-time blocks, per individual or together</li>
+<li>analyising interactions (alibi problem, mating animals, home range, UDF etc)</li>
+</ul>
+</li>
+</ul></section></section><section id="checklist-if-you-have-spatial-data" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="checklist-if-you-have-spatial-data">
+<span class="header-section-number">2.2</span> Checklist if you have spatial data</h2>
+<ul>
+<li>Do you have the spatial coordinates of your data?</li>
+<li>Are the coordinates Earth-bound?</li>
+<li>If yes, do you have the coordinate reference system of them?</li>
+<li>What is the support (physical size) of your observations?</li>
+<li>Were the data obtained by random sampling, and if yes, do you have sampling weights?</li>
+<li>Do you know the <em>extent</em> (<span class="math inline">\(B\)</span>) from which your data were sampled, or collected?</li>
+</ul></section><section id="exercises-for-day-2" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="exercises-for-day-2">
+<span class="header-section-number">2.3</span> Exercises for Day 2</h2>
+<p>See day 2 slides.</p>
+</section><section id="further-reading" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">2.4</span> Further reading</h2>
+<ul>
+<li>Ripley, B. 1981. Spatial Statistics. Wiley.</li>
+<li>Cressie, N. 1993. Statistics for Spatial Data. Wiley.</li>
+<li>Cochran, W.G. 1977. Sampling Techniques. Wiley.</li>
+</ul>
+
+
+<!-- -->
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/edzer\.github\.io\/sswr\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./day2.html" class="pagination-link" aria-label="Point Pattern data">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to spatial data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learning goals</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>learn the different data types considerd in spatial statistics, and get familiar with simple features, as well as with the difference between discrete and continuous variability in *space* and in *attributes*</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>learn what spatial dependence is about, and cases where it can be ignored</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>introduce spatial point patterns and processes</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading materials</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>From <span class="co">[</span><span class="ot">Spatial Data Science: with applications in R</span><span class="co">](https://r-spatial.org/book/)</span>:</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Preface</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Chapter 1: Getting started</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Chapter 2: Coordinates</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Chapter 10: Statistical modelling of spatial data</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercises that can be prepared for the first day:</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Section 10.6: Exercises</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="Summary"}</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Introduction to spatial data, support, coordinate reference systems</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Introduction to spatial statistical data types: point patterns, geostatistical data, lattice data; imagery, tracks/trajectories</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Is spatial dependence a fact? And is it a curse, or a blessing?</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Spatial sampling, design-based and model-based inference</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Intro to point patterns and point processes, observation window, first and second order properties</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Checklist for your spatial data</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is special about spatial data?</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Location**. Does location always involve coordinates? Relative/absolute, qualitative/quantitative</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Coordinates**. What are coordinates? Dimension(s), unit</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Time**. If not explicit, there is an implicit time reference. Dimension(s), unit, datetime</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Attributes**. *at* specific locations we measure (observe) specific properties</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Quite often, we want to know *where* things change (**space-time interactions**).</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Reference systems** for space, time, and attributes: what are they?</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Support**: if we have an attribute value associated with a line, polygon or grid cell:</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>does the value summarise all values at points? (line/area/cell support), or</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>is the value constant throughout the line/area/cell (point support)?</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Continuity**:</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>is a variable *spatially* continuous? Yes for geostatitical data, no for point patterns</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>is an *attribute variable* continuous? [Stevens's measurement scales](https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ): yes if *Interval* or *Ratio*.</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Support: examples</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Road properties</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>road type: gravel, brick, asphalt (point support: everywhere on the whole road)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>mean width: block support (summary value)</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>minimum width: block support (although the minimum width may be the value at a single (point) location, it summarizes all widths of the road--we no longer know the width at any specific point location)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Land use/land cover</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>when we classify e.g. 30 m x 30 m Landsat pixels into a single class, this single class is not constant throughout this pixel</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>road type is a land cover type, but a road never covers a 30 m x 30 m pixel</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>a land cover type like "urban" is associated with a positive (non-point) support: we don't say a point in a garden or park is urban, or a point on a roof, but these are part of a (block support) urban fabric</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Elevation</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>in principle, we can measure elevation at a point; in practice, every measuring device has a physical (non-point) size</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Further reading: <span class="co">[</span><span class="ot">Chapter 5: Attributes and Support</span><span class="co">](https://r-spatial.org/book/05-Attributes.html)</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial vs. Geospatial</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Spatial refers (physical) spaces, 2- or 3-dimensional ($R^2$ or $R^3$)</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Most often spatial statistics considers 2-dimensional problems</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>3-d: meteorology, climate science, geophysics, groundwater hydrology, aeronautics, ...</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"Geo" refers to the Earth</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>For Earth coordinates, we always need a *datum*, consisting of an ellipsoid (shape) and the way it is fixed to the Earth (origin)</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The Earth is modelled by an ellipsoid, which is nearly round</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If we consider Earth-bound areas as flat, for larger areas we get the distances wrong</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>We can (and do) also work on $S^2$, the surface of a sphere, rather than $R^2$, to get distances right, but this creates a number of challenges (such as plotting on a 2D device)</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Non-geospatial spaces could be:</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Associated with other bodies (moon, Mars)</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Astrophysics, places/directions in the universe</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Locations in a building (where we use "engineering coordinates", relative to a building corner and orientation)</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Microscope images</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>MRT scans (3-D), places in a human body</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>locations on a genome?</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "world map, with longitude and latitude map linearly to x and y ([Plate Caree](https://en.wikipedia.org/wiki/Equirectangular_projection))"</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">0</span>) <span class="sc">+</span> .<span class="dv">1</span>)</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="fu">ne_countries</span>() <span class="sc">|&gt;</span> <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">axes=</span><span class="cn">TRUE</span>)</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="What is Statistics"}</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>... or what *are* statistics?</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>statistic: singular; a descriptive measure summarising some data</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>statistics: plural; "minimum and maximum are two statistics"</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Statistics: singular; a scientific disciplin aiming at modelling data, using probability theory</span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>where does randomness come from? Design-based vs. model-based</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>are parameters random or fixed? Bayesian vs. frequentist</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>inference, prediction, simulations</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Typical approach: observation = signal + noise, noise modelled by random variables</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design-based statistics</span></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>In design-based statistics, randomness comes from random sampling. Consider an area $B$, from which we take samples $$z(s),</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>s \in B,$$ with $s$ a location for instance two-dimensional: $s_i =</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span>x_i,y_i<span class="sc">\}</span>$. If we select the samples *randomly*, we can consider $S \in B$ a random variable, and $z(S)$ a random sample. Note the randomness in $S$, not in $z$.</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>Two variables $z(S_1)$ and $z(S_2)$ are *independent* if $S_1$ and $S_2$ are sampled independently. For estimation we need to know the inclusion probabilities, which need to be non-negative for every location.</span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>If inclusion probabilities are constant (simple random sampling; or complete spatial randomness: day 2, point patterns) then we can estimate the mean of $Z(B)$ by the sample mean $$\frac{1}{n}\sum_{j=1}^n</span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>z(s_j).$$ This also predicts the value of a *randomly* chosen observation $z(S)$. It cannot be used to predict the value $z(s_0)$ for a non-randomly chosen location $s_0$; for this we need a model.</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model-based statistics</span></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>Model-based statistics assumes randomness in the measured responses; consider a regression model $y = X\beta + e$, where $e$ is a random variable and as a consequence $y$, the response variable is a random variable. In the spatial context we replace $y$ with $z$, and capitalize it to indicate it is a random variable, and write $$Z(s) = X(s)\beta + e(s)$$ to stress that</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$Z(s)$ is a random function (random variables $Z$ as a function of $s$)</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$X(s)$ is the matrix with covariates, which depend on $s$</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\beta$ are (spatially) constant coefficients, not depening on $s$</span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$e(s)$ is a random function with mean zero and covariance matrix $\Sigma$</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>In the regression literature this is called a (linear) mixed model, because $e$ is not i.i.d. If $e(s)$ contains an iid component $\epsilon$ we can write this as</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>$$Z(s) = X(s)\beta + w(s) + \epsilon$$</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>with $w(s)$ the spatial signal, and \epsilon a noise compenent e.g. due to measurement error.</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>Predicting $Z(s_0)$ will involve (GLS) estimation of $\beta$, but also prediction of $e(s_0)$ using correlated, nearby observations (day 3: geostatistics).</span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Design- or model-based?</span></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>design-based requires a random sample, if that is the case it needs no further assumptions</span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>model-based requires stationarity assumptions to estimate $\Sigma$</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>model-based is typically more effective for interpolation problems</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>design-based can be most effective when estimation e.g. average mapping errors</span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using coordinates as covariates?</span></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>(day 4)</span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics: data types</span></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### Point Patterns</span></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Points (locations) + observation window</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Example from <span class="co">[</span><span class="ot">here</span><span class="co">](https://opendata-esri-de.opendata.arcgis.com/datasets/dc6d012f47d94fde99deacc316721f30/explore?location=51.099061%2C10.453852%2C7.45)</span></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r fig-gdal-fig-nodetails, echo = FALSE}</span></span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: true</span></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="in">#| out.width: '100%'</span></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig.cap: "Wind turbine parks in Germany"</span></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="in">knitr::include_graphics("turbines.png")</span></span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The locations contain the information</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Points may have (discrete or continuous) *marks* (attributes)</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The observation window is, apart from the points, *empty*</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistical data</span></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="fu"># locations + measured values</span></span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 measurements at rural background stations (EEA)"</span></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>,</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>))</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span></span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(st_geometry(no2.sf))</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="st">"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg"</span> <span class="sc">|&gt;</span></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The value of interest is measured at a set of sample locations</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>At other location, this value exists but is *missing*</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The interest is in estimating (predicting) this missing value (interpolation)</span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The actual sample locations are not of (primary) interest, the signal is in the measured values</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Areal data</span></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>polygons (or grid cells) + polygon summary values</span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 rural background, average values per NUTS1 region"</span></span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>de<span class="sc">$</span>GDP_percap <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">45200</span>, <span class="dv">46100</span>, <span class="dv">37900</span>, <span class="dv">27800</span>, <span class="dv">49700</span>, <span class="dv">64700</span>, <span class="dv">45000</span>, <span class="dv">26700</span>, <span class="dv">36500</span>, <span class="dv">38700</span>, <span class="dv">35700</span>, <span class="dv">35300</span>, <span class="dv">29900</span>, <span class="dv">27400</span>, <span class="dv">32400</span>, <span class="dv">28900</span>)</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> de, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> GDP_percap)) <span class="sc">+</span> </span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>), <span class="at">col =</span> <span class="st">'white'</span>)</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The polygons contain polygon summary (polygon support) values, not values that are constant throughout the polygon (as in a soil, lithology or land cover map)</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neighbouring polygons are typically related: spatial correlation</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>neighbour-neighbour correlation: Moran's I</span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>regression models with correlated errors, spatial lag models, CAR models, GMRFs, ...</span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>see Ch 14-17 of <span class="co">[</span><span class="ot">SDSWR</span><span class="co">](https://r-spatial.org/book/)</span></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>briefly addressed on Friday</span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data types that received less attention in the spatial statistics literature</span></span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Image data</span></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "RGB image from a Landsat scene"</span></span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(L7_ETMs, <span class="at">rgb =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>are these geostatistical data, or areal data?</span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If we identify objects from images, can we see them as point patterns?</span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tracking data, trajectories</span></span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Storm/hurricane trajectories colored by year"</span></span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> </span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(<span class="fu">paste</span>(year,month,day, <span class="at">sep =</span> <span class="st">"-"</span>), </span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(hour, <span class="st">":00"</span>, <span class="at">sep =</span> <span class="st">""</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour)</span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>storms.nest <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name, year) <span class="sc">%&gt;%</span> nest</span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>to_line <span class="ot">&lt;-</span> <span class="cf">function</span>(tr) <span class="fu">st_cast</span>(<span class="fu">st_combine</span>(tr), <span class="st">"LINESTRING"</span>) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] </span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>tracks <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">pull</span>(data) <span class="sc">%&gt;%</span> <span class="fu">map</span>(to_line) <span class="sc">%&gt;%</span> <span class="fu">st_sfc</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">st_sf</span>(<span class="at">geometry =</span> tracks)</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> year)) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A temporal snapshot (time slice) of a set of moving things forms a point pattern</span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>We often analyse trajectories by</span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>estimating densities, for space-time blocks, per individual or together</span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>analyising interactions (alibi problem, mating animals, home range, UDF etc)</span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you have the spatial coordinates of your data?</span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Are the coordinates Earth-bound?</span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If yes, do you have the coordinate reference system of them?</span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is the support (physical size) of your observations?</span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you know the *extent* ($B$) from which your data were sampled, or collected?</span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for Day 2</span></span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>See day 2 slides.</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ripley, B. 1981. Spatial Statistics. Wiley.</span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cressie, N. 1993. Statistics for Spatial Data. Wiley.</span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cochran, W.G. 1977. Sampling Techniques. Wiley.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

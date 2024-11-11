@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>1&nbsp; Day 5: Learning goals – Spatial Statistics with R</title>
+<title>5&nbsp; Day 5: Learning goals – Spatial Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./index.html" rel="prev">
+<link href="./day4.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -129,7 +129,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day5.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day5.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -161,8 +161,32 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./day1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to spatial data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Point Pattern data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Geostatistical data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning methods applied to spatial data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./day5.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></span></a>
   </div>
 </li>
     </ul>
@@ -174,42 +198,42 @@ window.Quarto = {
    
   <ul>
 <li><a href="#reading-materials" id="toc-reading-materials" class="nav-link active" data-scroll-target="#reading-materials">Reading materials</a></li>
-  <li><a href="#exercises-for-today" id="toc-exercises-for-today" class="nav-link" data-scroll-target="#exercises-for-today"><span class="header-section-number">1.1</span> Exercises for Today</a></li>
+  <li><a href="#exercises-for-today" id="toc-exercises-for-today" class="nav-link" data-scroll-target="#exercises-for-today"><span class="header-section-number">5.1</span> Exercises for Today</a></li>
   <li>
-<a href="#analysing-lattice-data-neighbours-weights-models" id="toc-analysing-lattice-data-neighbours-weights-models" class="nav-link" data-scroll-target="#analysing-lattice-data-neighbours-weights-models"><span class="header-section-number">1.2</span> Analysing lattice data: neighbours, weights, models</a>
+<a href="#analysing-lattice-data-neighbours-weights-models" id="toc-analysing-lattice-data-neighbours-weights-models" class="nav-link" data-scroll-target="#analysing-lattice-data-neighbours-weights-models"><span class="header-section-number">5.2</span> Analysing lattice data: neighbours, weights, models</a>
   <ul class="collapse">
 <li><a href="#weights-matrices" id="toc-weights-matrices" class="nav-link" data-scroll-target="#weights-matrices">Weights matrices</a></li>
   <li><a href="#spatial-correlation-morans-i" id="toc-spatial-correlation-morans-i" class="nav-link" data-scroll-target="#spatial-correlation-morans-i">Spatial correlation: Moran’s I</a></li>
   </ul>
 </li>
   <li>
-<a href="#big-data-resource-constraints-in-data-science-projects" id="toc-big-data-resource-constraints-in-data-science-projects" class="nav-link" data-scroll-target="#big-data-resource-constraints-in-data-science-projects"><span class="header-section-number">1.3</span> Big data: resource constraints in data science projects</a>
+<a href="#big-data-resource-constraints-in-data-science-projects" id="toc-big-data-resource-constraints-in-data-science-projects" class="nav-link" data-scroll-target="#big-data-resource-constraints-in-data-science-projects"><span class="header-section-number">5.3</span> Big data: resource constraints in data science projects</a>
   <ul class="collapse">
 <li><a href="#there-is-no-cloud" id="toc-there-is-no-cloud" class="nav-link" data-scroll-target="#there-is-no-cloud">There is no cloud!</a></li>
   </ul>
 </li>
-  <li><a href="#what-is-a-big-dataset" id="toc-what-is-a-big-dataset" class="nav-link" data-scroll-target="#what-is-a-big-dataset"><span class="header-section-number">1.4</span> What is a big dataset?</a></li>
-  <li><a href="#r-for-big-tabular-datasets" id="toc-r-for-big-tabular-datasets" class="nav-link" data-scroll-target="#r-for-big-tabular-datasets"><span class="header-section-number">1.5</span> R for big, tabular datasets</a></li>
-  <li><a href="#big-geospatial" id="toc-big-geospatial" class="nav-link" data-scroll-target="#big-geospatial"><span class="header-section-number">1.6</span> Big geospatial</a></li>
-  <li><a href="#access-mechanism" id="toc-access-mechanism" class="nav-link" data-scroll-target="#access-mechanism"><span class="header-section-number">1.7</span> Access mechanism</a></li>
-  <li><a href="#examples-openeo" id="toc-examples-openeo" class="nav-link" data-scroll-target="#examples-openeo"><span class="header-section-number">1.8</span> Examples openEO</a></li>
-  <li><a href="#example-rstac" id="toc-example-rstac" class="nav-link" data-scroll-target="#example-rstac"><span class="header-section-number">1.9</span> Example <code>rstac</code></a></li>
-  <li><a href="#further-examples-from-r-spatial.org" id="toc-further-examples-from-r-spatial.org" class="nav-link" data-scroll-target="#further-examples-from-r-spatial.org"><span class="header-section-number">1.10</span> Further examples from r-spatial.org:</a></li>
-  <li><a href="#examples-vsixxx" id="toc-examples-vsixxx" class="nav-link" data-scroll-target="#examples-vsixxx"><span class="header-section-number">1.11</span> Examples <code>/vsixxx</code></a></li>
-  <li><a href="#simple-analysis-on-large-datasets" id="toc-simple-analysis-on-large-datasets" class="nav-link" data-scroll-target="#simple-analysis-on-large-datasets"><span class="header-section-number">1.12</span> “Simple” analysis on large datasets</a></li>
+  <li><a href="#what-is-a-big-dataset" id="toc-what-is-a-big-dataset" class="nav-link" data-scroll-target="#what-is-a-big-dataset"><span class="header-section-number">5.4</span> What is a big dataset?</a></li>
+  <li><a href="#r-for-big-tabular-datasets" id="toc-r-for-big-tabular-datasets" class="nav-link" data-scroll-target="#r-for-big-tabular-datasets"><span class="header-section-number">5.5</span> R for big, tabular datasets</a></li>
+  <li><a href="#big-geospatial" id="toc-big-geospatial" class="nav-link" data-scroll-target="#big-geospatial"><span class="header-section-number">5.6</span> Big geospatial</a></li>
+  <li><a href="#access-mechanism" id="toc-access-mechanism" class="nav-link" data-scroll-target="#access-mechanism"><span class="header-section-number">5.7</span> Access mechanism</a></li>
+  <li><a href="#examples-openeo" id="toc-examples-openeo" class="nav-link" data-scroll-target="#examples-openeo"><span class="header-section-number">5.8</span> Examples openEO</a></li>
+  <li><a href="#example-rstac" id="toc-example-rstac" class="nav-link" data-scroll-target="#example-rstac"><span class="header-section-number">5.9</span> Example <code>rstac</code></a></li>
+  <li><a href="#further-examples-from-r-spatial.org" id="toc-further-examples-from-r-spatial.org" class="nav-link" data-scroll-target="#further-examples-from-r-spatial.org"><span class="header-section-number">5.10</span> Further examples from r-spatial.org:</a></li>
+  <li><a href="#examples-vsixxx" id="toc-examples-vsixxx" class="nav-link" data-scroll-target="#examples-vsixxx"><span class="header-section-number">5.11</span> Examples <code>/vsixxx</code></a></li>
+  <li><a href="#simple-analysis-on-large-datasets" id="toc-simple-analysis-on-large-datasets" class="nav-link" data-scroll-target="#simple-analysis-on-large-datasets"><span class="header-section-number">5.12</span> “Simple” analysis on large datasets</a></li>
   <li>
-<a href="#spatial-statistics-on-large-datasets" id="toc-spatial-statistics-on-large-datasets" class="nav-link" data-scroll-target="#spatial-statistics-on-large-datasets"><span class="header-section-number">1.13</span> Spatial statistics on large datasets</a>
+<a href="#spatial-statistics-on-large-datasets" id="toc-spatial-statistics-on-large-datasets" class="nav-link" data-scroll-target="#spatial-statistics-on-large-datasets"><span class="header-section-number">5.13</span> Spatial statistics on large datasets</a>
   <ul class="collapse">
 <li><a href="#geostatistics" id="toc-geostatistics" class="nav-link" data-scroll-target="#geostatistics">Geostatistics</a></li>
   </ul>
 </li>
-  <li><a href="#if-time-is-left" id="toc-if-time-is-left" class="nav-link" data-scroll-target="#if-time-is-left"><span class="header-section-number">1.14</span> If time is left</a></li>
+  <li><a href="#if-time-is-left" id="toc-if-time-is-left" class="nav-link" data-scroll-target="#if-time-is-left"><span class="header-section-number">5.14</span> If time is left</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day5.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
-<span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span>
+<span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span>
 </h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
@@ -242,8 +266,8 @@ window.Quarto = {
 <li>Chapter 9: Large data and cloud native</li>
 </ul>
 <p><a href="https://r-spatial.github.io/stars/articles/stars2.html">stars vignettes 2: proxy objects</a></p>
-</section><section id="exercises-for-today" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="exercises-for-today">
-<span class="header-section-number">1.1</span> Exercises for Today</h2>
+</section><section id="exercises-for-today" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="exercises-for-today">
+<span class="header-section-number">5.1</span> Exercises for Today</h2>
 <ul>
 <li>Exercises of Ch 9: Big Data and Cloud Native</li>
 </ul>
@@ -265,8 +289,8 @@ Summary
 </ul>
 </div>
 </div>
-</section><section id="analysing-lattice-data-neighbours-weights-models" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="analysing-lattice-data-neighbours-weights-models">
-<span class="header-section-number">1.2</span> Analysing lattice data: neighbours, weights, models</h2>
+</section><section id="analysing-lattice-data-neighbours-weights-models" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="analysing-lattice-data-neighbours-weights-models">
+<span class="header-section-number">5.2</span> Analysing lattice data: neighbours, weights, models</h2>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
@@ -425,8 +449,8 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 </div>
 </div>
-</section></section><section id="big-data-resource-constraints-in-data-science-projects" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="big-data-resource-constraints-in-data-science-projects">
-<span class="header-section-number">1.3</span> Big data: resource constraints in data science projects</h2>
+</section></section><section id="big-data-resource-constraints-in-data-science-projects" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="big-data-resource-constraints-in-data-science-projects">
+<span class="header-section-number">5.3</span> Big data: resource constraints in data science projects</h2>
 <p>Constraints concern the availability of:</p>
 <ul>
 <li>time (your time, time of team members)</li>
@@ -453,8 +477,8 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <li>but see below: they have object storage!</li>
 </ul>
 </li>
-</ul></section></section><section id="what-is-a-big-dataset" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="what-is-a-big-dataset">
-<span class="header-section-number">1.4</span> What is a big dataset?</h2>
+</ul></section></section><section id="what-is-a-big-dataset" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="what-is-a-big-dataset">
+<span class="header-section-number">5.4</span> What is a big dataset?</h2>
 <ul>
 <li>What is big?
 <ul>
@@ -483,8 +507,8 @@ Breakout session 1
 </ul>
 </div>
 </div>
-</section><section id="r-for-big-tabular-datasets" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="r-for-big-tabular-datasets">
-<span class="header-section-number">1.5</span> R for big, tabular datasets</h2>
+</section><section id="r-for-big-tabular-datasets" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="r-for-big-tabular-datasets">
+<span class="header-section-number">5.5</span> R for big, tabular datasets</h2>
 <ul>
 <li>In-memory solutions: <code>data.table</code>, <code>duckdb</code>, <code>polars</code> improve speed (use indexes)</li>
 <li>Out-of-memory solution: <code>DBI</code> or <code>tidyverse</code> via <code>dbplyr</code>, connect to
@@ -493,8 +517,8 @@ Breakout session 1
 <li>cloud-based databases like Google BigQuery, Snowflake,</li>
 </ul>
 </li>
-</ul></section><section id="big-geospatial" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="big-geospatial">
-<span class="header-section-number">1.6</span> Big geospatial</h2>
+</ul></section><section id="big-geospatial" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="big-geospatial">
+<span class="header-section-number">5.6</span> Big geospatial</h2>
 <ul>
 <li>Large <strong>vector</strong> datasets, examples:
 <ul>
@@ -565,8 +589,8 @@ Clouds and object storage
 </ul>
 </div>
 </div>
-</section><section id="access-mechanism" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="access-mechanism">
-<span class="header-section-number">1.7</span> Access mechanism</h2>
+</section><section id="access-mechanism" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="access-mechanism">
+<span class="header-section-number">5.7</span> Access mechanism</h2>
 <ul>
 <li>API:
 <ul>
@@ -598,14 +622,14 @@ Cloud-optimized, cloud-native geoospatial
 </ul>
 </div>
 </div>
-</section><section id="examples-openeo" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="examples-openeo">
-<span class="header-section-number">1.8</span> Examples openEO</h2>
+</section><section id="examples-openeo" class="level2" data-number="5.8"><h2 data-number="5.8" class="anchored" data-anchor-id="examples-openeo">
+<span class="header-section-number">5.8</span> Examples openEO</h2>
 <p>Two video’s from me taken during the 2023 OpenGeoHub Summerschool, on the topic “Cloud-based analysis of Earth Observation data using openEO Platform, R and Python” can be found here:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=NurpU0V6JG8">part 1</a></li>
 <li><a href="https://www.youtube.com/watch?v=mrY8VKOoz3c">part 2</a></li>
-</ul></section><section id="example-rstac" class="level2" data-number="1.9"><h2 data-number="1.9" class="anchored" data-anchor-id="example-rstac">
-<span class="header-section-number">1.9</span> Example <a href="https://cran.r-project.org/web/packages/rstac/index.html"><code>rstac</code></a>
+</ul></section><section id="example-rstac" class="level2" data-number="5.9"><h2 data-number="5.9" class="anchored" data-anchor-id="example-rstac">
+<span class="header-section-number">5.9</span> Example <a href="https://cran.r-project.org/web/packages/rstac/index.html"><code>rstac</code></a>
 </h2>
 <p>Using <a href="https://registry.opendata.aws/sentinel-2-l2a-cogs/">Sentinel-2 COGs at AWS</a>, and its <a href="https://earth-search.aws.element84.com/v1">stac</a>:</p>
 <div class="cell">
@@ -747,14 +771,14 @@ Breakout session 2
 </ul>
 </div>
 </div>
-</section><section id="further-examples-from-r-spatial.org" class="level2" data-number="1.10"><h2 data-number="1.10" class="anchored" data-anchor-id="further-examples-from-r-spatial.org">
-<span class="header-section-number">1.10</span> Further examples from r-spatial.org:</h2>
+</section><section id="further-examples-from-r-spatial.org" class="level2" data-number="5.10"><h2 data-number="5.10" class="anchored" data-anchor-id="further-examples-from-r-spatial.org">
+<span class="header-section-number">5.10</span> Further examples from r-spatial.org:</h2>
 <ul>
 <li><a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes</a></li>
 <li><a href="https://r-spatial.org/r/2022/09/13/zarr.html">Reading Zarr files with R package stars</a></li>
 <li><a href="https://r-spatial.org/r/2022/11/24/openeo.html">Processing large scale satellite imagery with openEO Platform and R</a></li>
-</ul></section><section id="examples-vsixxx" class="level2" data-number="1.11"><h2 data-number="1.11" class="anchored" data-anchor-id="examples-vsixxx">
-<span class="header-section-number">1.11</span> Examples <code>/vsixxx</code>
+</ul></section><section id="examples-vsixxx" class="level2" data-number="5.11"><h2 data-number="5.11" class="anchored" data-anchor-id="examples-vsixxx">
+<span class="header-section-number">5.11</span> Examples <code>/vsixxx</code>
 </h2>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/curl_download.html">curl_download</a></span><span class="op">(</span></span>
@@ -814,8 +838,8 @@ Breakout session 2
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span><span class="op">)</span></span>
 <span><span class="co"># /vsicurl: indicates data source is a URL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="simple-analysis-on-large-datasets" class="level2" data-number="1.12"><h2 data-number="1.12" class="anchored" data-anchor-id="simple-analysis-on-large-datasets">
-<span class="header-section-number">1.12</span> “Simple” analysis on large datasets</h2>
+</section><section id="simple-analysis-on-large-datasets" class="level2" data-number="5.12"><h2 data-number="5.12" class="anchored" data-anchor-id="simple-analysis-on-large-datasets">
+<span class="header-section-number">5.12</span> “Simple” analysis on large datasets</h2>
 <ul>
 <li>process full archives, compute <em>in</em> the cloud</li>
 <li>select subsets, download, process locally:
@@ -828,8 +852,8 @@ Breakout session 2
 </li>
 <li>in some disciplines (Earth Observation?) there seems to be a belief that processing at the <em>full</em> resolution is the only thing that produces real science</li>
 <li>there is surprisingly little literature on the loss of information when processing at lower resolution, e.g.&nbsp;when the goal is to create a curve of yearly deforestation over an area as large as Brazil</li>
-</ul></section><section id="spatial-statistics-on-large-datasets" class="level2" data-number="1.13"><h2 data-number="1.13" class="anchored" data-anchor-id="spatial-statistics-on-large-datasets">
-<span class="header-section-number">1.13</span> Spatial statistics on large datasets</h2>
+</ul></section><section id="spatial-statistics-on-large-datasets" class="level2" data-number="5.13"><h2 data-number="5.13" class="anchored" data-anchor-id="spatial-statistics-on-large-datasets">
+<span class="header-section-number">5.13</span> Spatial statistics on large datasets</h2>
 <section id="geostatistics" class="level3"><h3 class="anchored" data-anchor-id="geostatistics">Geostatistics</h3>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/RandomForestsGLS/">RandomForestsGLS</a></li>
@@ -837,8 +861,8 @@ Breakout session 2
 <li><a href="https://cran.r-project.org/web/packages/FRK/index.html">FRK</a></li>
 </ul>
 <p>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al.&nbsp;2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <a href="https://doi.org/10.1007/s13253-018-00348-w">DOI</a>.</p>
-</section></section><section id="if-time-is-left" class="level2" data-number="1.14"><h2 data-number="1.14" class="anchored" data-anchor-id="if-time-is-left">
-<span class="header-section-number">1.14</span> If time is left</h2>
+</section></section><section id="if-time-is-left" class="level2" data-number="5.14"><h2 data-number="5.14" class="anchored" data-anchor-id="if-time-is-left">
+<span class="header-section-number">5.14</span> If time is left</h2>
 <ul>
 <li><a href="https://r-spatial.org/book/09-Large.html#exercises">Exercises chapter 9</a></li>
 </ul>
@@ -1317,8 +1341,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./day4.html" class="pagination-link" aria-label="Machine Learning methods applied to spatial data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning methods applied to spatial data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
