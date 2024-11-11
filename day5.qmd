@@ -1,6 +1,8 @@
-## Big spatial datasets
+```{r}
+ev <- Sys.getenv("USER") == "edzer"
+```
 
-### Learning goals
+### Day 5: Learning goals
 
 Understand
 
@@ -251,7 +253,7 @@ download_items <- it_obj |>
 
 and examine
 
-```{r}
+```{r eval=ev}
 library(sf)
 tif = "sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"
 gdal_utils("info", tif)
@@ -274,7 +276,7 @@ Discuss:
 
 ## Examples `/vsixxx`
 
-```{r eval=FALSE}
+```{r eval=ev}
 curl::curl_download(
   "https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg",
   "nshn_water_line.gpkg"
@@ -285,20 +287,20 @@ curl::curl_download(
 library(sf)
 ```
 
-```{r eval=FALSE}
+```{r eval=ev}
 (w <- read_sf("nshn_water_line.gpkg"))
 ```
 
-From https://github.com/microsoft/USBuildingFootprints downloaded [Maine.geojson.zip](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip), and read with
+From https://github.com/microsoft/USBuildingFootprints downloaded [Maine.geojson.zip](https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip), and read with
 
-```{r eval=FALSE}
-m = st_read("/vsizip/Maine.geojson.zip") # /vsizip: indicates data source is a zipped file
+```{r eval=ev}
+(m = read_sf("/vsizip/Maine.geojson.zip")) # /vsizip: indicates data source is a zipped file
 ```
 
 or read directly from github into R:
 
 ```{r eval=FALSE}
-m = st_read("/vsizip/vsicurl/https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Maine.geojson.zip")
+m = st_read("/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip")
 # /vsicurl: indicates data source is a URL
 ```
 

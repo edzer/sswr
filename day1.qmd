@@ -203,7 +203,7 @@ ggplot() + geom_sf(data = de) +
 -   neighbour-neighbour correlation: Moran's I
 -   regression models with correlated errors, spatial lag models, CAR models, GMRFs, ...
 -   see Ch 14-17 of [SDSWR](https://r-spatial.org/book/)
--   mostly skipped in this course
+-   briefly addressed on Friday
 
 ## Data types that received less attention in the spatial statistics literature
 
