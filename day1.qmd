@@ -154,9 +154,7 @@ knitr::include_graphics("turbines.png")
 -   Points may have (discrete or continuous) *marks* (attributes)
 -   The observation window is, apart from the points, *empty*
 
-### Geostatistical data
-
-# locations + measured values
+### Geostatistical data: locations + measured values
 
 ```{r}
 #| code-fold: true
@@ -255,9 +253,14 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 -   Were the data obtained by random sampling, and if yes, do you have sampling weights?
 -   Do you know the *extent* ($B$) from which your data were sampled, or collected?
 
-## Exercises for Day 2
+## Exercises:
 
-See day 2 slides.
+* What is the coordinate reference system of the `ne_countries()` dataset, imported above?
+* Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.
+* Why is this projection called _The simplest of all projections_?
+* Project `ne_countries` to Plate Carrée, and plot it with `axes=TRUE`. What has changed? (Hint: `st_crs()` accepts a _proj string_ to define a coordinate reference system (CRS); `st_transform()` transforms a dataset to a new CRS.)
+* Project the same dataset to Eckert IV projection. What has changed?
+* Also try plotting this dataset after transforming it to an orthographic projection with `+proj=ortho`; what went wrong?
 
 ## Further reading
 

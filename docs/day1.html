@@ -187,7 +187,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day 5: Learning goals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysing lattice data; big geospatial datasets</span></span></a>
   </div>
 </li>
     </ul>
@@ -220,25 +220,20 @@ window.Quarto = {
 <a href="#spatial-statistics-data-types" id="toc-spatial-statistics-data-types" class="nav-link" data-scroll-target="#spatial-statistics-data-types"><span class="header-section-number">1.3</span> Spatial statistics: data types</a>
   <ul class="collapse">
 <li><a href="#point-patterns" id="toc-point-patterns" class="nav-link" data-scroll-target="#point-patterns">Point Patterns</a></li>
-  <li><a href="#geostatistical-data" id="toc-geostatistical-data" class="nav-link" data-scroll-target="#geostatistical-data">Geostatistical data</a></li>
+  <li><a href="#geostatistical-data-locations-measured-values" id="toc-geostatistical-data-locations-measured-values" class="nav-link" data-scroll-target="#geostatistical-data-locations-measured-values">Geostatistical data: locations + measured values</a></li>
+  <li><a href="#areal-data" id="toc-areal-data" class="nav-link" data-scroll-target="#areal-data">Areal data</a></li>
   </ul>
 </li>
   <li>
-<a href="#locations-measured-values" id="toc-locations-measured-values" class="nav-link" data-scroll-target="#locations-measured-values"><span class="header-section-number">2</span> locations + measured values</a>
-  <ul class="collapse">
-<li><a href="#areal-data" id="toc-areal-data" class="nav-link" data-scroll-target="#areal-data">Areal data</a></li>
-  <li>
-<a href="#data-types-that-received-less-attention-in-the-spatial-statistics-literature" id="toc-data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="nav-link" data-scroll-target="#data-types-that-received-less-attention-in-the-spatial-statistics-literature"><span class="header-section-number">2.1</span> Data types that received less attention in the spatial statistics literature</a>
+<a href="#data-types-that-received-less-attention-in-the-spatial-statistics-literature" id="toc-data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="nav-link" data-scroll-target="#data-types-that-received-less-attention-in-the-spatial-statistics-literature"><span class="header-section-number">1.4</span> Data types that received less attention in the spatial statistics literature</a>
   <ul class="collapse">
 <li><a href="#image-data" id="toc-image-data" class="nav-link" data-scroll-target="#image-data">Image data</a></li>
   <li><a href="#tracking-data-trajectories" id="toc-tracking-data-trajectories" class="nav-link" data-scroll-target="#tracking-data-trajectories">Tracking data, trajectories</a></li>
   </ul>
 </li>
-  <li><a href="#checklist-if-you-have-spatial-data" id="toc-checklist-if-you-have-spatial-data" class="nav-link" data-scroll-target="#checklist-if-you-have-spatial-data"><span class="header-section-number">2.2</span> Checklist if you have spatial data</a></li>
-  <li><a href="#exercises-for-day-2" id="toc-exercises-for-day-2" class="nav-link" data-scroll-target="#exercises-for-day-2"><span class="header-section-number">2.3</span> Exercises for Day 2</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">2.4</span> Further reading</a></li>
-  </ul>
-</li>
+  <li><a href="#checklist-if-you-have-spatial-data" id="toc-checklist-if-you-have-spatial-data" class="nav-link" data-scroll-target="#checklist-if-you-have-spatial-data"><span class="header-section-number">1.5</span> Checklist if you have spatial data</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">1.6</span> Exercises:</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">1.7</span> Further reading</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -475,9 +470,7 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <li>Points may have (discrete or continuous) <em>marks</em> (attributes)</li>
 <li>The observation window is, apart from the points, <em>empty</em>
 </li>
-</ul></section><section id="geostatistical-data" class="level3"><h3 class="anchored" data-anchor-id="geostatistical-data">Geostatistical data</h3>
-</section></section><section id="locations-measured-values" class="level1" data-number="2"><h1 data-number="2">
-<span class="header-section-number">2</span> locations + measured values</h1>
+</ul></section><section id="geostatistical-data-locations-measured-values" class="level3"><h3 class="anchored" data-anchor-id="geostatistical-data-locations-measured-values">Geostatistical data: locations + measured values</h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="va">no2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/no2.csv"</span>,</span>
@@ -506,8 +499,7 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 </li>
 <li>The interest is in estimating (predicting) this missing value (interpolation)</li>
 <li>The actual sample locations are not of (primary) interest, the signal is in the measured values</li>
-</ul>
-<section id="areal-data" class="level3"><h3 class="anchored" data-anchor-id="areal-data">Areal data</h3>
+</ul></section><section id="areal-data" class="level3"><h3 class="anchored" data-anchor-id="areal-data">Areal data</h3>
 <ul>
 <li>polygons (or grid cells) + polygon summary values</li>
 </ul>
@@ -532,8 +524,8 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <li>see Ch 14-17 of <a href="https://r-spatial.org/book/">SDSWR</a>
 </li>
 <li>briefly addressed on Friday</li>
-</ul></section><section id="data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="data-types-that-received-less-attention-in-the-spatial-statistics-literature">
-<span class="header-section-number">2.1</span> Data types that received less attention in the spatial statistics literature</h2>
+</ul></section></section><section id="data-types-that-received-less-attention-in-the-spatial-statistics-literature" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="data-types-that-received-less-attention-in-the-spatial-statistics-literature">
+<span class="header-section-number">1.4</span> Data types that received less attention in the spatial statistics literature</h2>
 <section id="image-data" class="level3"><h3 class="anchored" data-anchor-id="image-data">Image data</h3>
 <div class="cell">
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
@@ -588,8 +580,8 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <li>analyising interactions (alibi problem, mating animals, home range, UDF etc)</li>
 </ul>
 </li>
-</ul></section></section><section id="checklist-if-you-have-spatial-data" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="checklist-if-you-have-spatial-data">
-<span class="header-section-number">2.2</span> Checklist if you have spatial data</h2>
+</ul></section></section><section id="checklist-if-you-have-spatial-data" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="checklist-if-you-have-spatial-data">
+<span class="header-section-number">1.5</span> Checklist if you have spatial data</h2>
 <ul>
 <li>Do you have the spatial coordinates of your data?</li>
 <li>Are the coordinates Earth-bound?</li>
@@ -597,11 +589,17 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <li>What is the support (physical size) of your observations?</li>
 <li>Were the data obtained by random sampling, and if yes, do you have sampling weights?</li>
 <li>Do you know the <em>extent</em> (<span class="math inline">\(B\)</span>) from which your data were sampled, or collected?</li>
-</ul></section><section id="exercises-for-day-2" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="exercises-for-day-2">
-<span class="header-section-number">2.3</span> Exercises for Day 2</h2>
-<p>See day 2 slides.</p>
-</section><section id="further-reading" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="further-reading">
-<span class="header-section-number">2.4</span> Further reading</h2>
+</ul></section><section id="exercises" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="exercises">
+<span class="header-section-number">1.6</span> Exercises:</h2>
+<ul>
+<li>What is the coordinate reference system of the <code><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries()</a></code> dataset, imported above?</li>
+<li>Look up the “Equidistant Cylindrical (Plate Carrée)” projection on the https://proj.org website.</li>
+<li>Why is this projection called <em>The simplest of all projections</em>?</li>
+<li>Project <code>ne_countries</code> to Plate Carrée, and plot it with <code>axes=TRUE</code>. What has changed? (Hint: <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> accepts a <em>proj string</em> to define a coordinate reference system (CRS); <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> transforms a dataset to a new CRS.)</li>
+<li>Project the same dataset to Eckert IV projection. What has changed?</li>
+<li>Also try plotting this dataset after transforming it to an orthographic projection with <code>+proj=ortho</code>; what went wrong?</li>
+</ul></section><section id="further-reading" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="further-reading">
+<span class="header-section-number">1.7</span> Further reading</h2>
 <ul>
 <li>Ripley, B. 1981. Spatial Statistics. Wiley.</li>
 <li>Cressie, N. 1993. Statistics for Spatial Data. Wiley.</li>
@@ -611,7 +609,7 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 
 <!-- -->
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1248,116 +1246,119 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Points may have (discrete or continuous) *marks* (attributes)</span>
 <span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The observation window is, apart from the points, *empty*</span>
 <span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistical data</span></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistical data: locations + measured values</span></span>
 <span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="fu"># locations + measured values</span></span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 measurements at rural background stations (EEA)"</span></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>,</span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>))</span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf</span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(st_geometry(no2.sf))</span></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="st">"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg"</span> <span class="sc">|&gt;</span></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The value of interest is measured at a set of sample locations</span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>At other location, this value exists but is *missing*</span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The interest is in estimating (predicting) this missing value (interpolation)</span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The actual sample locations are not of (primary) interest, the signal is in the measured values</span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 measurements at rural background stations (EEA)"</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>no2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">"external/no2.csv"</span>,</span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>    <span class="at">package =</span> <span class="st">"gstat"</span>))</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(<span class="st">"EPSG:32632"</span>)</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(no2, <span class="at">crs =</span> <span class="st">"OGC:CRS84"</span>, <span class="at">coords =</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"station_longitude_deg"</span>, <span class="st">"station_latitude_deg"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> no2.sf</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(st_geometry(no2.sf))</span></span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="st">"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg"</span> <span class="sc">|&gt;</span></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_sf</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs) <span class="ot">-&gt;</span> de</span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> no2.sf, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">col =</span> NO2))</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The value of interest is measured at a set of sample locations</span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>At other location, this value exists but is *missing*</span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The interest is in estimating (predicting) this missing value (interpolation)</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The actual sample locations are not of (primary) interest, the signal is in the measured values</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="fu">### Areal data</span></span>
 <span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Areal data</span></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>polygons (or grid cells) + polygon summary values</span>
 <span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>polygons (or grid cells) + polygon summary values</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 rural background, average values per NUTS1 region"</span></span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>de<span class="sc">$</span>GDP_percap <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">45200</span>, <span class="dv">46100</span>, <span class="dv">37900</span>, <span class="dv">27800</span>, <span class="dv">49700</span>, <span class="dv">64700</span>, <span class="dv">45000</span>, <span class="dv">26700</span>, <span class="dv">36500</span>, <span class="dv">38700</span>, <span class="dv">35700</span>, <span class="dv">35300</span>, <span class="dv">29900</span>, <span class="dv">27400</span>, <span class="dv">32400</span>, <span class="dv">28900</span>)</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> de, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> GDP_percap)) <span class="sc">+</span> </span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>), <span class="at">col =</span> <span class="st">'white'</span>)</span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The polygons contain polygon summary (polygon support) values, not values that are constant throughout the polygon (as in a soil, lithology or land cover map)</span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neighbouring polygons are typically related: spatial correlation</span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>neighbour-neighbour correlation: Moran's I</span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>regression models with correlated errors, spatial lag models, CAR models, GMRFs, ...</span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>see Ch 14-17 of <span class="co">[</span><span class="ot">SDSWR</span><span class="co">](https://r-spatial.org/book/)</span></span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>briefly addressed on Friday</span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "NO2 rural background, average values per NUTS1 region"</span></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/List_of_NUTS_regions_in_the_European_Union_by_GDP</span></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>de<span class="sc">$</span>GDP_percap <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">45200</span>, <span class="dv">46100</span>, <span class="dv">37900</span>, <span class="dv">27800</span>, <span class="dv">49700</span>, <span class="dv">64700</span>, <span class="dv">45000</span>, <span class="dv">26700</span>, <span class="dv">36500</span>, <span class="dv">38700</span>, <span class="dv">35700</span>, <span class="dv">35300</span>, <span class="dv">29900</span>, <span class="dv">27400</span>, <span class="dv">32400</span>, <span class="dv">28900</span>)</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data =</span> de) <span class="sc">+</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> de, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> GDP_percap)) <span class="sc">+</span> </span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_cast</span>(de, <span class="st">"MULTILINESTRING"</span>), <span class="at">col =</span> <span class="st">'white'</span>)</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The polygons contain polygon summary (polygon support) values, not values that are constant throughout the polygon (as in a soil, lithology or land cover map)</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Neighbouring polygons are typically related: spatial correlation</span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>neighbour-neighbour correlation: Moran's I</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>regression models with correlated errors, spatial lag models, CAR models, GMRFs, ...</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>see Ch 14-17 of <span class="co">[</span><span class="ot">SDSWR</span><span class="co">](https://r-spatial.org/book/)</span></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>briefly addressed on Friday</span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data types that received less attention in the spatial statistics literature</span></span>
 <span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data types that received less attention in the spatial statistics literature</span></span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### Image data</span></span>
 <span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Image data</span></span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "RGB image from a Landsat scene"</span></span>
-<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(L7_ETMs, <span class="at">rgb =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>are these geostatistical data, or areal data?</span>
-<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If we identify objects from images, can we see them as point patterns?</span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "RGB image from a Landsat scene"</span></span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(L7_ETMs, <span class="at">rgb =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>are these geostatistical data, or areal data?</span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If we identify objects from images, can we see them as point patterns?</span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tracking data, trajectories</span></span>
 <span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tracking data, trajectories</span></span>
-<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Storm/hurricane trajectories colored by year"</span></span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> </span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(<span class="fu">paste</span>(year,month,day, <span class="at">sep =</span> <span class="st">"-"</span>), </span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(hour, <span class="st">":00"</span>, <span class="at">sep =</span> <span class="st">""</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour)</span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>storms.nest <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name, year) <span class="sc">%&gt;%</span> nest</span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>to_line <span class="ot">&lt;-</span> <span class="cf">function</span>(tr) <span class="fu">st_cast</span>(<span class="fu">st_combine</span>(tr), <span class="st">"LINESTRING"</span>) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] </span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>tracks <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">pull</span>(data) <span class="sc">%&gt;%</span> <span class="fu">map</span>(to_line) <span class="sc">%&gt;%</span> <span class="fu">st_sfc</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">st_sf</span>(<span class="at">geometry =</span> tracks)</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> year)) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A temporal snapshot (time slice) of a set of moving things forms a point pattern</span>
-<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>We often analyse trajectories by</span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>estimating densities, for space-time blocks, per individual or together</span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>analyising interactions (alibi problem, mating animals, home range, UDF etc)</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width: '100%'</span></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: "Storm/hurricane trajectories colored by year"</span></span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a><span class="co"># from: https://r-spatial.org/r/2017/08/28/nest.html</span></span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>(<span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>storms.sf <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> </span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.POSIXct</span>(<span class="fu">paste</span>(<span class="fu">paste</span>(year,month,day, <span class="at">sep =</span> <span class="st">"-"</span>), </span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>                                   <span class="fu">paste</span>(hour, <span class="st">":00"</span>, <span class="at">sep =</span> <span class="st">""</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour)</span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>storms.nest <span class="ot">&lt;-</span> storms.sf <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(name, year) <span class="sc">%&gt;%</span> nest</span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>to_line <span class="ot">&lt;-</span> <span class="cf">function</span>(tr) <span class="fu">st_cast</span>(<span class="fu">st_combine</span>(tr), <span class="st">"LINESTRING"</span>) <span class="sc">%&gt;%</span> .[[<span class="dv">1</span>]] </span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>tracks <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">pull</span>(data) <span class="sc">%&gt;%</span> <span class="fu">map</span>(to_line) <span class="sc">%&gt;%</span> <span class="fu">st_sfc</span>(<span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="ot">&lt;-</span> storms.nest <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">st_sf</span>(<span class="at">geometry =</span> tracks)</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>storms.tr <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> year)) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A temporal snapshot (time slice) of a set of moving things forms a point pattern</span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>We often analyse trajectories by</span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>estimating densities, for space-time blocks, per individual or together</span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>analyising interactions (alibi problem, mating animals, home range, UDF etc)</span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
 <span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Checklist if you have spatial data</span></span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you have the spatial coordinates of your data?</span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Are the coordinates Earth-bound?</span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If yes, do you have the coordinate reference system of them?</span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is the support (physical size) of your observations?</span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
-<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you know the *extent* ($B$) from which your data were sampled, or collected?</span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you have the spatial coordinates of your data?</span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Are the coordinates Earth-bound?</span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If yes, do you have the coordinate reference system of them?</span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is the support (physical size) of your observations?</span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Were the data obtained by random sampling, and if yes, do you have sampling weights?</span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Do you know the *extent* ($B$) from which your data were sampled, or collected?</span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises:</span></span>
 <span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises for Day 2</span></span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>See day 2 slides.</span>
-<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
-<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ripley, B. 1981. Spatial Statistics. Wiley.</span>
-<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cressie, N. 1993. Statistics for Spatial Data. Wiley.</span>
-<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cochran, W.G. 1977. Sampling Techniques. Wiley.</span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>What is the coordinate reference system of the <span class="in">`ne_countries()`</span> dataset, imported above?</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.</span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Why is this projection called _The simplest of all projections_?</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Project <span class="in">`ne_countries`</span> to Plate Carrée, and plot it with <span class="in">`axes=TRUE`</span>. What has changed? (Hint: <span class="in">`st_crs()`</span> accepts a _proj string_ to define a coordinate reference system (CRS); <span class="in">`st_transform()`</span> transforms a dataset to a new CRS.)</span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Project the same dataset to Eckert IV projection. What has changed?</span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Also try plotting this dataset after transforming it to an orthographic projection with <span class="in">`+proj=ortho`</span>; what went wrong?</span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading</span></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ripley, B. 1981. Spatial Statistics. Wiley.</span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cressie, N. 1993. Statistics for Spatial Data. Wiley.</span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cochran, W.G. 1977. Sampling Techniques. Wiley.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

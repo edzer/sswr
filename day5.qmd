@@ -2,7 +2,7 @@
 ev <- Sys.getenv("USER") == "edzer"
 ```
 
-### Day 5: Learning goals
+### Analysing lattice data; big geospatial datasets
 
 Understand
 
