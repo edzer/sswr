@@ -1,3 +1,7 @@
+## Possible solutions to exercises of day2
+
+Rendered version [here](https://edzer.github.io/sswr/day2_ex.html)
+
 Compute the distance between `POINT(10 -90)` and `POINT(50 -90)`, assuming (i) these are coordinates in a Cartesian space, and (ii) these are geodetic coordinates. What are the units of the result?
 ```{r}
 library(sf)

@@ -275,7 +275,7 @@ Relevant papers:
 ## Exercises
 
 1. From the point pattern shown in section 1.3, download the data as GeoPackage, and read into R
-1. Read the boundary of Germany using `rnaturalearth::ne_countries(scale = "larger", country = "Germany")`
+1. Read the boundary of Germany using `rnaturalearth::ne_countries(scale = "large", country = "Germany")`
 1. Create a plot showing both the observation window and the point pattern
 1. Do all observations fall inside the observation window?
 1. Create a ppp object from the points and the window

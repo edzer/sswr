@@ -13,10 +13,6 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 -   Chapter 12: Spatial Interpolation
 -   Chapter 13: Multivariate and Spatiotemporal Geostatistics
 
-### Exercises for Today
-
--   Exercises of Ch 12: Spatial interpolation
-
 ::: {.callout-tip title="Summary"}
 -   Intro to `gstat`
 -   Geostatistical data
@@ -116,13 +112,20 @@ vv$gamma - v$gamma
 plot(vv)
 ```
 
-::: {.callout-note title="Breakout session 1"}
-Compute the variogram of NO2 using argument `cloud = TRUE`.
+## Exercises
 
--   how does the resulting object differ from the "regular" variogram
--   what do the "left" and "right" fields refer to?
--   when we plot the resulting object, does it still indicate spatial correlation?
-:::
+1. Compute the variogram cloud of NO2 using `variogram()` and  argument
+`cloud = TRUE`.  (a) How does the resulting object differ from the
+"regular" variogram (use the `head` command on both objects); 
+(b) what do the "left" and "right" fields refer
+to? (c) when we plot the resulting variogram cloud object, does it still indicate
+spatial correlation?
+2. Compute the variogram of NO2 as above, and change the arguments `cutoff`
+and `width` into very large or small values. What do they do?
+3. Fit a spherical model to the sample variogram of NO2, using `fit.variogram()` (follow the example below, replace "Exp" with "Sph")
+4. Fit a Matern model ("Mat") to the sample variogram using different values
+for kappa (e.g., 0.3 and 4), and plot the resulting models with the sample variogram.
+5. Which model do you like the best? Can the SSErr attribute of the fitted model be used to compare the models? How else can variogram model fits be compared?
 
 ## Interpolation
 
@@ -294,16 +297,22 @@ csv$kr_var = krige(NO2~1, no2.sf, g3, v.fit)[2]
 plot(merge(csv), breaks = "equal")
 ```
 
-::: {.callout-note title="Breakout session 2"}
-What causes the differences between the mean and the variance of the simulations (left) and the mean and variance obtained by kriging (right)?
-:::
+## Exercises
 
-## SpatioTemporal geostatistics
+1. What causes the differences between the mean and the variance of
+the simulations (left) and the mean and variance obtained by kriging
+(right)?
+2. When comparing (above) the sample variogram of simulated fields
+with the variogram model used to simulate them, where do you
+see differences? Can you explain why these are not identical, or
+hypothesize under which circumstances these would become (more)
+identical?
+3. Under which practical data analysis problem would conditional
+simulations be more useful than the kriging prediction + kriging
+variance maps?
 
--   [Ch 13](https://r-spatial.org/book/13-Geostatistics.html)
 
 ## Further reading
 
 -   Pebesma, E.J., 2004. Multivariable geostatistics in S: the gstat package. Computers & Geosciences, 30: [683-691](https://doi.org/10.1016/j.cageo.2004.03.012).
-
 -   Benedikt Gräler, Edzer Pebesma and Gerard Heuvelink, 2016. Spatio-Temporal Interpolation using gstat. The R Journal 8(1), [204-218](https://journal.r-project.org/archive/2016/RJ-2016-014/index.html)
