@@ -256,7 +256,7 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 ## Exercises
 
 -   What is the coordinate reference system of the `ne_countries()` dataset, imported above?
--   Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.
+-   Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the <https://proj.org> website.
 -   Why is this projection called *The simplest of all projections*?
 -   Project `ne_countries` to Plate Carrée, and plot it with `axes=TRUE`. What has changed? (Hint: `st_crs()` accepts a *proj string* to define a coordinate reference system (CRS); `st_transform()` transforms a dataset to a new CRS.)
 -   Project the same dataset to Eckert IV projection. What has changed?
