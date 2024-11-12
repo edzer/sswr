@@ -23,7 +23,7 @@ Load the `L7_ETMs` dataset into your session (e.g. using `library(stars); L7_ETM
 L7_ETMs = st_as_stars(L7_ETMs)
 (s1 <- st_as_sf(L7_ETMs))
 (s2 <- st_as_sf(L7_ETMs, as_points = TRUE))
-plot(s1)
+plot(s1, border = NA) # without border=NA, you may only see polygon borders
 plot(s2)
 pts = st_sample(st_bbox(L7_ETMs), 100)
 (e1 <- st_extract(L7_ETMs, pts) |> st_as_sf())
@@ -89,6 +89,9 @@ nobjects(pp)
 Kest(pp) |> plot()
 Lest(pp) |> plot()
 Linhom(pp) |> plot()
+```
+These two take a rather long time: try it by yourself:
+```{r eval=FALSE}
 envelope(pp, Lest) |> plot()
 envelope(pp, Linhom) |> plot()
 ```
