@@ -418,7 +418,7 @@ h \in \tilde{h}\]</span></p>
 <li>Which model do you like the best? Can the SSErr attribute of the fitted model be used to compare the models? How else can variogram model fits be compared?</li>
 </ol></section><section id="interpolation" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="interpolation">
 <span class="header-section-number">3.5</span> Interpolation</h2>
-<p>For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data not!)</p>
+<p>For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data do not!)</p>
 <p>A simple interpolator (that is hard to beat) is the inverse distance interpolator, <span class="math display">\[\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)\]</span> with <span class="math inline">\(\lambda_j\)</span> proportional to <span class="math inline">\(||s_i - s_0||^{-p}\)</span> and normalized to sum to one (weighted mean), and <span class="math inline">\(p\)</span> tunable but defaulting to 2.</p>
 <p>Using the data range:</p>
 <div class="cell">
@@ -1308,7 +1308,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpolation</span></span>
 <span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a>For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data not!)</span>
+<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a>For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data do not!)</span>
 <span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a>A simple interpolator (that is hard to beat) is the inverse distance interpolator, $$\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)$$ with $\lambda_j$ proportional to $||s_i - s_0||^{-p}$ and normalized to sum to one (weighted mean), and $p$ tunable but defaulting to 2.</span>
 <span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a></span>

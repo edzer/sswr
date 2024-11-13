@@ -689,8 +689,6 @@ Figure&nbsp;2.2: upstream dependencies on OSGEO and other C/C++ libraries in R a
 <p>Correction for <code>edge</code> effect?</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">CSR</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># Warning in seq.default(xrange[1L], xrange[2L], length = n + 1L):</span></span>
-<span><span class="co"># partial argument match of 'length' to 'length.out'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">CSR</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -699,8 +697,6 @@ Figure&nbsp;2.2: upstream dependencies on OSGEO and other C/C++ libraries in R a
 </div>
 </div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">ppi</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># Warning in seq.default(xrange[1L], xrange[2L], length = n + 1L):</span></span>
-<span><span class="co"># partial argument match of 'length' to 'length.out'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ppi</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -709,8 +705,6 @@ Figure&nbsp;2.2: upstream dependencies on OSGEO and other C/C++ libraries in R a
 </div>
 </div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/density.html">density</a></span><span class="op">(</span><span class="va">ppi</span>, sigma <span class="op">=</span> <span class="fl">.05</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># Warning in seq.default(xrange[1L], xrange[2L], length = n + 1L):</span></span>
-<span><span class="co"># partial argument match of 'length' to 'length.out'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ppi</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -849,7 +843,6 @@ Figure&nbsp;2.2: upstream dependencies on OSGEO and other C/C++ libraries in R a
 <div class="cell">
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># assuming Inhomogeneous Poisson:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.model/man/ppm.html">ppm</a></span><span class="op">(</span><span class="va">ppi</span>, <span class="op">~</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co"># Warning in FIT$coef: partial match of 'coef' to 'coefficients'</span></span>
 <span><span class="co"># Nonstationary Poisson process</span></span>
 <span><span class="co"># Fitted to point pattern dataset 'ppi'</span></span>
 <span><span class="co"># </span></span>
@@ -864,7 +857,6 @@ Figure&nbsp;2.2: upstream dependencies on OSGEO and other C/C++ libraries in R a
 <span><span class="co"># x               1.96 0.247    1.48    2.45   ***  7.96</span></span>
 <span><span class="co"># assuming Inhomogeneous clustered:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/spatstat.model/man/kppm.html">kppm</a></span><span class="op">(</span><span class="va">Y</span>, <span class="op">~</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co"># Warning in FIT$coef: partial match of 'coef' to 'coefficients'</span></span>
 <span><span class="co"># Inhomogeneous cluster point process model</span></span>
 <span><span class="co"># Fitted to point pattern dataset 'Y'</span></span>
 <span><span class="co"># Fitted by minimum contrast</span></span>
