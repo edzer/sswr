@@ -122,7 +122,7 @@ plot(vv)
 
 ## Interpolation
 
-For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data not!)
+For interpolation, we first need a target grid (point patterns have an observation window, geostatistical data do not!)
 
 A simple interpolator (that is hard to beat) is the inverse distance interpolator, $$\hat{Z}(s_0) = \sum_{j=1}^n \lambda_j Z(s_i)$$ with $\lambda_j$ proportional to $||s_i - s_0||^{-p}$ and normalized to sum to one (weighted mean), and $p$ tunable but defaulting to 2.
 
