@@ -593,7 +593,7 @@ Figure&nbsp;1.1: Wind turbine parks in Germany
 <span class="header-section-number">1.6</span> Exercises</h2>
 <ul>
 <li>What is the coordinate reference system of the <code><a href="https://docs.ropensci.org/rnaturalearth/reference/ne_countries.html">ne_countries()</a></code> dataset, imported above?</li>
-<li>Look up the “Equidistant Cylindrical (Plate Carrée)” projection on the https://proj.org website.</li>
+<li>Look up the “Equidistant Cylindrical (Plate Carrée)” projection on the <a href="https://proj.org" class="uri">https://proj.org</a> website.</li>
 <li>Why is this projection called <em>The simplest of all projections</em>?</li>
 <li>Project <code>ne_countries</code> to Plate Carrée, and plot it with <code>axes=TRUE</code>. What has changed? (Hint: <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> accepts a <em>proj string</em> to define a coordinate reference system (CRS); <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> transforms a dataset to a new CRS.)</li>
 <li>Project the same dataset to Eckert IV projection. What has changed?</li>
@@ -1348,7 +1348,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
 <span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is the coordinate reference system of the <span class="in">`ne_countries()`</span> dataset, imported above?</span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the https://proj.org website.</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Look up the "Equidistant Cylindrical (Plate Carrée)" projection on the <span class="ot">&lt;https://proj.org&gt;</span> website.</span>
 <span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Why is this projection called *The simplest of all projections*?</span>
 <span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project <span class="in">`ne_countries`</span> to Plate Carrée, and plot it with <span class="in">`axes=TRUE`</span>. What has changed? (Hint: <span class="in">`st_crs()`</span> accepts a *proj string* to define a coordinate reference system (CRS); <span class="in">`st_transform()`</span> transforms a dataset to a new CRS.)</span>
 <span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Project the same dataset to Eckert IV projection. What has changed?</span>
