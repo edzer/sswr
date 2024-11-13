@@ -1,0 +1,105 @@
+## Exercises
+
+Compute the variogram cloud of NO2 using `variogram()` and  argument
+`cloud = TRUE`.  (a) How does the resulting object differ from the
+"regular" variogram (use the `head` command on both objects); 
+(b) what do the "left" and "right" fields refer
+to? (c) when we plot the resulting variogram cloud object, does it still indicate
+spatial correlation?
+
+```{r}
+library(sf)
+no2 <- read.csv(system.file("external/no2.csv",
+    package = "gstat"))
+crs <- st_crs("EPSG:32632") # a csv doesn't carry a CRS!
+st_as_sf(no2, crs = "OGC:CRS84", coords =
+    c("station_longitude_deg", "station_latitude_deg")) |>
+    st_transform(crs) -> no2.sf
+library(ggplot2)
+# plot(st_geometry(no2.sf))
+"https://github.com/edzer/sdsr/raw/main/data/de_nuts1.gpkg" |>
+  read_sf() |>
+  st_transform(crs) -> de
+library(gstat)
+variogram(NO2~1, no2.sf, cloud = TRUE, cutoff = 350000) |> 
+		plot()
+```
+
+2. Compute the variogram of NO2 as above, and change the arguments `cutoff`
+and `width` into very large or small values. What do they do?
+
+```{r}
+variogram(NO2~1, no2.sf, width=50, cutoff = 350000) |> 
+		plot(plot.numbers = TRUE)
+variogram(NO2~1, no2.sf, width=5000, cutoff = 350000) |> 
+		plot(plot.numbers = TRUE)
+variogram(NO2~1, no2.sf, width=100000, cutoff = 350000) |> 
+		plot(plot.numbers = TRUE)
+variogram(NO2~1, no2.sf, width=1000, cutoff = 100000) |> 
+		plot(plot.numbers = TRUE)
+```
+
+3. Fit a spherical model to the sample variogram of NO2, using `fit.variogram()` (follow the example below, replace "Exp" with "Sph")
+
+```{r}
+v = variogram(NO2~1, no2.sf)
+v.fit = fit.variogram(v, vgm(1, "Sph", 50000))
+```
+
+4. Fit a Matern model ("Mat") to the sample variogram using different values
+for kappa (e.g., 0.3 and 4), and plot the resulting models with the sample variogram.
+
+```{r}
+v.fit = fit.variogram(v, vgm(1, "Mat", 50000, kappa = .3))
+plot(v, v.fit)
+v.fit = fit.variogram(v, vgm(1, "Mat", 50000, kappa = 1))
+plot(v, v.fit)
+v.fit = fit.variogram(v, vgm(1, "Mat", 50000, kappa = 4))
+plot(v, v.fit)
+```
+
+Note the different behaviour at the origin: curving at the origin
+indicates (the assumption of) a very smooth process.
+
+5. Which model do you like the best? Can the SSErr attribute of the
+fitted model be used to compare the models? How else can variogram
+model fits be compared?
+
+Answer: hard to tell! A good fit to a sample variogram may not directly
+mean a good performance when used for interpolation; a way to check the
+latter is cross validation (function `krige.cv` in package `gstat`).
+
+## Second round of exercises
+
+1. What causes the differences between the mean and the variance of
+the simulations (left) and the mean and variance obtained by kriging
+(right)?
+
+A: the number of realisations; the more simulations (realisations)
+we would create and average over, the closer the result looks like
+the kriging mean and variance.
+
+2. When comparing (above) the sample variogram of simulated fields
+with the variogram model used to simulate them, where do you
+see differences? Can you explain why these are not identical, or
+hypothesize under which circumstances these would become (more)
+identical?
+
+A: the differences are larger for larger distances. If we would
+increase the size of the area over which we create simulations (say,
+Europe rather than only Germany) then sample variogram values from
+individual realisations would be closer to those of the variogram
+model used to generate the simulations.
+
+3. Under which practical data analysis problem would conditional
+simulations be more useful than the kriging prediction + kriging
+variance maps?
+
+A. When uncertainties are computed and the kriging or simulation maps
+are an input, and (i) part of the downstream computation process
+is nonlinear (e.g.  we are interested in extremes, or exceedances
+of a threshold) or (ii) spatial correlations are important, e.g.
+because we do some kind of spatial aggregation.  The kriging map
+values are always smoother, and exhibit less variability, then the
+values interpolated.
+

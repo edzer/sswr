@@ -114,17 +114,10 @@ plot(vv)
 
 ## Exercises
 
-1. Compute the variogram cloud of NO2 using `variogram()` and  argument
-`cloud = TRUE`.  (a) How does the resulting object differ from the
-"regular" variogram (use the `head` command on both objects); 
-(b) what do the "left" and "right" fields refer
-to? (c) when we plot the resulting variogram cloud object, does it still indicate
-spatial correlation?
-2. Compute the variogram of NO2 as above, and change the arguments `cutoff`
-and `width` into very large or small values. What do they do?
+1. Compute the variogram cloud of NO2 using `variogram()` and  argument `cloud = TRUE`.  (a) How does the resulting object differ from the "regular" variogram (use the `head` command on both objects); (b) what do the "left" and "right" fields refer to? (c) when we plot the resulting variogram cloud object, does it still indicate spatial correlation?
+2. Compute the variogram of NO2 as above, and change the arguments `cutoff` and `width` into very large or small values. What do they do?
 3. Fit a spherical model to the sample variogram of NO2, using `fit.variogram()` (follow the example below, replace "Exp" with "Sph")
-4. Fit a Matern model ("Mat") to the sample variogram using different values
-for kappa (e.g., 0.3 and 4), and plot the resulting models with the sample variogram.
+4. Fit a Matern model ("Mat") to the sample variogram using different values for kappa (e.g., 0.3 and 4), and plot the resulting models with the sample variogram.
 5. Which model do you like the best? Can the SSErr attribute of the fitted model be used to compare the models? How else can variogram model fits be compared?
 
 ## Interpolation
