@@ -110,12 +110,6 @@ plot(g4["NO2_lm4"], breaks = "equal", reset = FALSE, main = "3rd order polynomia
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 ```
 
-::: {.callout-note title="Breakout session 1"}
-Discuss:
-
--   how will the predicted surface look like when instead of (functions of) coordinates, the variable *elevation* is used (e.g. to predict average temperatures)?
--   what will be the value range, approximately, of the resulting predicted values?
-:::
 
 ### regression tree
 
@@ -197,18 +191,19 @@ plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 
 ### Further approaches:
 
--   use linear regression on Gaussian kernel basis functions, $\exp(-h^2)$
--   use splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)
--   use additional, non-distance/coordinate functions as base function(s)
+-   using linear regression on Gaussian kernel basis functions, $\exp(-h^2)$
+-   using splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)
+-   using additional, non-distance/coordinate functions as base function(s)
     -   provided they are available "everywhere" (as *coverage*)
     -   examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands
 
-::: {.callout-note title="Breakout session 2"}
-Discuss:
+## Exercises
 
--   How would you assess whether residuals from your fitted model are spatially correlated?
--   Does resampling using *random* partitioning (as is done in random forest) implicitly assume that observations are independent?
-:::
+1. Discuss how will a predicted surface look like when instead of (linear functions of) coordinates, the variable *elevation* is used (e.g. to predict average temperatures)?
+2. What will be the value range, approximately, of the resulting predicted values, when a first order linear model is used?
+3. Discuss How would you assess whether residuals from your fitted model are spatially correlated?
+4. Compute such a variogram for the residuals of the last random forets model shown, and consider whether residual spatial correlation is present
+5. Discuss: Does resampling using *random* partitioning (as is done in random forest) implicitly assume that observations are independent?
 
 ### Example from CAST / caret
 
@@ -254,9 +249,10 @@ Combines the good parts of RF and Gaussian processes, in a very [smart way](http
 ```{r}
 library(RandomForestsGLS)
 cc = st_coordinates(splotdata)
-load("rfgls.rda")
-if (!exists("rfgls")) {
-	 rfgls = RFGLS_estimate_spatial(cc, as.double(y), x)
+if (file.exists("rfgls.rda")) {
+	load("rfgls.rda") # loads rfgls
+} else {
+	 rfgls = RFGLS_estimate_spatial(cc, as.double(y), x) # takes a while
 }
 cc_pr = st_coordinates(split(r))
 head(as.data.frame(split(r)))
@@ -266,3 +262,18 @@ out$rfgls = pr$prediction
 out$rf = predict(split(r), tr)
 plot(merge(out[c("rf", "rfgls")]), breaks = "equal")
 ```
+
+## Exercises
+
+* Carry out an `aoa` analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above.
+    * as done in the aoa above, create `y` from `no2.sf$NO2`, and the selected (first 20) distance fields from `no2.sf`
+    * plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability
+
+Further reading: 
+
+* Hanna Meyer, Edzer Pebesma, 2021. Predicting into unknown space? Estimating the area of applicability of spatial prediction models. 
+  Methods in Ecology and Evolution [12 (9), 1620-1633](https://doi.org/10.1111/2041-210X.13650)
+* Hanna Meyer, Edzer Pebesma, 2022. Machine learning-based global maps of ecological variables and the challenge of assessing them. 
+  Nature Communications volume 13, Article number: [2208 (2022)](https://www.nature.com/articles/s41467-022-29838-9)
+* J van den Hoogen, N Robmann, D Routh, T Lauber, N van Tiel, O Danylo, TW Crowther, 2021.
+  A geospatial mapping pipeline for ecologists. [BioRxiv](https://www.biorxiv.org/content/10.1101/2021.07.07.451145v1.abstract)
