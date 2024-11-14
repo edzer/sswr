@@ -80,6 +80,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<section id="exercises-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-1">Exercises 1</h2>
+<p>Discuss how will a predicted surface look like when instead of (linear functions of) coordinates, the variable <em>elevation</em> is used (e.g.&nbsp;to predict average temperatures)?</p>
+<p>A: It will follow the contours of the new predictor e.g.&nbsp;elevation</p>
+<p>What will be the value range, approximately, of the resulting predicted values, when a first order linear model is used?</p>
+<p>A: That of the data; extrapolation can be expected when the observations do not cover the range of elevation in the target region.</p>
+<p>Discuss How would you assess whether residuals from your fitted model are spatially correlated?</p>
+<p>A: for instance, to compute a sample variogram of it and assess whether it reveals spatial correlation in model residuals</p>
+<p>Compute such a variogram for the residuals of the last random forets model shown, and consider whether residual spatial correlation is present</p>
+</section>
+<section id="exercises-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-2">Exercises 2</h2>
 <p>Preliminary steps, copied from the main script:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -223,7 +235,7 @@ Projected CRS: WGS 84 / UTM zone 32N
 [186] "d_182"      "d_183"      "d_184"      "d_185"      "d_186"     
 [191] "d_187"      "d_188"      "d_189"      "d_190"      "d_191"     
 [196] "d_192"      "d_193"      "d_194"      "d_195"      "d_196"     
-[201] "d_197"      "d_198"      "d_199"      "d_200"     </code></pre>
+[201] "d_197"      "d_198"     </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -266,6 +278,8 @@ Attaching package: 'randomForest'</code></pre>
 </div>
 </div>
 </div>
+<p>Discuss: Does resampling using <em>random</em> partitioning (as is done in random forest) implicitly assume that observations are independent?</p>
+<p>A: probably yes; however random forests are not derived from a rigid statistical theory.</p>
 <p>Carry out an <code>aoa</code> analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above. * as done in the aoa above, create <code>y</code> from <code>no2.sf$NO2</code>, and the selected (first 20) distance fields from <code>no2.sf</code> * plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CAST)</span>
@@ -318,6 +332,7 @@ Attaching package: 'ggplot2'</code></pre>
 </div>
 </div>
 </div>
+</section>
 
 </main>
 <!-- /main column -->
