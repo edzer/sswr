@@ -124,7 +124,8 @@ assuming independent observations, can be carried out using `lm`:
 form = I_turnout ~ I_entitled_to_vote
 library(spatialreg)
 SEM_pres <- errorsarlm(form, data = pol_pres15, Durbin = FALSE,
-      listw = lw_q_B, zero.policy = TRUE) |> summary()
+      listw = lw_q_B, zero.policy = TRUE) 
+SEM_pres |> summary()
 ```
 
 ## Exercises
