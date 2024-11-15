@@ -76,7 +76,7 @@ plot(nb_q, coords = coords, add = TRUE, points = FALSE)
 
 Alternative approaches to form neighbourhood matrices:
 
--   based on distance
+-   based on distance, e.g. setting a distance threshold or selecting a fixed number of nearest neighbours
 -   based on triangulating points, for instance polygon centroids
 -   sphere of influence, a modification of triangulation
 -   include neighbours from neighbours
@@ -108,12 +108,30 @@ pol_pres15$I_turnout |>
 plot(pol_pres15["I_turnout"])
 ```
 
+A simple linear regression model, assuming independent observations, can be carried out using `lm`:
+
 ```{r}
 summary(pol_pres15$I_entitled_to_vote)
 (lm0 <- lm(I_turnout ~ I_entitled_to_vote, pol_pres15)) |> summary()
 pol_pres15$res = residuals(lm0)
 plot(pol_pres15["res"])
 ```
+
+A spatial linear regression model (SEM: spatial error model),
+assuming independent observations, can be carried out using `lm`:
+
+```{r}
+form = I_turnout ~ I_entitled_to_vote
+library(spatialreg)
+SEM_pres <- errorsarlm(form, data = pol_pres15, Durbin = FALSE,
+      listw = lw_q_B, zero.policy = TRUE) |> summary()
+```
+
+## Exercises
+
+1. Compare the results of the simple linear regression with the spatial error model
+2. Fit a spatial Durbin model, using `Durbin = TRUE` in the same call to `errorsarlm`
+3. carry out a likelyhood ratio test to compare both SEM models (`lmtest::lrtest()`, see the SDS book Ch 17)
 
 ## Big data: resource constraints in data science projects
 
@@ -151,12 +169,6 @@ it's just someone else's computer!
     -   too big to fit on the hard drive, or local file storage (10 Tb)
     -   too big to move (copy) to your institution (100 Tb - Pb)
 
-::: {.callout-note title="Breakout session 1"}
-Discuss:
-
--   Have you used datasets obtained from cloud storage? For which case(s)?
--   Have you used cloud processing? For which case(s)
-:::
 
 ## R for big, tabular datasets
 
@@ -324,6 +336,11 @@ m = st_read("/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/lega
 -   [FRK](https://cran.r-project.org/web/packages/FRK/index.html)
 
 A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. [DOI](https://doi.org/10.1007/s13253-018-00348-w).
+
+## Exercises:
+
+1. Discuss: Have you used datasets obtained from cloud storage? For which case(s)?
+2. Discuss: Have you used cloud processing? For which case(s)
 
 ## If time is left
 
