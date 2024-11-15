@@ -48,6 +48,7 @@ install.packages(c("classInt",
 ```{r eval=FALSE}
 install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/", 
 				 type = "source") # 23 Mb
+options(timeout = 3600) # 1 hr instead of 1 min
 install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/", 
 				 type = "source") # 1 Gb
 ```

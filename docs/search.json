@@ -14,7 +14,7 @@
     "href": "index.html#required-packages",
     "title": "Spatial Statistics with R",
     "section": "Required packages",
-    "text": "Required packages\nThe following packages may be used during the course; it is assumed that you know how to install packages, and have permission to do so on your computer.\nCRAN packages:\n\ninstall.packages(c(\"classInt\",\n\"colorspace\",\n\"dplyr\",\n\"ggplot2\",\n\"gstat\",\n\"hglm\",\n\"igraph\",\n\"lme4\",\n\"lwgeom\",\n\"maps\" ,\n\"mapview\",\n\"randomForest\",\n\"rnaturalearth\",\n\"s2\",\n\"scales\",\n\"sf\",\n\"sp\",\n\"spacetime\",\n\"spdep\",\n\"spatialreg\",\n\"spatstat\",\n\"spData\",\n\"stars\",\n\"terra\",\n\"tidyverse\",\n\"tmap\",\n\"units\",\n\"viridis\",\n\"viridisLite\",\n\"xts\"))\n\nnon-CRAN packages:\n\ninstall.packages(\"spDataLarge\", repos = \"https://nowosad.github.io/drat/\", \n                 type = \"source\") # 23 Mb\ninstall.packages(\"starsdata\", repos = \"http://cran.uni-muenster.de/pebesma/\", \n                 type = \"source\") # 1 Gb\n\nIntroduction to the course\n\nintroduction of the tutor\nintroduction of course participants, please state\n\nname,\nwhere you’re from,\nwhat kind of spatial data analysis you have done so far\n\n\nHow we work\nLive sessions are from 14:00-18:00 CET (Berlin time); daily schedule:\n\n14:00 - 14:45 lecture\n14:45 - 15:30 practical exercises (break-out groups)\n15:30 - 15:45 discussion of exercises\n15:45 - 16:15 break\n16:15 - 17:00 lecture\n17:00 - 17:45 practical exercises (break-out groups)\n17:45 - 18:00 discussion of exercises\n\nFurther:\n\nplease raise hands or speak up whenever something comes up\nslack communication during the full week\nplease share questions you run into in your actual research, preferably with (example) data and R code\nplease use the open channels in slack, so that everyone can learn from q + a’s\nResources\n\n\nSpatial Data Science: With applications in R, by Pebesma and Bivand 2023 (open online, hard copy from CRC)\nVignettes of sf: tab “Articles”\nVignettes of stars: tab “Articles”\nAll these material are written using quarto or R-markdown",
+    "text": "Required packages\nThe following packages may be used during the course; it is assumed that you know how to install packages, and have permission to do so on your computer.\nCRAN packages:\n\ninstall.packages(c(\"classInt\",\n\"colorspace\",\n\"dplyr\",\n\"ggplot2\",\n\"gstat\",\n\"hglm\",\n\"igraph\",\n\"lme4\",\n\"lwgeom\",\n\"maps\" ,\n\"mapview\",\n\"randomForest\",\n\"rnaturalearth\",\n\"s2\",\n\"scales\",\n\"sf\",\n\"sp\",\n\"spacetime\",\n\"spdep\",\n\"spatialreg\",\n\"spatstat\",\n\"spData\",\n\"stars\",\n\"terra\",\n\"tidyverse\",\n\"tmap\",\n\"units\",\n\"viridis\",\n\"viridisLite\",\n\"xts\"))\n\nnon-CRAN packages:\n\ninstall.packages(\"spDataLarge\", repos = \"https://nowosad.github.io/drat/\", \n                 type = \"source\") # 23 Mb\noptions(timeout = 3600) # 1 hr instead of 1 min\ninstall.packages(\"starsdata\", repos = \"http://cran.uni-muenster.de/pebesma/\", \n                 type = \"source\") # 1 Gb\n\nIntroduction to the course\n\nintroduction of the tutor\nintroduction of course participants, please state\n\nname,\nwhere you’re from,\nwhat kind of spatial data analysis you have done so far\n\n\nHow we work\nLive sessions are from 14:00-18:00 CET (Berlin time); daily schedule:\n\n14:00 - 14:45 lecture\n14:45 - 15:30 practical exercises (break-out groups)\n15:30 - 15:45 discussion of exercises\n15:45 - 16:15 break\n16:15 - 17:00 lecture\n17:00 - 17:45 practical exercises (break-out groups)\n17:45 - 18:00 discussion of exercises\n\nFurther:\n\nplease raise hands or speak up whenever something comes up\nslack communication during the full week\nplease share questions you run into in your actual research, preferably with (example) data and R code\nplease use the open channels in slack, so that everyone can learn from q + a’s\nResources\n\n\nSpatial Data Science: With applications in R, by Pebesma and Bivand 2023 (open online, hard copy from CRC)\nVignettes of sf: tab “Articles”\nVignettes of stars: tab “Articles”\nAll these material are written using quarto or R-markdown",
     "crumbs": [
       "Introduction"
     ]
@@ -440,11 +440,11 @@
     ]
   },
   {
-    "objectID": "day5.html#exercises-for-today",
-    "href": "day5.html#exercises-for-today",
+    "objectID": "day5.html#exercises-you-could-do-to-prepare-for-today",
+    "href": "day5.html#exercises-you-could-do-to-prepare-for-today",
     "title": "\n5  Analysing lattice data; big geospatial datasets\n",
-    "section": "\n5.1 Exercises for Today",
-    "text": "5.1 Exercises for Today\n\nExercises of Ch 9: Big Data and Cloud Native\n\n\n\n\n\n\n\nSummary\n\n\n\n\nWhat is big?\nRaster or vector?\nHow to access large data sets?\nSpatial statistics on large datasets",
+    "section": "\n5.1 Exercises you could do to prepare for Today",
+    "text": "5.1 Exercises you could do to prepare for Today\n\nExercises of Ch 14: Lattice data\nExercises of Ch 9: Big Data and Cloud Native\n\n\n\n\n\n\n\nSummary\n\n\n\n\nWhat is big?\nRaster or vector?\nHow to access large data sets?\nSpatial statistics on large datasets",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Analysing lattice data; big geospatial datasets</span>"
     ]
@@ -464,7 +464,7 @@
     "href": "day5.html#exercises",
     "title": "\n5  Analysing lattice data; big geospatial datasets\n",
     "section": "\n5.3 Exercises",
-    "text": "5.3 Exercises\n\nCompare the results of the simple linear regression with the spatial error model\nFit a spatial Durbin model, using Durbin = TRUE in the same call to errorsarlm\n\ncarry out a likelyhood ratio test to compare both SEM models (lmtest::lrtest(), see the SDS book Ch 17)",
+    "text": "5.3 Exercises\n\nCompare the results of the simple linear regression with the spatial error model\nCompare the maps of residuals of both models\nFit a spatial Durbin error model (SDEM), using Durbin = TRUE in the same call to errorsarlm; compare the output of the Spatial Durbin model with that of the error model.\ncarry out a likelyhood ratio test to compare the SEM and SDEM models (lmtest::lrtest(), see the SDS book Ch 17)",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Analysing lattice data; big geospatial datasets</span>"
     ]

@@ -21,8 +21,9 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
 
 [stars vignettes 2: proxy objects](https://r-spatial.github.io/stars/articles/stars2.html)
 
-## Exercises for Today
+## Exercises you could do to prepare for Today
 
+-   Exercises of Ch 14: Lattice data
 -   Exercises of Ch 9: Big Data and Cloud Native
 
 ::: {.callout-tip title="Summary"}
@@ -131,8 +132,9 @@ SEM_pres |> summary()
 ## Exercises
 
 1. Compare the results of the simple linear regression with the spatial error model
-2. Fit a spatial Durbin model, using `Durbin = TRUE` in the same call to `errorsarlm`
-3. carry out a likelyhood ratio test to compare both SEM models (`lmtest::lrtest()`, see the SDS book Ch 17)
+2. Compare the maps of residuals of both models
+2. Fit a spatial Durbin error model (SDEM), using `Durbin = TRUE` in the same call to `errorsarlm`; compare the output of the Spatial Durbin model with that of the error model.
+3. carry out a likelyhood ratio test to compare the SEM and SDEM models (`lmtest::lrtest()`, see the SDS book Ch 17)
 
 ## Big data: resource constraints in data science projects
 
