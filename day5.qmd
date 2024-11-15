@@ -342,6 +342,19 @@ A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta,
 
 1. Discuss: Have you used datasets obtained from cloud storage? For which case(s)?
 2. Discuss: Have you used cloud processing? For which case(s)
+3. Run
+
+```r
+granule = system.file("sentinel/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip", package = "starsdata")
+s2 = paste0("SENTINEL2_L1C:/vsizip/", granule, "/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.SAFE/MTD_MSIL1C.xml:10m:EPSG_32632")
+```
+
+and open `s2` using `stars::read_stars()`. Look at the summary; is the image data actually loaded in memory?
+
+4. Write the stars object to a GeoTIFF file, using `write_stars()`. How long does it take, and how large is the resulting file?
+5. Compute the difference between the first two bands of the Sentinel-2 image, and write the result to a GeoTiff file.
+   In which command(s) are the image values actually loaded into memory?
+
 
 ## If time is left
 
