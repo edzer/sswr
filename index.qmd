@@ -1,6 +1,8 @@
 # Introduction {.unnumbered}
 
+<!---
 [slack channel](https://spatialstatis-7gb9460.slack.com)
+-->
 
 ## Required packages
 

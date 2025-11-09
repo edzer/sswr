@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>5&nbsp; Analysing lattice data; big geospatial datasets – Spatial Statistics with R</title>
 <style>
@@ -18,8 +18,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +31,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -61,15 +62,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./day4.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-ab1cd73ed1d48e2f33157ebd9b3fd634.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -106,7 +109,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -122,7 +125,7 @@ window.Quarto = {
 };
 </script>
 </head>
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
@@ -138,7 +141,9 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Spatial Statistics with R</a> 
         <div class="sidebar-tools-main">
@@ -251,7 +256,7 @@ window.Quarto = {
 
 
 </header><div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"USER"</span><span class="op">)</span> <span class="op">==</span> <span class="st">"edzer"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ev</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"USER"</span><span class="op">)</span> <span class="op">==</span> <span class="st">"edzer"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Understand</p>
 <ul>
@@ -280,7 +285,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Summary
+<span class="screen-reader-only">Tip</span>Summary
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -295,8 +300,9 @@ Summary
 </section><section id="analysing-lattice-data-neighbours-weights-models" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="analysing-lattice-data-neighbours-weights-models">
 <span class="header-section-number">5.2</span> Analysing lattice data: neighbours, weights, models</h2>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="co"># Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="co"># Linking to GEOS 3.12.2, GDAL 3.11.3, PROJ 9.4.1; sf_use_s2() is</span></span>
+<span><span class="co"># TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">pol_pres15</span>, package <span class="op">=</span> <span class="st">"spDataLarge"</span><span class="op">)</span></span>
 <span><span class="va">pol_pres15</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span>select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">TERYT</span>, <span class="va">name</span>, <span class="va">types</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -321,7 +327,7 @@ Summary
 <span><span class="co"># 5 MULTIPOLYGON (((263424 4060...</span></span>
 <span><span class="co"># 6 MULTIPOLYGON (((267031 3870...</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-tmap/tmap">tmap</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="st">"types"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-tmap.github.io/tmap/reference/tm_polygons.html">tm_fill</a></span><span class="op">(</span><span class="st">"types"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -331,15 +337,15 @@ Summary
 </div>
 <p>We need to make the geometries valid first,</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_is_valid</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_is_valid</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># [1] FALSE</span></span>
 <span><span class="va">pol_pres15</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_is_valid</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>First, we will consider polygons in relationship to their direct neighbours</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/">spdep</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spdep/">spdep</a></span><span class="op">)</span></span>
 <span><span class="co"># Loading required package: spData</span></span>
 <span><span class="va">pol_pres15</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/poly2nb.html">poly2nb</a></span><span class="op">(</span>queen <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">nb_q</span></span>
 <span><span class="va">nb_q</span></span>
@@ -347,20 +353,20 @@ Summary
 <span><span class="co"># Number of regions: 2495 </span></span>
 <span><span class="co"># Number of nonzero links: 14242 </span></span>
 <span><span class="co"># Percentage nonzero weights: 0.229 </span></span>
-<span><span class="co"># Average number of links: 5.71</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># Average number of links: 5.71</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Is the graph connected?</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">nb_q</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/compon.html">n.comp.nb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">nc</span></span>
-<span><span class="co"># [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">nb_q</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/compon.html">n.comp.nb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">nc</span></span>
+<span><span class="co"># [1] 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pol_pres15</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span>of_largest_polygon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">coords</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">)</span>, border <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">nb_q</span>, coords <span class="op">=</span> <span class="va">coords</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, points <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">nb_q</span>, coords <span class="op">=</span> <span class="va">coords</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, points <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -378,7 +384,7 @@ Summary
 <section id="weights-matrices" class="level3"><h3 class="anchored" data-anchor-id="weights-matrices">Weights matrices</h3>
 <p>Weight matrices are needed in analysis, they determine how observations (or residuals) are weighted in a regression model.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">nb_q</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html">nb2listw</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">lw_q_B</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">nb_q</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/nb2listw.html">nb2listw</a></span><span class="op">(</span>style <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">lw_q_B</span><span class="op">)</span></span>
 <span><span class="co"># Characteristics of weights list object:</span></span>
 <span><span class="co"># Neighbour list object:</span></span>
 <span><span class="co"># Number of regions: 2495 </span></span>
@@ -389,7 +395,7 @@ Summary
 <span><span class="co"># Weights style: B </span></span>
 <span><span class="co"># Weights constants summary:</span></span>
 <span><span class="co">#      n      nn    S0    S1     S2</span></span>
-<span><span class="co"># B 2495 6225025 14242 28484 357280</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># B 2495 6225025 14242 28484 357280</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="spatial-correlation-morans-i" class="level3"><h3 class="anchored" data-anchor-id="spatial-correlation-morans-i">Spatial correlation: Moran’s I</h3>
 <p>Moran’s I is defined as</p>
@@ -398,7 +404,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 \]</span> where <span class="math inline">\(x_i, i=1, \ldots, n\)</span> are <span class="math inline">\(n\)</span> observations on the numeric variable of interest, <span class="math inline">\(z_i = x_i - \bar{x}\)</span>, <span class="math inline">\(\bar{x} = \sum_{i=1}^{n} x_i / n\)</span>, <span class="math inline">\(\sum_{(2)} = \stackrel{\sum_{i=1}^{n} \sum_{j=1}^{n}}{i \neq j}\)</span>, <span class="math inline">\(w_{ij}\)</span> are the spatial weights, and <span class="math inline">\(S_0 = \sum_{(2)} w_{ij}\)</span>.</p>
 <p>We can compute it as</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pol_pres15</span><span class="op">$</span><span class="va">I_turnout</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pol_pres15</span><span class="op">$</span><span class="va">I_turnout</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://r-spatial.github.io/spdep/reference/moran.test.html">moran.test</a></span><span class="op">(</span><span class="va">lw_q_B</span>, randomisation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>               alternative <span class="op">=</span> <span class="st">"two.sided"</span><span class="op">)</span></span>
 <span><span class="co"># </span></span>
@@ -412,7 +418,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span><span class="co"># sample estimates:</span></span>
 <span><span class="co"># Moran I statistic       Expectation          Variance </span></span>
 <span><span class="co">#          0.691434         -0.000401          0.000140</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">[</span><span class="st">"I_turnout"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">[</span><span class="st">"I_turnout"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -422,7 +428,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 <p>A simple linear regression model, assuming independent observations, can be carried out using <code>lm</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">$</span><span class="va">I_entitled_to_vote</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">$</span><span class="va">I_entitled_to_vote</span><span class="op">)</span></span>
 <span><span class="co">#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">#    1308    4026    6033   12221   10524  594643</span></span>
 <span><span class="op">(</span><span class="va">lm0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">I_turnout</span> <span class="op">~</span> <span class="va">I_entitled_to_vote</span>, <span class="va">pol_pres15</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -445,7 +451,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span><span class="co"># Multiple R-squared:  0.0598,  Adjusted R-squared:  0.0595 </span></span>
 <span><span class="co"># F-statistic:  159 on 1 and 2493 DF,  p-value: &lt;2e-16</span></span>
 <span><span class="va">pol_pres15</span><span class="op">$</span><span class="va">res</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">lm0</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">[</span><span class="st">"res"</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pol_pres15</span><span class="op">[</span><span class="st">"res"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -455,7 +461,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 </div>
 <p>A spatial linear regression model (SEM: spatial error model), assuming independent observations, can be carried out using <code>lm</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">form</span> <span class="op">=</span> <span class="va">I_turnout</span> <span class="op">~</span> <span class="va">I_entitled_to_vote</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">form</span> <span class="op">=</span> <span class="va">I_turnout</span> <span class="op">~</span> <span class="va">I_entitled_to_vote</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-spatial/spatialreg/">spatialreg</a></span><span class="op">)</span></span>
 <span><span class="co"># Loading required package: Matrix</span></span>
 <span><span class="co"># </span></span>
@@ -492,7 +498,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span><span class="co"># ML residual variance (sigma squared): 0.00147, (sigma: 0.0383)</span></span>
 <span><span class="co"># Number of observations: 2495 </span></span>
 <span><span class="co"># Number of parameters estimated: 4 </span></span>
-<span><span class="co"># AIC: -8771, (AIC for lm: -6809)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># AIC: -8771, (AIC for lm: -6809)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section><section id="exercises" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="exercises">
 <span class="header-section-number">5.3</span> Exercises</h2>
@@ -596,7 +602,7 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Clouds and object storage
+<span class="screen-reader-only">Tip</span>Clouds and object storage
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -644,7 +650,7 @@ Clouds and object storage
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Cloud-optimized, cloud-native geoospatial
+<span class="screen-reader-only">Tip</span>Cloud-optimized, cloud-native geoospatial
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -667,7 +673,7 @@ Cloud-optimized, cloud-native geoospatial
 </h2>
 <p>Using <a href="https://registry.opendata.aws/sentinel-2-l2a-cogs/">Sentinel-2 COGs at AWS</a>, and its <a href="https://earth-search.aws.element84.com/v1">stac</a>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://brazil-data-cube.github.io/rstac/">rstac</a></span><span class="op">)</span> <span class="co"># modified from the package docs:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://brazil-data-cube.github.io/rstac/">rstac</a></span><span class="op">)</span> <span class="co"># modified from the package docs:</span></span>
 <span><span class="va">s_obj</span> <span class="op">=</span> <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/stac.html">stac</a></span><span class="op">(</span><span class="st">"https://earth-search.aws.element84.com/v1"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/collections.html">collections</a></span><span class="op">(</span><span class="va">s_obj</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/request.html">get_request</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># ###Collections</span></span>
@@ -696,16 +702,16 @@ Cloud-optimized, cloud-native geoospatial
 <span><span class="co"># - assets: </span></span>
 <span><span class="co"># aot, aot-jp2, blue, blue-jp2, coastal, coastal-jp2, granule_metadata, green, green-jp2, nir, nir-jp2, nir08, nir08-jp2, nir09, nir09-jp2, red, red-jp2, rededge1, rededge1-jp2, rededge2, rededge2-jp2, rededge3, rededge3-jp2, scl, scl-jp2, swir16, swir16-jp2, swir22, swir22-jp2, thumbnail, tileinfo_metadata, visual, visual-jp2, wvp, wvp-jp2</span></span>
 <span><span class="co"># - item's fields: </span></span>
-<span><span class="co"># assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>then, download (here only one item):</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">download_items</span> <span class="op">&lt;-</span> <span class="va">it_obj</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/assets_functions.html">assets_download</a></span><span class="op">(</span>assets_name <span class="op">=</span> <span class="st">"thumbnail"</span>, items_max <span class="op">=</span> <span class="fl">1</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">download_items</span> <span class="op">&lt;-</span> <span class="va">it_obj</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://brazil-data-cube.github.io/rstac/reference/assets_functions.html">assets_download</a></span><span class="op">(</span>assets_name <span class="op">=</span> <span class="st">"thumbnail"</span>, items_max <span class="op">=</span> <span class="fl">1</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>and examine</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="va">tif</span> <span class="op">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/gdal_utils.html">gdal_utils</a></span><span class="op">(</span><span class="st">"info"</span>, <span class="va">tif</span><span class="op">)</span></span>
 <span><span class="co"># Driver: GTiff/GeoTIFF</span></span>
@@ -722,6 +728,7 @@ Cloud-optimized, cloud-native geoospatial
 <span><span class="co">#             MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
 <span><span class="co">#             MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
 <span><span class="co">#             MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
+<span><span class="co">#             MEMBER["World Geodetic System 1984 (G2296)"],</span></span>
 <span><span class="co">#             ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
 <span><span class="co">#                 LENGTHUNIT["metre",1]],</span></span>
 <span><span class="co">#             ENSEMBLEACCURACY[2.0]],</span></span>
@@ -762,8 +769,8 @@ Cloud-optimized, cloud-native geoospatial
 <span><span class="co"># Origin = (399960.000000000000000,8100040.000000000000000)</span></span>
 <span><span class="co"># Pixel Size = (10.000000000000000,-10.000000000000000)</span></span>
 <span><span class="co"># Metadata:</span></span>
-<span><span class="co">#   AREA_OR_POINT=Area</span></span>
 <span><span class="co">#   OVR_RESAMPLING_ALG=AVERAGE</span></span>
+<span><span class="co">#   AREA_OR_POINT=Area</span></span>
 <span><span class="co"># Image Structure Metadata:</span></span>
 <span><span class="co">#   COMPRESSION=DEFLATE</span></span>
 <span><span class="co">#   INTERLEAVE=BAND</span></span>
@@ -780,7 +787,7 @@ Cloud-optimized, cloud-native geoospatial
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/stars/">stars</a></span><span class="op">)</span></span>
 <span><span class="co"># Loading required package: abind</span></span>
 <span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">tif</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co"># downsample set to 8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># downsample set to 8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day5_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -794,7 +801,7 @@ Cloud-optimized, cloud-native geoospatial
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Breakout session 2
+<span class="screen-reader-only">Note</span>Breakout session 2
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -815,16 +822,16 @@ Breakout session 2
 <span class="header-section-number">5.12</span> Examples <code>/vsixxx</code>
 </h2>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/curl_download.html">curl_download</a></span><span class="op">(</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/curl/reference/curl_download.html">curl_download</a></span><span class="op">(</span></span>
 <span>  <span class="st">"https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg"</span>,</span>
 <span>  <span class="st">"nshn_water_line.gpkg"</span></span>
-<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"nshn_water_line.gpkg"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"nshn_water_line.gpkg"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># Simple feature collection with 483268 features and 33 fields</span></span>
 <span><span class="co"># Geometry type: MULTILINESTRING</span></span>
 <span><span class="co"># Dimension:     XYZ</span></span>
@@ -846,11 +853,11 @@ Breakout session 2
 <span><span class="co"># #   LAKENAME_2 &lt;chr&gt;, RIVID_1 &lt;chr&gt;, RIVNAME_1 &lt;chr&gt;,</span></span>
 <span><span class="co"># #   RIVID_2 &lt;chr&gt;, RIVNAME_2 &lt;chr&gt;, MISCID_1 &lt;chr&gt;,</span></span>
 <span><span class="co"># #   MISCNAME_1 &lt;chr&gt;, MISCID_2 &lt;chr&gt;, MISCNAME_2 &lt;chr&gt;,</span></span>
-<span><span class="co"># #   MISCID_3 &lt;chr&gt;, MISCNAME_3 &lt;chr&gt;, MISCID_4 &lt;chr&gt;, …</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># #   MISCID_3 &lt;chr&gt;, MISCNAME_3 &lt;chr&gt;, MISCID_4 &lt;chr&gt;, …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>From https://github.com/microsoft/USBuildingFootprints downloaded <a href="https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip">Maine.geojson.zip</a>, and read with</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"/vsizip/Maine.geojson.zip"</span><span class="op">)</span><span class="op">)</span> <span class="co"># /vsizip: indicates data source is a zipped file</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"/vsizip/Maine.geojson.zip"</span><span class="op">)</span><span class="op">)</span> <span class="co"># /vsizip: indicates data source is a zipped file</span></span>
 <span><span class="co"># Simple feature collection with 758999 features and 2 fields</span></span>
 <span><span class="co"># Geometry type: POLYGON</span></span>
 <span><span class="co"># Dimension:     XY</span></span>
@@ -865,12 +872,12 @@ Breakout session 2
 <span><span class="co"># 4       1 ""                  ((-67 44.9, -67 44.9, -67 44.9, -67 4…</span></span>
 <span><span class="co"># 5       1 ""                  ((-67 44.9, -67 44.9, -67 44.9, -67 4…</span></span>
 <span><span class="co"># 6       1 ""                  ((-67 44.9, -67 44.9, -67 44.9, -67 4…</span></span>
-<span><span class="co"># # ℹ 758,993 more rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co"># # ℹ 758,993 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>or read directly from github into R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span><span class="op">)</span></span>
-<span><span class="co"># /vsicurl: indicates data source is a URL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span><span class="op">)</span></span>
+<span><span class="co"># /vsicurl: indicates data source is a URL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="simple-analysis-on-large-datasets" class="level2" data-number="5.13"><h2 data-number="5.13" class="anchored" data-anchor-id="simple-analysis-on-large-datasets">
 <span class="header-section-number">5.13</span> “Simple” analysis on large datasets</h2>
@@ -902,8 +909,8 @@ Breakout session 2
 <li>Discuss: Have you used cloud processing? For which case(s)</li>
 <li>Run</li>
 </ol>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">granule</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip"</span>, package <span class="op">=</span> <span class="st">"starsdata"</span><span class="op">)</span></span>
-<span><span class="va">s2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"SENTINEL2_L1C:/vsizip/"</span>, <span class="va">granule</span>, <span class="st">"/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">granule</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip"</span>, package <span class="op">=</span> <span class="st">"starsdata"</span><span class="op">)</span></span>
+<span><span class="va">s2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"SENTINEL2_L1C:/vsizip/"</span>, <span class="va">granule</span>, <span class="st">"/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and open <code>s2</code> using <code><a href="https://r-spatial.github.io/stars/reference/read_stars.html">stars::read_stars()</a></code>. Look at the summary; is the image data actually loaded in memory?</p>
 <ol start="4" type="1">
 <li>Write the stars object to a GeoTIFF file, using <code><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars()</a></code>. How long does it take, and how large is the resulting file?</li>
@@ -918,290 +925,294 @@ Breakout session 2
 <!-- -->
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/edzer\.github\.io\/sswr\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
           } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
         }
-        return container.innerHTML
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/edzer\.github\.io\/sswr\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1209,185 +1220,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./day4.html" class="pagination-link" aria-label="Machine Learning methods applied to spatial data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Machine Learning methods applied to spatial data</span></span>
       </a>          
@@ -1395,8 +1382,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="in">ev &lt;- Sys.getenv("USER") == "edzer"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ev <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"USER"</span>) <span class="sc">==</span> <span class="st">"edzer"</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Analysing lattice data; big geospatial datasets</span></span>
@@ -1659,18 +1646,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-282"><a href="#cb20-282" aria-hidden="true" tabindex="-1"></a>then, download (here only one item):</span>
 <span id="cb20-283"><a href="#cb20-283" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-284"><a href="#cb20-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb20-285"><a href="#cb20-285" aria-hidden="true" tabindex="-1"></a><span class="in">download_items &lt;- it_obj |&gt;</span></span>
-<span id="cb20-286"><a href="#cb20-286" aria-hidden="true" tabindex="-1"></a><span class="in">  assets_download(assets_name = "thumbnail", items_max = 1, overwrite = TRUE)</span></span>
+<span id="cb20-285"><a href="#cb20-285" aria-hidden="true" tabindex="-1"></a>download_items <span class="ot">&lt;-</span> it_obj <span class="sc">|&gt;</span></span>
+<span id="cb20-286"><a href="#cb20-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_download</span>(<span class="at">assets_name =</span> <span class="st">"thumbnail"</span>, <span class="at">items_max =</span> <span class="dv">1</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb20-287"><a href="#cb20-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-288"><a href="#cb20-288" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-289"><a href="#cb20-289" aria-hidden="true" tabindex="-1"></a>and examine</span>
 <span id="cb20-290"><a href="#cb20-290" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-291"><a href="#cb20-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb20-292"><a href="#cb20-292" aria-hidden="true" tabindex="-1"></a><span class="in">library(sf)</span></span>
-<span id="cb20-293"><a href="#cb20-293" aria-hidden="true" tabindex="-1"></a><span class="in">tif = "sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
-<span id="cb20-294"><a href="#cb20-294" aria-hidden="true" tabindex="-1"></a><span class="in">gdal_utils("info", tif)</span></span>
-<span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a><span class="in">library(stars)</span></span>
-<span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a><span class="in">read_stars(tif) |&gt; plot()</span></span>
+<span id="cb20-292"><a href="#cb20-292" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb20-293"><a href="#cb20-293" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
+<span id="cb20-294"><a href="#cb20-294" aria-hidden="true" tabindex="-1"></a><span class="fu">gdal_utils</span>(<span class="st">"info"</span>, tif)</span>
+<span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a><span class="fu">read_stars</span>(tif) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
 <span id="cb20-297"><a href="#cb20-297" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-299"><a href="#cb20-299" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
@@ -1689,10 +1676,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-312"><a href="#cb20-312" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples `/vsixxx`</span></span>
 <span id="cb20-313"><a href="#cb20-313" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-314"><a href="#cb20-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb20-315"><a href="#cb20-315" aria-hidden="true" tabindex="-1"></a><span class="in">curl::curl_download(</span></span>
-<span id="cb20-316"><a href="#cb20-316" aria-hidden="true" tabindex="-1"></a><span class="in">  "https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg",</span></span>
-<span id="cb20-317"><a href="#cb20-317" aria-hidden="true" tabindex="-1"></a><span class="in">  "nshn_water_line.gpkg"</span></span>
-<span id="cb20-318"><a href="#cb20-318" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb20-315"><a href="#cb20-315" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(</span>
+<span id="cb20-316"><a href="#cb20-316" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg"</span>,</span>
+<span id="cb20-317"><a href="#cb20-317" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nshn_water_line.gpkg"</span></span>
+<span id="cb20-318"><a href="#cb20-318" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb20-319"><a href="#cb20-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-320"><a href="#cb20-320" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-323"><a href="#cb20-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -1700,20 +1687,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-325"><a href="#cb20-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-326"><a href="#cb20-326" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-327"><a href="#cb20-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb20-328"><a href="#cb20-328" aria-hidden="true" tabindex="-1"></a><span class="in">(w &lt;- read_sf("nshn_water_line.gpkg"))</span></span>
+<span id="cb20-328"><a href="#cb20-328" aria-hidden="true" tabindex="-1"></a>(w <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"nshn_water_line.gpkg"</span>))</span>
 <span id="cb20-329"><a href="#cb20-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-330"><a href="#cb20-330" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-331"><a href="#cb20-331" aria-hidden="true" tabindex="-1"></a>From https://github.com/microsoft/USBuildingFootprints downloaded <span class="co">[</span><span class="ot">Maine.geojson.zip</span><span class="co">](https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip)</span>, and read with</span>
 <span id="cb20-332"><a href="#cb20-332" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-333"><a href="#cb20-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb20-334"><a href="#cb20-334" aria-hidden="true" tabindex="-1"></a><span class="in">(m = read_sf("/vsizip/Maine.geojson.zip")) # /vsizip: indicates data source is a zipped file</span></span>
+<span id="cb20-334"><a href="#cb20-334" aria-hidden="true" tabindex="-1"></a>(<span class="at">m =</span> <span class="fu">read_sf</span>(<span class="st">"/vsizip/Maine.geojson.zip"</span>)) <span class="co"># /vsizip: indicates data source is a zipped file</span></span>
 <span id="cb20-335"><a href="#cb20-335" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-336"><a href="#cb20-336" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-337"><a href="#cb20-337" aria-hidden="true" tabindex="-1"></a>or read directly from github into R:</span>
 <span id="cb20-338"><a href="#cb20-338" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-339"><a href="#cb20-339" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb20-340"><a href="#cb20-340" aria-hidden="true" tabindex="-1"></a><span class="in">m = st_read("/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip")</span></span>
-<span id="cb20-341"><a href="#cb20-341" aria-hidden="true" tabindex="-1"></a><span class="in"># /vsicurl: indicates data source is a URL</span></span>
+<span id="cb20-340"><a href="#cb20-340" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span>)</span>
+<span id="cb20-341"><a href="#cb20-341" aria-hidden="true" tabindex="-1"></a><span class="co"># /vsicurl: indicates data source is a URL</span></span>
 <span id="cb20-342"><a href="#cb20-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-343"><a href="#cb20-343" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-344"><a href="#cb20-344" aria-hidden="true" tabindex="-1"></a><span class="fu">## "Simple" analysis on large datasets</span></span>
@@ -1758,7 +1745,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb20-383"><a href="#cb20-383" aria-hidden="true" tabindex="-1"></a><span class="fu">## If time is left</span></span>
 <span id="cb20-384"><a href="#cb20-384" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-385"><a href="#cb20-385" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Exercises chapter 9</span><span class="co">](https://r-spatial.org/book/09-Large.html#exercises)</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
