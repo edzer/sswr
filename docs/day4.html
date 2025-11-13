@@ -306,7 +306,7 @@ window.Quarto = {
 <span><span class="co"># </span></span>
 <span><span class="co">#     intersect, setdiff, setequal, union</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
-<span><span class="co"># Linking to GEOS 3.12.2, GDAL 3.11.3, PROJ 9.4.1; sf_use_s2() is</span></span>
+<span><span class="co"># Linking to GEOS 3.12.2, GDAL 3.11.4, PROJ 9.4.1; sf_use_s2() is</span></span>
 <span><span class="co"># TRUE</span></span>
 <span><span class="va">crs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="st">"EPSG:32632"</span><span class="op">)</span> <span class="co"># a csv doesn't carry a CRS!</span></span>
 <span><span class="va">no2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"external/no2.csv"</span>,</span>
@@ -716,7 +716,8 @@ window.Quarto = {
 <span><span class="co"># [201] "d_184"      "d_185"      "d_186"      "d_187"     </span></span>
 <span><span class="co"># [205] "d_188"      "d_189"      "d_190"      "d_191"     </span></span>
 <span><span class="co"># [209] "d_192"      "d_193"      "d_194"      "d_195"     </span></span>
-<span><span class="co"># [213] "d_196"      "d_197"      "d_198"      "d_199"</span></span>
+<span><span class="co"># [213] "d_196"      "d_197"      "d_198"      "d_199"     </span></span>
+<span><span class="co"># [217] "d_200"      "d_201"      "d_202"      "d_203"</span></span>
 <span><span class="va">rf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span><span class="va">NO2</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">no2.sf</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NO2"</span>, <span class="va">n</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="va">n</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">g4</span><span class="op">$</span><span class="va">rf_dm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">g4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g4</span><span class="op">[</span><span class="st">"rf_dm"</span><span class="op">]</span>, breaks <span class="op">=</span> <span class="st">"equal"</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"random forest"</span><span class="op">)</span></span>

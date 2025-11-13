@@ -1,8 +1,6 @@
 # Introduction {.unnumbered}
 
-<!---
-[slack channel](https://spatialstatis-7gb9460.slack.com)
--->
+[slack channel](https://spatialstatis-a8b5618.slack.com)
 
 ## Required packages
 
