@@ -262,8 +262,11 @@ storms.tr %>% ggplot(aes(color = year)) + geom_sf()
 -   Project the same dataset to Eckert IV projection. What has changed?
 -   Also try plotting this dataset after transforming it to an orthographic projection with `+proj=ortho`; what went wrong?
 
+[Link to Answers](day1_ex.html)
+
 ## Further reading
 
 -   Ripley, B. 1981. Spatial Statistics. Wiley.
 -   Cressie, N. 1993. Statistics for Spatial Data. Wiley.
 -   Cochran, W.G. 1977. Sampling Techniques. Wiley.
+-	references in [Spatial Data Science; with applications in R](https://r-spatial.org/book/)
