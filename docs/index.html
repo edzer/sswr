@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Edzer Pebesma">
-<meta name="dcterms.date" content="2025-11-16">
+<meta name="dcterms.date" content="2025-11-20">
 <title>Spatial Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 16, 2025</p>
+      <p class="date">November 20, 2025</p>
     </div>
   </div>
   
@@ -283,7 +283,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span> <span class="co"># 23 Mb</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span> <span class="co"># 1 hr instead of 1 min</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"starsdata"</span>, repos <span class="op">=</span> <span class="st">"http://cran.uni-muenster.de/pebesma/"</span>, </span>
-<span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span> <span class="co"># 1 Gb</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span> <span class="co"># 1 Gb</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"source"</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="introduction-to-the-course" class="level3"><h3 class="anchored" data-anchor-id="introduction-to-the-course">Introduction to the course</h3>
 <ul>
@@ -876,76 +880,80 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">3600</span>) <span class="co"># 1 hr instead of 1 min</span></span>
 <span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, <span class="at">repos =</span> <span class="st">"http://cran.uni-muenster.de/pebesma/"</span>, </span>
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"source"</span>) <span class="co"># 1 Gb</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to the course</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of the tutor</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of course participants, please state</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>name,</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>where you're from,</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>what kind of spatial data analysis you have done so far</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="fu">### How we work</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>Live sessions are from 14:00-18:00 CET (Berlin time);</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>daily schedule:</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>14:00 - 14:45 lecture</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>14:45 - 15:30 practical exercises (break-out groups)</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>15:30 - 15:45 discussion of exercises</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>15:45 - 16:15 break</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>16:15 - 17:00 lecture</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>17:00 - 17:45 practical exercises (break-out groups)</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>17:45 - 18:00 discussion of exercises</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>Further:</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please raise hands or speak up whenever something comes up</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>slack communication during the full week</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please share questions you run into in your actual research, preferably with (example) data and R code</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please use the open channels in slack, so that everyone can learn from q + a's</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resources</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Spatial Data Science: With applications in R</span><span class="co">](https://r-spatial.org/book/)</span>, by Pebesma and Bivand 2023 (open online, hard copy from <span class="co">[</span><span class="ot">CRC</span><span class="co">](https://www.routledge.com/Spatial-Data-Science-With-Applications-in-R/Pebesma-Bivand/p/book/9781138311183)</span>)</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">sf</span><span class="co">](https://r-spatial.github.io/sf/)</span>: tab "Articles"</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">stars</span><span class="co">](https://r-spatial.github.io/stars/)</span>: tab "Articles"</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All these material are written using <span class="co">[</span><span class="ot">quarto</span><span class="co">](https://quarto.org/)</span> or R-markdown</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why R for spatial statistics?</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is old! Think of the advantages!</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is as good as any data science language, but is more in focus with the statistical community</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Most researchers in spatial statistics who share code have used or use R</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R spatial packages have gone full cycle: </span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>the first generation has been deprecated (<span class="in">`rgdal`</span>, <span class="in">`rgeos`</span>, <span class="in">`maptools`</span>),</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>then removed from CRAN, and </span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>superseded by modern versions (<span class="in">`sf`</span> and <span class="in">`stars`</span> replaced <span class="in">`sp`</span>, <span class="in">`terra`</span> replaced <span class="in">`raster`</span>)</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is a data science language that allows you <span class="co">[</span><span class="ot">to work reproducibly</span><span class="co">](https://eartharxiv.org/repository/view/3216/)</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Because we have <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/)</span> and CRAN Taskviews: <span class="co">[</span><span class="ot">Spatial</span><span class="co">](https://cran.r-project.org/web/views/Spatial.html)</span>, <span class="co">[</span><span class="ot">SpatioTemporal</span><span class="co">](https://cran.r-project.org/web/views/SpatioTemporal.html)</span>, <span class="co">[</span><span class="ot">Tracking</span><span class="co">](https://cran.r-project.org/web/views/Tracking.html)</span></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reproducing or recreating the current course</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to <span class="co">[</span><span class="ot">https://github.com/edzer/sswr/</span><span class="co">](https://github.com/edzer/sswr/)</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to "Code", then "copy URL to clipboard"</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Clone this repo to your hard drive</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Start RStudio by double clickign the <span class="in">`sswr.Rproj`</span> file in the source directory</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Reproduce these course materials by <span class="co">[</span><span class="ot">installing quarto</span><span class="co">](https://quarto.org/docs/get-started/)</span> and </span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>in RStudio: run <span class="in">`build`</span> - <span class="in">`render book`</span>, or</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>on the command line: run <span class="in">`quarto render`</span> in the course directory </span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Run individual code sections in RStudio, and modify them!</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Install the <span class="in">`spDataLarge`</span> package (see instructions above)</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Copy the course material from GitHub to your local machine</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Open it in RStudio</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Open the <span class="in">`day1.qmd`</span> file. Try to identify a code chunk.</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Run the first code chunk.</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Skip to the last code chunk; run all code chunks above it (by a single click), and then run this last code chunk.</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Render the entire course "book", view the result by opening <span class="in">`_book/index.html`</span> in a web browser (from Rstudio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rnaturalearthhires"</span>,</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">repos =</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"source"</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Introduction to the course</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of the tutor</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>introduction of course participants, please state</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>name,</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>where you're from,</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="ss">   * </span>what kind of spatial data analysis you have done so far</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### How we work</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>Live sessions are from 14:00-18:00 CET (Berlin time);</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>daily schedule:</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>14:00 - 14:45 lecture</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>14:45 - 15:30 practical exercises (break-out groups)</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>15:30 - 15:45 discussion of exercises</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>15:45 - 16:15 break</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>16:15 - 17:00 lecture</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>17:00 - 17:45 practical exercises (break-out groups)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>17:45 - 18:00 discussion of exercises</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>Further:</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please raise hands or speak up whenever something comes up</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>slack communication during the full week</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please share questions you run into in your actual research, preferably with (example) data and R code</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>please use the open channels in slack, so that everyone can learn from q + a's</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resources</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="co">[</span><span class="ot">Spatial Data Science: With applications in R</span><span class="co">](https://r-spatial.org/book/)</span>, by Pebesma and Bivand 2023 (open online, hard copy from <span class="co">[</span><span class="ot">CRC</span><span class="co">](https://www.routledge.com/Spatial-Data-Science-With-Applications-in-R/Pebesma-Bivand/p/book/9781138311183)</span>)</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">sf</span><span class="co">](https://r-spatial.github.io/sf/)</span>: tab "Articles"</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vignettes of <span class="co">[</span><span class="ot">stars</span><span class="co">](https://r-spatial.github.io/stars/)</span>: tab "Articles"</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>All these material are written using <span class="co">[</span><span class="ot">quarto</span><span class="co">](https://quarto.org/)</span> or R-markdown</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why R for spatial statistics?</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is old! Think of the advantages!</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is as good as any data science language, but is more in focus with the statistical community</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Most researchers in spatial statistics who share code have used or use R</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R has a strong ecosystem of users and developers, who communicate and collaborate (and compete, mostly in a good way)</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R spatial packages have gone full cycle: </span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>the first generation has been deprecated (<span class="in">`rgdal`</span>, <span class="in">`rgeos`</span>, <span class="in">`maptools`</span>),</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>then removed from CRAN, and </span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>superseded by modern versions (<span class="in">`sf`</span> and <span class="in">`stars`</span> replaced <span class="in">`sp`</span>, <span class="in">`terra`</span> replaced <span class="in">`raster`</span>)</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>R is a data science language that allows you <span class="co">[</span><span class="ot">to work reproducibly</span><span class="co">](https://eartharxiv.org/repository/view/3216/)</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Because we have <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/)</span> and CRAN Taskviews: <span class="co">[</span><span class="ot">Spatial</span><span class="co">](https://cran.r-project.org/web/views/Spatial.html)</span>, <span class="co">[</span><span class="ot">SpatioTemporal</span><span class="co">](https://cran.r-project.org/web/views/SpatioTemporal.html)</span>, <span class="co">[</span><span class="ot">Tracking</span><span class="co">](https://cran.r-project.org/web/views/Tracking.html)</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reproducing or recreating the current course</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to <span class="co">[</span><span class="ot">https://github.com/edzer/sswr/</span><span class="co">](https://github.com/edzer/sswr/)</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Go to "Code", then "copy URL to clipboard"</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Clone this repo to your hard drive</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Start RStudio by double clickign the <span class="in">`sswr.Rproj`</span> file in the source directory</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Reproduce these course materials by <span class="co">[</span><span class="ot">installing quarto</span><span class="co">](https://quarto.org/docs/get-started/)</span> and </span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>in RStudio: run <span class="in">`build`</span> - <span class="in">`render book`</span>, or</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>on the command line: run <span class="in">`quarto render`</span> in the course directory </span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Run individual code sections in RStudio, and modify them!</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Install the <span class="in">`spDataLarge`</span> package (see instructions above)</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Copy the course material from GitHub to your local machine</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Open it in RStudio</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Open the <span class="in">`day1.qmd`</span> file. Try to identify a code chunk.</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Run the first code chunk.</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Skip to the last code chunk; run all code chunks above it (by a single click), and then run this last code chunk.</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Render the entire course "book", view the result by opening <span class="in">`_book/index.html`</span> in a web browser (from Rstudio)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

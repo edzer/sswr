@@ -226,7 +226,7 @@ window.Quarto = {
 </li>
   <li><a href="#cross-validation-random-or-spatially-blocked" id="toc-cross-validation-random-or-spatially-blocked" class="nav-link" data-scroll-target="#cross-validation-random-or-spatially-blocked"><span class="header-section-number">4.3</span> Cross validation: random or spatially blocked?</a></li>
   <li><a href="#transferrability-of-models-area-of-applicability" id="toc-transferrability-of-models-area-of-applicability" class="nav-link" data-scroll-target="#transferrability-of-models-area-of-applicability"><span class="header-section-number">4.4</span> Transferrability of models: “area of applicability”</a></li>
-  <li><a href="#random-forests-for-spatially-dependent-data" id="toc-random-forests-for-spatially-dependent-data" class="nav-link" data-scroll-target="#random-forests-for-spatially-dependent-data"><span class="header-section-number">4.5</span> Random Forests for Spatially Dependent Data</a></li>
+  <li><a href="#ml-methods-for-spatially-dependent-data" id="toc-ml-methods-for-spatially-dependent-data" class="nav-link" data-scroll-target="#ml-methods-for-spatially-dependent-data"><span class="header-section-number">4.5</span> ML methods for Spatially Dependent Data</a></li>
   <li><a href="#exercises-1" id="toc-exercises-1" class="nav-link" data-scroll-target="#exercises-1"><span class="header-section-number">4.6</span> Exercises</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/edzer/sswr/edit/main/day4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -825,8 +825,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="random-forests-for-spatially-dependent-data" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="random-forests-for-spatially-dependent-data">
-<span class="header-section-number">4.5</span> Random Forests for Spatially Dependent Data</h2>
+</section><section id="ml-methods-for-spatially-dependent-data" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="ml-methods-for-spatially-dependent-data">
+<span class="header-section-number">4.5</span> ML methods for Spatially Dependent Data</h2>
 <p>R package <a href="https://cran.r-project.org/web/packages/RandomForestsGLS/index.html">RandomForestGLS</a>!</p>
 <p>Combines the good parts of RF and Gaussian processes, in a very <a href="https://arxiv.org/abs/2007.15421">smart way</a>! (final paper, paywalled, <a href="https://doi.org/10.1080/01621459.2021.1950003">here</a>). The discussion on variable selection / variable importance under spatial correlated residuals is worth reading.</p>
 <div class="cell">
@@ -867,6 +867,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Abhirup Datta has also worked on Neural Networks for Geospatial Data, see <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293">this paper</a> (a Python package, no R).</p>
+<p>Another package is <a href="https://cran.r-project.org/web/packages/gpboost/index.html">GPBoost</a>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a <a href="https://github.com/fabsig/GPBoost">Python implementation</a>.</p>
 </section><section id="exercises-1" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="exercises-1">
 <span class="header-section-number">4.6</span> Exercises</h2>
 <ul>
@@ -1594,7 +1596,7 @@ window.Quarto = {
 <span id="cb20-270"><a href="#cb20-270" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>AOA)</span>
 <span id="cb20-271"><a href="#cb20-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forests for Spatially Dependent Data</span></span>
+<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## ML methods for Spatially Dependent Data</span></span>
 <span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a>R package <span class="co">[</span><span class="ot">RandomForestGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)</span>!</span>
 <span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a></span>
@@ -1617,20 +1619,24 @@ window.Quarto = {
 <span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(out[<span class="fu">c</span>(<span class="st">"rf"</span>, <span class="st">"rfgls"</span>)]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
 <span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-297"><a href="#cb20-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a>Abhirup Datta has also worked on Neural Networks for Geospatial Data, see <span class="co">[</span><span class="ot">this paper</span><span class="co">](https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293)</span> (a Python package, no R).</span>
 <span id="cb20-299"><a href="#cb20-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-300"><a href="#cb20-300" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Carry out an <span class="in">`aoa`</span> analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above.</span>
-<span id="cb20-301"><a href="#cb20-301" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>as done in the aoa above, create <span class="in">`y`</span> from <span class="in">`no2.sf$NO2`</span>, and the selected (first 20) distance fields from <span class="in">`no2.sf`</span></span>
-<span id="cb20-302"><a href="#cb20-302" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability</span>
+<span id="cb20-300"><a href="#cb20-300" aria-hidden="true" tabindex="-1"></a>Another package is <span class="co">[</span><span class="ot">GPBoost</span><span class="co">](https://cran.r-project.org/web/packages/gpboost/index.html)</span>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a <span class="co">[</span><span class="ot">Python implementation</span><span class="co">](https://github.com/fabsig/GPBoost)</span>.</span>
+<span id="cb20-301"><a href="#cb20-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-302"><a href="#cb20-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
 <span id="cb20-303"><a href="#cb20-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-304"><a href="#cb20-304" aria-hidden="true" tabindex="-1"></a>Further reading: </span>
-<span id="cb20-305"><a href="#cb20-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-306"><a href="#cb20-306" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2021. Predicting into unknown space? Estimating the area of applicability of spatial prediction models. </span>
-<span id="cb20-307"><a href="#cb20-307" aria-hidden="true" tabindex="-1"></a>  Methods in Ecology and Evolution <span class="co">[</span><span class="ot">12 (9), 1620-1633</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span></span>
-<span id="cb20-308"><a href="#cb20-308" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2022. Machine learning-based global maps of ecological variables and the challenge of assessing them. </span>
-<span id="cb20-309"><a href="#cb20-309" aria-hidden="true" tabindex="-1"></a>  Nature Communications volume 13, Article number: <span class="co">[</span><span class="ot">2208 (2022)</span><span class="co">](https://www.nature.com/articles/s41467-022-29838-9)</span></span>
-<span id="cb20-310"><a href="#cb20-310" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J van den Hoogen, N Robmann, D Routh, T Lauber, N van Tiel, O Danylo, TW Crowther, 2021.</span>
-<span id="cb20-311"><a href="#cb20-311" aria-hidden="true" tabindex="-1"></a>  A geospatial mapping pipeline for ecologists. <span class="co">[</span><span class="ot">BioRxiv</span><span class="co">](https://www.biorxiv.org/content/10.1101/2021.07.07.451145v1.abstract)</span></span>
+<span id="cb20-304"><a href="#cb20-304" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Carry out an <span class="in">`aoa`</span> analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above.</span>
+<span id="cb20-305"><a href="#cb20-305" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>as done in the aoa above, create <span class="in">`y`</span> from <span class="in">`no2.sf$NO2`</span>, and the selected (first 20) distance fields from <span class="in">`no2.sf`</span></span>
+<span id="cb20-306"><a href="#cb20-306" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability</span>
+<span id="cb20-307"><a href="#cb20-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-308"><a href="#cb20-308" aria-hidden="true" tabindex="-1"></a>Further reading: </span>
+<span id="cb20-309"><a href="#cb20-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-310"><a href="#cb20-310" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2021. Predicting into unknown space? Estimating the area of applicability of spatial prediction models. </span>
+<span id="cb20-311"><a href="#cb20-311" aria-hidden="true" tabindex="-1"></a>  Methods in Ecology and Evolution <span class="co">[</span><span class="ot">12 (9), 1620-1633</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span></span>
+<span id="cb20-312"><a href="#cb20-312" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2022. Machine learning-based global maps of ecological variables and the challenge of assessing them. </span>
+<span id="cb20-313"><a href="#cb20-313" aria-hidden="true" tabindex="-1"></a>  Nature Communications volume 13, Article number: <span class="co">[</span><span class="ot">2208 (2022)</span><span class="co">](https://www.nature.com/articles/s41467-022-29838-9)</span></span>
+<span id="cb20-314"><a href="#cb20-314" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J van den Hoogen, N Robmann, D Routh, T Lauber, N van Tiel, O Danylo, TW Crowther, 2021.</span>
+<span id="cb20-315"><a href="#cb20-315" aria-hidden="true" tabindex="-1"></a>  A geospatial mapping pipeline for ecologists. <span class="co">[</span><span class="ot">BioRxiv</span><span class="co">](https://www.biorxiv.org/content/10.1101/2021.07.07.451145v1.abstract)</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

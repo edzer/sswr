@@ -51,6 +51,10 @@ install.packages("spDataLarge", repos = "https://nowosad.github.io/drat/",
 options(timeout = 3600) # 1 hr instead of 1 min
 install.packages("starsdata", repos = "http://cran.uni-muenster.de/pebesma/", 
 				 type = "source") # 1 Gb
+install.packages("rnaturalearthhires",
+  repos = "https://ropensci.r-universe.dev",
+  type = "source"
+)
 ```
 
 ### Introduction to the course

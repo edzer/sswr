@@ -41,7 +41,7 @@ From [Spatial Data Science: with applications in R](https://r-spatial.org/book/)
     -   is the value constant throughout the line/area/cell (point support)?
 -   **Continuity**:
     -   is a variable *spatially* continuous? Yes for geostatitical data, no for point patterns
-    -   is an *attribute variable* continuous? [Stevens's measurement scales](https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ): yes if *Interval* or *Ratio*.
+    -   is an *attribute variable* continuous? [Stevens's measurement scales](https://www.science.org/doi/pdf/10.1126/science.103.2684.677?casa_token=H8am2h3sIYUAAAAA:eUd2ZU6ZRyJNqx4jdRv0E9WG7k3OBXAVbqgZ2O-Bl7pHNJSI0L2h9TM6i3YXve2nY5rD_4RbI2aecQ): possibly yes if *Interval* or *Ratio*.
 
 ### Support: examples
 

@@ -240,7 +240,7 @@ plot(aoa$DI)
 plot(aoa$AOA)
 ```
 
-## Random Forests for Spatially Dependent Data
+## ML methods for Spatially Dependent Data
 
 R package [RandomForestGLS](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)!
 
@@ -262,6 +262,10 @@ out$rfgls = pr$prediction
 out$rf = predict(split(r), tr)
 plot(merge(out[c("rf", "rfgls")]), breaks = "equal")
 ```
+
+Abhirup Datta has also worked on Neural Networks for Geospatial Data, see [this paper](https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293) (a Python package, no R).
+
+Another package is [GPBoost](https://cran.r-project.org/web/packages/gpboost/index.html), an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a [Python implementation](https://github.com/fabsig/GPBoost).
 
 ## Exercises
 

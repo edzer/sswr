@@ -356,8 +356,4 @@ and open `s2` using `stars::read_stars()`. Look at the summary; is the image dat
 4. Write the stars object to a GeoTIFF file, using `write_stars()`. How long does it take, and how large is the resulting file?
 5. Compute the difference between the first two bands of the Sentinel-2 image, and write the result to a GeoTiff file.
    In which command(s) are the image values actually loaded into memory?
-
-
-## If time is left
-
--   [Exercises chapter 9](https://r-spatial.org/book/09-Large.html#exercises)
+6. Only if time is left: try the [Exercises of SDS chapter 9](https://r-spatial.org/book/09-Large.html#exercises)
