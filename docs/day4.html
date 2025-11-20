@@ -213,8 +213,8 @@ window.Quarto = {
   <li><a href="#simple-linear-models-in-coordinates-trend-surfaces" id="toc-simple-linear-models-in-coordinates-trend-surfaces" class="nav-link" data-scroll-target="#simple-linear-models-in-coordinates-trend-surfaces">Simple linear models in coordinates: trend surfaces</a></li>
   <li><a href="#regression-tree" id="toc-regression-tree" class="nav-link" data-scroll-target="#regression-tree">regression tree</a></li>
   <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest">Random forest</a></li>
-  <li><a href="#using-distance-variables" id="toc-using-distance-variables" class="nav-link" data-scroll-target="#using-distance-variables">Using distance variables:</a></li>
-  <li><a href="#adding-more" id="toc-adding-more" class="nav-link" data-scroll-target="#adding-more">Adding more…</a></li>
+  <li><a href="#using-distance-variables" id="toc-using-distance-variables" class="nav-link" data-scroll-target="#using-distance-variables">Using distance variables</a></li>
+  <li><a href="#adding-many-more-distance-variables" id="toc-adding-many-more-distance-variables" class="nav-link" data-scroll-target="#adding-many-more-distance-variables">Adding many more distance variables</a></li>
   <li><a href="#further-approaches" id="toc-further-approaches" class="nav-link" data-scroll-target="#further-approaches">Further approaches:</a></li>
   </ul>
 </li>
@@ -608,7 +608,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="using-distance-variables" class="level3"><h3 class="anchored" data-anchor-id="using-distance-variables">Using distance variables:</h3>
+</section><section id="using-distance-variables" class="level3"><h3 class="anchored" data-anchor-id="using-distance-variables">Using distance variables</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_bbox.html">st_bbox</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="st">"POINT"</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">pts</span></span>
 <span><span class="va">pts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_centroid</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -651,14 +651,19 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="adding-more" class="level3"><h3 class="anchored" data-anchor-id="adding-more">Adding more…</h3>
+</section><section id="adding-many-more-distance-variables" class="level3"><h3 class="anchored" data-anchor-id="adding-many-more-distance-variables">Adding many more distance variables</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pts</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="va">de</span>, <span class="fl">200</span>, type <span class="op">=</span> <span class="st">"regular"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># sample 200 points as centers for distance function, using regular sampling</span></span>
+<span><span class="va">pts</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html">st_sample</a></span><span class="op">(</span><span class="va">de</span>, <span class="fl">200</span>, type <span class="op">=</span> <span class="st">"regular"</span><span class="op">)</span></span>
+<span><span class="co"># compute distances between these 200 pts and all grid cell centers</span></span>
 <span><span class="va">d</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_distance</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sfc.html">st_as_sfc</a></span><span class="op">(</span><span class="va">g4</span>, as_points <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">pts</span><span class="op">)</span></span>
+<span><span class="co"># add these distance fields to the g4 stars object:</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">g4</span><span class="op">[[</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="va">i</span><span class="op">)</span> <span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">d</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span></span>
 <span><span class="op">}</span></span>
+<span><span class="co"># extract distance field values at no2.sf station locations:</span></span>
 <span><span class="va">e</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/stars/reference/st_extract.html">st_extract</a></span><span class="op">(</span><span class="va">g4</span>, <span class="va">no2.sf</span><span class="op">)</span></span>
+<span><span class="co"># add these as columns to no2.sf:</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">no2.sf</span><span class="op">[[</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="va">i</span><span class="op">)</span> <span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="va">e</span><span class="op">[[</span><span class="fl">16</span><span class="op">+</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="op">}</span></span>
@@ -717,11 +722,12 @@ window.Quarto = {
 <span><span class="co"># [205] "d_188"      "d_189"      "d_190"      "d_191"     </span></span>
 <span><span class="co"># [209] "d_192"      "d_193"      "d_194"      "d_195"     </span></span>
 <span><span class="co"># [213] "d_196"      "d_197"      "d_198"      "d_199"     </span></span>
-<span><span class="co"># [217] "d_200"      "d_201"      "d_202"</span></span>
+<span><span class="co"># [217] "d_200"      "d_201"</span></span>
 <span><span class="va">rf</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span><span class="va">NO2</span><span class="op">~</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">no2.sf</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NO2"</span>, <span class="va">n</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"d_"</span>, <span class="va">n</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">g4</span><span class="op">$</span><span class="va">rf_dm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">rf</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">g4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g4</span><span class="op">[</span><span class="st">"rf_dm"</span><span class="op">]</span>, breaks <span class="op">=</span> <span class="st">"equal"</span>, reset <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="st">"random forest"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span>, <span class="st">"MULTILINESTRING"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">de</span><span class="op">)</span>, <span class="st">"MULTILINESTRING"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">no2.sf</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="day4_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -868,7 +874,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Abhirup Datta has also worked on Neural Networks for Geospatial Data, see <a href="https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293">this paper</a> (a Python package, no R).</p>
-<p>Another package is <a href="https://cran.r-project.org/web/packages/gpboost/index.html">GPBoost</a>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a <a href="https://github.com/fabsig/GPBoost">Python implementation</a>.</p>
+<p>Another package is <a href="https://cran.r-project.org/web/packages/gpboost/index.html">GPBoost</a>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; GPBoost is C++ software and also has a <a href="https://github.com/fabsig/GPBoost">Python interface</a>.</p>
 </section><section id="exercises-1" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="exercises-1">
 <span class="header-section-number">4.6</span> Exercises</h2>
 <ul>
@@ -1501,7 +1507,7 @@ window.Quarto = {
 <span id="cb20-163"><a href="#cb20-163" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
 <span id="cb20-164"><a href="#cb20-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-165"><a href="#cb20-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using distance variables:</span></span>
+<span id="cb20-166"><a href="#cb20-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using distance variables</span></span>
 <span id="cb20-167"><a href="#cb20-167" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-170"><a href="#cb20-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb20-171"><a href="#cb20-171" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(de) <span class="sc">|&gt;</span> <span class="fu">st_as_sfc</span>() <span class="sc">|&gt;</span> <span class="fu">st_cast</span>(<span class="st">"POINT"</span>) <span class="ot">-&gt;</span> pts</span>
@@ -1526,117 +1532,123 @@ window.Quarto = {
 <span id="cb20-192"><a href="#cb20-192" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
 <span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-194"><a href="#cb20-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adding more...</span></span>
+<span id="cb20-195"><a href="#cb20-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Adding many more distance variables</span></span>
 <span id="cb20-196"><a href="#cb20-196" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-199"><a href="#cb20-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">st_sample</span>(de, <span class="dv">200</span>, <span class="at">type =</span> <span class="st">"regular"</span>)</span>
-<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
-<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
-<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
-<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
-<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
-<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
-<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
-<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_dm <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
-<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_dm"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
-<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a><span class="fu">### Further approaches:</span></span>
-<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using linear regression on Gaussian kernel basis functions, $\exp(-h^2)$</span>
-<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)</span>
-<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using additional, non-distance/coordinate functions as base function(s)</span>
-<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>provided they are available "everywhere" (as *coverage*)</span>
-<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands</span>
+<span id="cb20-200"><a href="#cb20-200" aria-hidden="true" tabindex="-1"></a><span class="co"># sample 200 points as centers for distance function, using regular sampling</span></span>
+<span id="cb20-201"><a href="#cb20-201" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">=</span> <span class="fu">st_sample</span>(de, <span class="dv">200</span>, <span class="at">type =</span> <span class="st">"regular"</span>)</span>
+<span id="cb20-202"><a href="#cb20-202" aria-hidden="true" tabindex="-1"></a><span class="co"># compute distances between these 200 pts and all grid cell centers</span></span>
+<span id="cb20-203"><a href="#cb20-203" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">st_distance</span>(<span class="fu">st_as_sfc</span>(g4, <span class="at">as_points =</span> <span class="cn">TRUE</span>), pts)</span>
+<span id="cb20-204"><a href="#cb20-204" aria-hidden="true" tabindex="-1"></a><span class="co"># add these distance fields to the g4 stars object:</span></span>
+<span id="cb20-205"><a href="#cb20-205" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-206"><a href="#cb20-206" aria-hidden="true" tabindex="-1"></a>    g4[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> d[,i]</span>
+<span id="cb20-207"><a href="#cb20-207" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-208"><a href="#cb20-208" aria-hidden="true" tabindex="-1"></a><span class="co"># extract distance field values at no2.sf station locations:</span></span>
+<span id="cb20-209"><a href="#cb20-209" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">st_extract</span>(g4, no2.sf)</span>
+<span id="cb20-210"><a href="#cb20-210" aria-hidden="true" tabindex="-1"></a><span class="co"># add these as columns to no2.sf:</span></span>
+<span id="cb20-211"><a href="#cb20-211" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="fu">ncol</span>(d))) {</span>
+<span id="cb20-212"><a href="#cb20-212" aria-hidden="true" tabindex="-1"></a>    no2.sf[[ <span class="fu">paste0</span>(<span class="st">"d_"</span>, i) ]] <span class="ot">=</span> e[[<span class="dv">16</span><span class="sc">+</span>i]]</span>
+<span id="cb20-213"><a href="#cb20-213" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-214"><a href="#cb20-214" aria-hidden="true" tabindex="-1"></a>(<span class="at">n =</span> <span class="fu">names</span>(g4))</span>
+<span id="cb20-215"><a href="#cb20-215" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">=</span> <span class="fu">randomForest</span>(NO2<span class="sc">~</span>., <span class="fu">as.data.frame</span>(no2.sf)[<span class="fu">c</span>(<span class="st">"NO2"</span>, n[<span class="fu">grepl</span>(<span class="st">"d_"</span>, n)])])</span>
+<span id="cb20-216"><a href="#cb20-216" aria-hidden="true" tabindex="-1"></a>g4<span class="sc">$</span>rf_dm <span class="ot">=</span> <span class="fu">predict</span>(rf, <span class="fu">as.data.frame</span>(g4))</span>
+<span id="cb20-217"><a href="#cb20-217" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g4[<span class="st">"rf_dm"</span>], <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"random forest"</span>)</span>
+<span id="cb20-218"><a href="#cb20-218" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_cast</span>(<span class="fu">st_geometry</span>(de), <span class="st">"MULTILINESTRING"</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-219"><a href="#cb20-219" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(no2.sf), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'orange'</span>)</span>
+<span id="cb20-220"><a href="#cb20-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-221"><a href="#cb20-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-222"><a href="#cb20-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Further approaches:</span></span>
 <span id="cb20-223"><a href="#cb20-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
-<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Discuss how will a predicted surface look like when instead of (linear functions of) coordinates, the variable *elevation* is used (e.g. to predict average temperatures)?</span>
-<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What will be the value range, approximately, of the resulting predicted values, when a first order linear model is used?</span>
-<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Discuss How would you assess whether residuals from your fitted model are spatially correlated?</span>
-<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Compute such a variogram for the residuals of the last random forets model shown, and consider whether residual spatial correlation is present</span>
-<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Discuss: Does resampling using *random* partitioning (as is done in random forest) implicitly assume that observations are independent?</span>
+<span id="cb20-224"><a href="#cb20-224" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using linear regression on Gaussian kernel basis functions, $\exp(-h^2)$</span>
+<span id="cb20-225"><a href="#cb20-225" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using splines in $x$ and $y$, with a given degree of smoothing (or effective degrees of freedom)</span>
+<span id="cb20-226"><a href="#cb20-226" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>using additional, non-distance/coordinate functions as base function(s)</span>
+<span id="cb20-227"><a href="#cb20-227" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>provided they are available "everywhere" (as *coverage*)</span>
+<span id="cb20-228"><a href="#cb20-228" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>examples: elevation, bioclimatic variables, (values derived from) satellite imagery bands</span>
+<span id="cb20-229"><a href="#cb20-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-230"><a href="#cb20-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
 <span id="cb20-231"><a href="#cb20-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example from CAST / caret</span></span>
-<span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CAST)</span>
-<span id="cb20-238"><a href="#cb20-238" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb20-239"><a href="#cb20-239" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(splotdata)</span>
-<span id="cb20-240"><a href="#cb20-240" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(splotdata)</span>
-<span id="cb20-241"><a href="#cb20-241" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">read_stars</span>(<span class="fu">system.file</span>(<span class="st">"extdata/predictors_chile.tif"</span>, </span>
-<span id="cb20-242"><a href="#cb20-242" aria-hidden="true" tabindex="-1"></a>                           <span class="at">package =</span> <span class="st">"CAST"</span>))</span>
-<span id="cb20-243"><a href="#cb20-243" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">st_drop_geometry</span>(splotdata)[,<span class="dv">6</span><span class="sc">:</span><span class="dv">16</span>]</span>
-<span id="cb20-244"><a href="#cb20-244" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> splotdata<span class="sc">$</span>Species_richness</span>
-<span id="cb20-245"><a href="#cb20-245" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">=</span> <span class="fu">train</span>(x, y) <span class="co"># chooses a random forest by default</span></span>
-<span id="cb20-246"><a href="#cb20-246" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="fu">split</span>(r), tr) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb20-247"><a href="#cb20-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-248"><a href="#cb20-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-249"><a href="#cb20-249" aria-hidden="true" tabindex="-1"></a>Clustered data?</span>
-<span id="cb20-250"><a href="#cb20-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-253"><a href="#cb20-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-254"><a href="#cb20-254" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span>], <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb20-255"><a href="#cb20-255" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(splotdata), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
-<span id="cb20-256"><a href="#cb20-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-257"><a href="#cb20-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-258"><a href="#cb20-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross validation: random or spatially blocked?</span></span>
-<span id="cb20-259"><a href="#cb20-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-260"><a href="#cb20-260" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transferrability of models: "area of applicability"</span></span>
-<span id="cb20-261"><a href="#cb20-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-262"><a href="#cb20-262" aria-hidden="true" tabindex="-1"></a>Explained <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span>;</span>
+<span id="cb20-232"><a href="#cb20-232" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Discuss how will a predicted surface look like when instead of (linear functions of) coordinates, the variable *elevation* is used (e.g. to predict average temperatures)?</span>
+<span id="cb20-233"><a href="#cb20-233" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>What will be the value range, approximately, of the resulting predicted values, when a first order linear model is used?</span>
+<span id="cb20-234"><a href="#cb20-234" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Discuss How would you assess whether residuals from your fitted model are spatially correlated?</span>
+<span id="cb20-235"><a href="#cb20-235" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Compute such a variogram for the residuals of the last random forets model shown, and consider whether residual spatial correlation is present</span>
+<span id="cb20-236"><a href="#cb20-236" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Discuss: Does resampling using *random* partitioning (as is done in random forest) implicitly assume that observations are independent?</span>
+<span id="cb20-237"><a href="#cb20-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-238"><a href="#cb20-238" aria-hidden="true" tabindex="-1"></a><span class="fu">### Example from CAST / caret</span></span>
+<span id="cb20-239"><a href="#cb20-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-242"><a href="#cb20-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-243"><a href="#cb20-243" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CAST)</span>
+<span id="cb20-244"><a href="#cb20-244" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb20-245"><a href="#cb20-245" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(splotdata)</span>
+<span id="cb20-246"><a href="#cb20-246" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(splotdata)</span>
+<span id="cb20-247"><a href="#cb20-247" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">read_stars</span>(<span class="fu">system.file</span>(<span class="st">"extdata/predictors_chile.tif"</span>, </span>
+<span id="cb20-248"><a href="#cb20-248" aria-hidden="true" tabindex="-1"></a>                           <span class="at">package =</span> <span class="st">"CAST"</span>))</span>
+<span id="cb20-249"><a href="#cb20-249" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">st_drop_geometry</span>(splotdata)[,<span class="dv">6</span><span class="sc">:</span><span class="dv">16</span>]</span>
+<span id="cb20-250"><a href="#cb20-250" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> splotdata<span class="sc">$</span>Species_richness</span>
+<span id="cb20-251"><a href="#cb20-251" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">=</span> <span class="fu">train</span>(x, y) <span class="co"># chooses a random forest by default</span></span>
+<span id="cb20-252"><a href="#cb20-252" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(<span class="fu">split</span>(r), tr) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb20-253"><a href="#cb20-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb20-254"><a href="#cb20-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-255"><a href="#cb20-255" aria-hidden="true" tabindex="-1"></a>Clustered data?</span>
+<span id="cb20-256"><a href="#cb20-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-259"><a href="#cb20-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-260"><a href="#cb20-260" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r[,,,<span class="dv">1</span>], <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-261"><a href="#cb20-261" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(splotdata), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">'green'</span>)</span>
+<span id="cb20-262"><a href="#cb20-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-263"><a href="#cb20-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-266"><a href="#cb20-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-267"><a href="#cb20-267" aria-hidden="true" tabindex="-1"></a>aoa <span class="ot">&lt;-</span> <span class="fu">aoa</span>(r, tr, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb20-268"><a href="#cb20-268" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa)</span>
-<span id="cb20-269"><a href="#cb20-269" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>DI)</span>
-<span id="cb20-270"><a href="#cb20-270" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>AOA)</span>
-<span id="cb20-271"><a href="#cb20-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## ML methods for Spatially Dependent Data</span></span>
-<span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a>R package <span class="co">[</span><span class="ot">RandomForestGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)</span>!</span>
-<span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-277"><a href="#cb20-277" aria-hidden="true" tabindex="-1"></a>Combines the good parts of RF and Gaussian processes, in a very <span class="co">[</span><span class="ot">smart way</span><span class="co">](https://arxiv.org/abs/2007.15421)</span>! (final paper, paywalled, <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1080/01621459.2021.1950003)</span>). The discussion on variable selection / variable importance under spatial correlated residuals is worth reading.</span>
+<span id="cb20-264"><a href="#cb20-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cross validation: random or spatially blocked?</span></span>
+<span id="cb20-265"><a href="#cb20-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-266"><a href="#cb20-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transferrability of models: "area of applicability"</span></span>
+<span id="cb20-267"><a href="#cb20-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-268"><a href="#cb20-268" aria-hidden="true" tabindex="-1"></a>Explained <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span>;</span>
+<span id="cb20-269"><a href="#cb20-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-272"><a href="#cb20-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-273"><a href="#cb20-273" aria-hidden="true" tabindex="-1"></a>aoa <span class="ot">&lt;-</span> <span class="fu">aoa</span>(r, tr, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-274"><a href="#cb20-274" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa)</span>
+<span id="cb20-275"><a href="#cb20-275" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>DI)</span>
+<span id="cb20-276"><a href="#cb20-276" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoa<span class="sc">$</span>AOA)</span>
+<span id="cb20-277"><a href="#cb20-277" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-278"><a href="#cb20-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-281"><a href="#cb20-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-282"><a href="#cb20-282" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RandomForestsGLS)</span>
-<span id="cb20-283"><a href="#cb20-283" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">=</span> <span class="fu">st_coordinates</span>(splotdata)</span>
-<span id="cb20-284"><a href="#cb20-284" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"rfgls.rda"</span>)) {</span>
-<span id="cb20-285"><a href="#cb20-285" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(<span class="st">"rfgls.rda"</span>) <span class="co"># loads rfgls</span></span>
-<span id="cb20-286"><a href="#cb20-286" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb20-287"><a href="#cb20-287" aria-hidden="true" tabindex="-1"></a>     rfgls <span class="ot">=</span> <span class="fu">RFGLS_estimate_spatial</span>(cc, <span class="fu">as.double</span>(y), x) <span class="co"># takes a while</span></span>
-<span id="cb20-288"><a href="#cb20-288" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-289"><a href="#cb20-289" aria-hidden="true" tabindex="-1"></a>cc_pr <span class="ot">=</span> <span class="fu">st_coordinates</span>(<span class="fu">split</span>(r))</span>
-<span id="cb20-290"><a href="#cb20-290" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(<span class="fu">split</span>(r)))</span>
-<span id="cb20-291"><a href="#cb20-291" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">=</span> <span class="fu">RFGLS_predict_spatial</span>(rfgls, <span class="fu">as.matrix</span>(cc_pr), <span class="fu">as.data.frame</span>(<span class="fu">split</span>(r))[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)])</span>
-<span id="cb20-292"><a href="#cb20-292" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">split</span>(r)</span>
-<span id="cb20-293"><a href="#cb20-293" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rfgls <span class="ot">=</span> pr<span class="sc">$</span>prediction</span>
-<span id="cb20-294"><a href="#cb20-294" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">split</span>(r), tr)</span>
-<span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(out[<span class="fu">c</span>(<span class="st">"rf"</span>, <span class="st">"rfgls"</span>)]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
-<span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-297"><a href="#cb20-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a>Abhirup Datta has also worked on Neural Networks for Geospatial Data, see <span class="co">[</span><span class="ot">this paper</span><span class="co">](https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293)</span> (a Python package, no R).</span>
-<span id="cb20-299"><a href="#cb20-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-300"><a href="#cb20-300" aria-hidden="true" tabindex="-1"></a>Another package is <span class="co">[</span><span class="ot">GPBoost</span><span class="co">](https://cran.r-project.org/web/packages/gpboost/index.html)</span>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a <span class="co">[</span><span class="ot">Python implementation</span><span class="co">](https://github.com/fabsig/GPBoost)</span>.</span>
-<span id="cb20-301"><a href="#cb20-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-302"><a href="#cb20-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb20-279"><a href="#cb20-279" aria-hidden="true" tabindex="-1"></a><span class="fu">## ML methods for Spatially Dependent Data</span></span>
+<span id="cb20-280"><a href="#cb20-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-281"><a href="#cb20-281" aria-hidden="true" tabindex="-1"></a>R package <span class="co">[</span><span class="ot">RandomForestGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/index.html)</span>!</span>
+<span id="cb20-282"><a href="#cb20-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-283"><a href="#cb20-283" aria-hidden="true" tabindex="-1"></a>Combines the good parts of RF and Gaussian processes, in a very <span class="co">[</span><span class="ot">smart way</span><span class="co">](https://arxiv.org/abs/2007.15421)</span>! (final paper, paywalled, <span class="co">[</span><span class="ot">here</span><span class="co">](https://doi.org/10.1080/01621459.2021.1950003)</span>). The discussion on variable selection / variable importance under spatial correlated residuals is worth reading.</span>
+<span id="cb20-284"><a href="#cb20-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-287"><a href="#cb20-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb20-288"><a href="#cb20-288" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RandomForestsGLS)</span>
+<span id="cb20-289"><a href="#cb20-289" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">=</span> <span class="fu">st_coordinates</span>(splotdata)</span>
+<span id="cb20-290"><a href="#cb20-290" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">"rfgls.rda"</span>)) {</span>
+<span id="cb20-291"><a href="#cb20-291" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(<span class="st">"rfgls.rda"</span>) <span class="co"># loads rfgls</span></span>
+<span id="cb20-292"><a href="#cb20-292" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb20-293"><a href="#cb20-293" aria-hidden="true" tabindex="-1"></a>     rfgls <span class="ot">=</span> <span class="fu">RFGLS_estimate_spatial</span>(cc, <span class="fu">as.double</span>(y), x) <span class="co"># takes a while</span></span>
+<span id="cb20-294"><a href="#cb20-294" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-295"><a href="#cb20-295" aria-hidden="true" tabindex="-1"></a>cc_pr <span class="ot">=</span> <span class="fu">st_coordinates</span>(<span class="fu">split</span>(r))</span>
+<span id="cb20-296"><a href="#cb20-296" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(<span class="fu">split</span>(r)))</span>
+<span id="cb20-297"><a href="#cb20-297" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">=</span> <span class="fu">RFGLS_predict_spatial</span>(rfgls, <span class="fu">as.matrix</span>(cc_pr), <span class="fu">as.data.frame</span>(<span class="fu">split</span>(r))[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)])</span>
+<span id="cb20-298"><a href="#cb20-298" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">split</span>(r)</span>
+<span id="cb20-299"><a href="#cb20-299" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rfgls <span class="ot">=</span> pr<span class="sc">$</span>prediction</span>
+<span id="cb20-300"><a href="#cb20-300" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>rf <span class="ot">=</span> <span class="fu">predict</span>(<span class="fu">split</span>(r), tr)</span>
+<span id="cb20-301"><a href="#cb20-301" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">merge</span>(out[<span class="fu">c</span>(<span class="st">"rf"</span>, <span class="st">"rfgls"</span>)]), <span class="at">breaks =</span> <span class="st">"equal"</span>)</span>
+<span id="cb20-302"><a href="#cb20-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb20-303"><a href="#cb20-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-304"><a href="#cb20-304" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Carry out an <span class="in">`aoa`</span> analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above.</span>
-<span id="cb20-305"><a href="#cb20-305" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>as done in the aoa above, create <span class="in">`y`</span> from <span class="in">`no2.sf$NO2`</span>, and the selected (first 20) distance fields from <span class="in">`no2.sf`</span></span>
-<span id="cb20-306"><a href="#cb20-306" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability</span>
+<span id="cb20-304"><a href="#cb20-304" aria-hidden="true" tabindex="-1"></a>Abhirup Datta has also worked on Neural Networks for Geospatial Data, see <span class="co">[</span><span class="ot">this paper</span><span class="co">](https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293)</span> (a Python package, no R).</span>
+<span id="cb20-305"><a href="#cb20-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-306"><a href="#cb20-306" aria-hidden="true" tabindex="-1"></a>Another package is <span class="co">[</span><span class="ot">GPBoost</span><span class="co">](https://cran.r-project.org/web/packages/gpboost/index.html)</span>, an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; GPBoost is C++ software and also has a <span class="co">[</span><span class="ot">Python interface</span><span class="co">](https://github.com/fabsig/GPBoost)</span>.</span>
 <span id="cb20-307"><a href="#cb20-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-308"><a href="#cb20-308" aria-hidden="true" tabindex="-1"></a>Further reading: </span>
+<span id="cb20-308"><a href="#cb20-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
 <span id="cb20-309"><a href="#cb20-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-310"><a href="#cb20-310" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2021. Predicting into unknown space? Estimating the area of applicability of spatial prediction models. </span>
-<span id="cb20-311"><a href="#cb20-311" aria-hidden="true" tabindex="-1"></a>  Methods in Ecology and Evolution <span class="co">[</span><span class="ot">12 (9), 1620-1633</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span></span>
-<span id="cb20-312"><a href="#cb20-312" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2022. Machine learning-based global maps of ecological variables and the challenge of assessing them. </span>
-<span id="cb20-313"><a href="#cb20-313" aria-hidden="true" tabindex="-1"></a>  Nature Communications volume 13, Article number: <span class="co">[</span><span class="ot">2208 (2022)</span><span class="co">](https://www.nature.com/articles/s41467-022-29838-9)</span></span>
-<span id="cb20-314"><a href="#cb20-314" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J van den Hoogen, N Robmann, D Routh, T Lauber, N van Tiel, O Danylo, TW Crowther, 2021.</span>
-<span id="cb20-315"><a href="#cb20-315" aria-hidden="true" tabindex="-1"></a>  A geospatial mapping pipeline for ecologists. <span class="co">[</span><span class="ot">BioRxiv</span><span class="co">](https://www.biorxiv.org/content/10.1101/2021.07.07.451145v1.abstract)</span></span>
+<span id="cb20-310"><a href="#cb20-310" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Carry out an <span class="in">`aoa`</span> analysis using a random forest model fitted using the first 20 distance fields of the last random forest example for NO2 above.</span>
+<span id="cb20-311"><a href="#cb20-311" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>as done in the aoa above, create <span class="in">`y`</span> from <span class="in">`no2.sf$NO2`</span>, and the selected (first 20) distance fields from <span class="in">`no2.sf`</span></span>
+<span id="cb20-312"><a href="#cb20-312" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>plot the aoa object (distance distribution comparison), the DI field, and the map of the area of applicability</span>
+<span id="cb20-313"><a href="#cb20-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-314"><a href="#cb20-314" aria-hidden="true" tabindex="-1"></a>Further reading: </span>
+<span id="cb20-315"><a href="#cb20-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-316"><a href="#cb20-316" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2021. Predicting into unknown space? Estimating the area of applicability of spatial prediction models. </span>
+<span id="cb20-317"><a href="#cb20-317" aria-hidden="true" tabindex="-1"></a>  Methods in Ecology and Evolution <span class="co">[</span><span class="ot">12 (9), 1620-1633</span><span class="co">](https://doi.org/10.1111/2041-210X.13650)</span></span>
+<span id="cb20-318"><a href="#cb20-318" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Hanna Meyer, Edzer Pebesma, 2022. Machine learning-based global maps of ecological variables and the challenge of assessing them. </span>
+<span id="cb20-319"><a href="#cb20-319" aria-hidden="true" tabindex="-1"></a>  Nature Communications volume 13, Article number: <span class="co">[</span><span class="ot">2208 (2022)</span><span class="co">](https://www.nature.com/articles/s41467-022-29838-9)</span></span>
+<span id="cb20-320"><a href="#cb20-320" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>J van den Hoogen, N Robmann, D Routh, T Lauber, N van Tiel, O Danylo, TW Crowther, 2021.</span>
+<span id="cb20-321"><a href="#cb20-321" aria-hidden="true" tabindex="-1"></a>  A geospatial mapping pipeline for ecologists. <span class="co">[</span><span class="ot">BioRxiv</span><span class="co">](https://www.biorxiv.org/content/10.1101/2021.07.07.451145v1.abstract)</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

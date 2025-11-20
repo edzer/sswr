@@ -1,4 +1,4 @@
-```{r}
+```{r echo=FALSE}
 ev <- Sys.getenv("USER") == "edzer"
 ```
 
@@ -119,7 +119,7 @@ plot(pol_pres15["res"])
 ```
 
 A spatial linear regression model (SEM: spatial error model),
-assuming independent observations, can be carried out using `lm`:
+assuming independent observations, can be carried out using `errorsarlm`:
 
 ```{r}
 form = I_turnout ~ I_entitled_to_vote

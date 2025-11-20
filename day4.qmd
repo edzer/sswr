@@ -145,7 +145,7 @@ plot(g4["rf_rot"], breaks = "equal", reset = FALSE, main = "random forest")
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 ```
 
-### Using distance variables:
+### Using distance variables
 
 ```{r}
 st_bbox(de) |> st_as_sfc() |> st_cast("POINT") -> pts
@@ -170,15 +170,20 @@ plot(g4["rf_d"], breaks = "equal", reset = FALSE, main = "random forest")
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
 ```
 
-### Adding more...
+### Adding many more distance variables
 
 ```{r}
+# sample 200 points as centers for distance function, using regular sampling
 pts = st_sample(de, 200, type = "regular")
+# compute distances between these 200 pts and all grid cell centers
 d = st_distance(st_as_sfc(g4, as_points = TRUE), pts)
+# add these distance fields to the g4 stars object:
 for (i in seq_len(ncol(d))) {
 	g4[[ paste0("d_", i) ]] = d[,i]
 }
+# extract distance field values at no2.sf station locations:
 e = st_extract(g4, no2.sf)
+# add these as columns to no2.sf:
 for (i in seq_len(ncol(d))) {
 	no2.sf[[ paste0("d_", i) ]] = e[[16+i]]
 }
@@ -187,6 +192,7 @@ rf = randomForest(NO2~., as.data.frame(no2.sf)[c("NO2", n[grepl("d_", n)])])
 g4$rf_dm = predict(rf, as.data.frame(g4))
 plot(g4["rf_dm"], breaks = "equal", reset = FALSE, main = "random forest")
 plot(st_cast(st_geometry(de), "MULTILINESTRING"), add = TRUE, col = 'green')
+plot(st_geometry(no2.sf), add = TRUE, col = 'orange')
 ```
 
 ### Further approaches:
@@ -265,7 +271,7 @@ plot(merge(out[c("rf", "rfgls")]), breaks = "equal")
 
 Abhirup Datta has also worked on Neural Networks for Geospatial Data, see [this paper](https://www.tandfonline.com/doi/full/10.1080/01621459.2024.2356293) (a Python package, no R).
 
-Another package is [GPBoost](https://cran.r-project.org/web/packages/gpboost/index.html), an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; package also has a [Python implementation](https://github.com/fabsig/GPBoost).
+Another package is [GPBoost](https://cran.r-project.org/web/packages/gpboost/index.html), an R package that allows for combining tree-boosting with Gaussian process and mixed effects models; GPBoost is C++ software and also has a [Python interface](https://github.com/fabsig/GPBoost).
 
 ## Exercises
 
