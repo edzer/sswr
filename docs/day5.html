@@ -1643,98 +1643,99 @@ I = \frac{n \sum_{(2)} w_{ij} z_i z_j}{S_0 \sum_{i=1}^{n} z_i^2}
 <span id="cb19-285"><a href="#cb19-285" aria-hidden="true" tabindex="-1"></a>download_items <span class="ot">&lt;-</span> it_obj <span class="sc">|&gt;</span></span>
 <span id="cb19-286"><a href="#cb19-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_download</span>(<span class="at">assets_name =</span> <span class="st">"thumbnail"</span>, <span class="at">items_max =</span> <span class="dv">1</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb19-287"><a href="#cb19-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a>and examine</span>
-<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
-<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a><span class="fu">gdal_utils</span>(<span class="st">"info"</span>, tif)</span>
-<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
-<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a><span class="fu">read_stars</span>(tif) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
-<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
-<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Have you used any cloud platforms for processing geospatial data?</span>
-<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is your position with respect to platform lock-in?</span>
-<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further examples from r-spatial.org:</span></span>
-<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes</span><span class="co">](https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html)</span></span>
-<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Reading Zarr files with R package stars</span><span class="co">](https://r-spatial.org/r/2022/09/13/zarr.html)</span></span>
-<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Processing large scale satellite imagery with openEO Platform and R</span><span class="co">](https://r-spatial.org/r/2022/11/24/openeo.html)</span></span>
-<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples `/vsixxx`</span></span>
-<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(</span>
-<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg"</span>,</span>
-<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nshn_water_line.gpkg"</span></span>
-<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-323"><a href="#cb19-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a>(w <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"nshn_water_line.gpkg"</span>))</span>
-<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a>From https://github.com/microsoft/USBuildingFootprints downloaded <span class="co">[</span><span class="ot">Maine.geojson.zip</span><span class="co">](https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip)</span>, and read with</span>
-<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
-<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a>(<span class="at">m =</span> <span class="fu">read_sf</span>(<span class="st">"/vsizip/Maine.geojson.zip"</span>)) <span class="co"># /vsizip: indicates data source is a zipped file</span></span>
-<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a>or read directly from github into R:</span>
-<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
-<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span>)</span>
-<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a><span class="co"># /vsicurl: indicates data source is a URL</span></span>
-<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a><span class="fu">## "Simple" analysis on large datasets</span></span>
-<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>process full archives, compute *in* the cloud</span>
-<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>select subsets, download, process locally:</span>
-<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>spatial subset</span>
-<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>temporal subset</span>
-<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>sampled at lower resolution (spatially, temporally)</span>
-<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>aggregated (=processed?) to lower resolution</span>
-<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>in some disciplines (Earth Observation?) there seems to be a belief that processing at the *full* resolution is the only thing that produces real science</span>
-<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>there is surprisingly little literature on the loss of information when processing at lower resolution, e.g. when the goal is to create a curve of yearly deforestation over an area as large as Brazil</span>
-<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics on large datasets</span></span>
-<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistics</span></span>
-<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">RandomForestsGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/)</span></span>
-<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">spNNGP</span><span class="co">](https://cran.r-project.org/web/packages/spNNGP/index.html)</span></span>
-<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">FRK</span><span class="co">](https://cran.r-project.org/web/packages/FRK/index.html)</span></span>
-<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <span class="co">[</span><span class="ot">DOI</span><span class="co">](https://doi.org/10.1007/s13253-018-00348-w)</span>.</span>
-<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises:</span></span>
-<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Discuss: Have you used datasets obtained from cloud storage? For which case(s)?</span>
-<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Discuss: Have you used cloud processing? For which case(s)</span>
-<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run</span>
-<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a>granule <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip"</span>, <span class="at">package =</span> <span class="st">"starsdata"</span>)</span>
-<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"SENTINEL2_L1C:/vsizip/"</span>, granule, <span class="st">"/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span>)</span>
-<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a>and open <span class="in">`s2`</span> using <span class="in">`stars::read_stars()`</span>. Look at the summary; is the image data actually loaded in memory?</span>
-<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Write the stars object to a GeoTIFF file, using <span class="in">`write_stars()`</span>. How long does it take, and how large is the resulting file?</span>
-<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Compute the difference between the first two bands of the Sentinel-2 image, and write the result to a GeoTiff file.</span>
-<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a>   In which command(s) are the image values actually loaded into memory?</span>
-<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Only if time is left: try the <span class="co">[</span><span class="ot">Exercises of SDS chapter 9</span><span class="co">](https://r-spatial.org/book/09-Large.html#exercises)</span></span>
+<span id="cb19-288"><a href="#cb19-288" aria-hidden="true" tabindex="-1"></a>(this does not work; probably needs access to s3 from within a cloud environment)</span>
+<span id="cb19-289"><a href="#cb19-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-290"><a href="#cb19-290" aria-hidden="true" tabindex="-1"></a>and examine</span>
+<span id="cb19-291"><a href="#cb19-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-292"><a href="#cb19-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
+<span id="cb19-293"><a href="#cb19-293" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb19-294"><a href="#cb19-294" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="st">"sentinel-s2-l2a-cogs/23/K/MA/2022/3/S2A_23KMA_20220317_0_L2A/B04.tif"</span></span>
+<span id="cb19-295"><a href="#cb19-295" aria-hidden="true" tabindex="-1"></a><span class="fu">gdal_utils</span>(<span class="st">"info"</span>, tif)</span>
+<span id="cb19-296"><a href="#cb19-296" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb19-297"><a href="#cb19-297" aria-hidden="true" tabindex="-1"></a><span class="fu">read_stars</span>(tif) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb19-298"><a href="#cb19-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-299"><a href="#cb19-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-300"><a href="#cb19-300" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Breakout session 2"}</span>
+<span id="cb19-301"><a href="#cb19-301" aria-hidden="true" tabindex="-1"></a>Discuss:</span>
+<span id="cb19-302"><a href="#cb19-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-303"><a href="#cb19-303" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Have you used any cloud platforms for processing geospatial data?</span>
+<span id="cb19-304"><a href="#cb19-304" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What is your position with respect to platform lock-in?</span>
+<span id="cb19-305"><a href="#cb19-305" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb19-306"><a href="#cb19-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-307"><a href="#cb19-307" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further examples from r-spatial.org:</span></span>
+<span id="cb19-308"><a href="#cb19-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-309"><a href="#cb19-309" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Cloud-based processing of satellite image collections in R using STAC, COGs, and on-demand data cubes</span><span class="co">](https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html)</span></span>
+<span id="cb19-310"><a href="#cb19-310" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Reading Zarr files with R package stars</span><span class="co">](https://r-spatial.org/r/2022/09/13/zarr.html)</span></span>
+<span id="cb19-311"><a href="#cb19-311" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Processing large scale satellite imagery with openEO Platform and R</span><span class="co">](https://r-spatial.org/r/2022/11/24/openeo.html)</span></span>
+<span id="cb19-312"><a href="#cb19-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-313"><a href="#cb19-313" aria-hidden="true" tabindex="-1"></a><span class="fu">## Examples `/vsixxx`</span></span>
+<span id="cb19-314"><a href="#cb19-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-315"><a href="#cb19-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
+<span id="cb19-316"><a href="#cb19-316" aria-hidden="true" tabindex="-1"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(</span>
+<span id="cb19-317"><a href="#cb19-317" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://github.com/paleolimbot/geoarrow-data/releases/download/v0.0.1/nshn_water_line.gpkg"</span>,</span>
+<span id="cb19-318"><a href="#cb19-318" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nshn_water_line.gpkg"</span></span>
+<span id="cb19-319"><a href="#cb19-319" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-320"><a href="#cb19-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-321"><a href="#cb19-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-324"><a href="#cb19-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-325"><a href="#cb19-325" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb19-326"><a href="#cb19-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-327"><a href="#cb19-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
+<span id="cb19-329"><a href="#cb19-329" aria-hidden="true" tabindex="-1"></a>(w <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">"nshn_water_line.gpkg"</span>))</span>
+<span id="cb19-330"><a href="#cb19-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-331"><a href="#cb19-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-332"><a href="#cb19-332" aria-hidden="true" tabindex="-1"></a>From https://github.com/microsoft/USBuildingFootprints downloaded <span class="co">[</span><span class="ot">Maine.geojson.zip</span><span class="co">](https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip)</span>, and read with</span>
+<span id="cb19-333"><a href="#cb19-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-334"><a href="#cb19-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=ev}</span></span>
+<span id="cb19-335"><a href="#cb19-335" aria-hidden="true" tabindex="-1"></a>(<span class="at">m =</span> <span class="fu">read_sf</span>(<span class="st">"/vsizip/Maine.geojson.zip"</span>)) <span class="co"># /vsizip: indicates data source is a zipped file</span></span>
+<span id="cb19-336"><a href="#cb19-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-337"><a href="#cb19-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-338"><a href="#cb19-338" aria-hidden="true" tabindex="-1"></a>or read directly from github into R:</span>
+<span id="cb19-339"><a href="#cb19-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-340"><a href="#cb19-340" aria-hidden="true" tabindex="-1"></a><span class="in">```{r eval=FALSE}</span></span>
+<span id="cb19-341"><a href="#cb19-341" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"/vsizip/vsicurl/https://minedbuildings.z5.web.core.windows.net/legacy/usbuildings-v2/Maine.geojson.zip"</span>)</span>
+<span id="cb19-342"><a href="#cb19-342" aria-hidden="true" tabindex="-1"></a><span class="co"># /vsicurl: indicates data source is a URL</span></span>
+<span id="cb19-343"><a href="#cb19-343" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-344"><a href="#cb19-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-345"><a href="#cb19-345" aria-hidden="true" tabindex="-1"></a><span class="fu">## "Simple" analysis on large datasets</span></span>
+<span id="cb19-346"><a href="#cb19-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-347"><a href="#cb19-347" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>process full archives, compute *in* the cloud</span>
+<span id="cb19-348"><a href="#cb19-348" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>select subsets, download, process locally:</span>
+<span id="cb19-349"><a href="#cb19-349" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>spatial subset</span>
+<span id="cb19-350"><a href="#cb19-350" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>temporal subset</span>
+<span id="cb19-351"><a href="#cb19-351" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>sampled at lower resolution (spatially, temporally)</span>
+<span id="cb19-352"><a href="#cb19-352" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>aggregated (=processed?) to lower resolution</span>
+<span id="cb19-353"><a href="#cb19-353" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>in some disciplines (Earth Observation?) there seems to be a belief that processing at the *full* resolution is the only thing that produces real science</span>
+<span id="cb19-354"><a href="#cb19-354" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>there is surprisingly little literature on the loss of information when processing at lower resolution, e.g. when the goal is to create a curve of yearly deforestation over an area as large as Brazil</span>
+<span id="cb19-355"><a href="#cb19-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-356"><a href="#cb19-356" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spatial statistics on large datasets</span></span>
+<span id="cb19-357"><a href="#cb19-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-358"><a href="#cb19-358" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geostatistics</span></span>
+<span id="cb19-359"><a href="#cb19-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-360"><a href="#cb19-360" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">RandomForestsGLS</span><span class="co">](https://cran.r-project.org/web/packages/RandomForestsGLS/)</span></span>
+<span id="cb19-361"><a href="#cb19-361" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">spNNGP</span><span class="co">](https://cran.r-project.org/web/packages/spNNGP/index.html)</span></span>
+<span id="cb19-362"><a href="#cb19-362" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">FRK</span><span class="co">](https://cran.r-project.org/web/packages/FRK/index.html)</span></span>
+<span id="cb19-363"><a href="#cb19-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-364"><a href="#cb19-364" aria-hidden="true" tabindex="-1"></a>A key paper comparing different approaches is Heaton, Matthew J., Abhirup Datta, Andrew O. Finley, Reinhard Furrer, Joseph Guinness, Rajarshi Guhaniyogi, Florian Gerber, et al. 2018. “A Case Study Competition Among Methods for Analyzing Large Spatial Data.” Journal of Agricultural, Biological and Environmental Statistics, December. <span class="co">[</span><span class="ot">DOI</span><span class="co">](https://doi.org/10.1007/s13253-018-00348-w)</span>.</span>
+<span id="cb19-365"><a href="#cb19-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-366"><a href="#cb19-366" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises:</span></span>
+<span id="cb19-367"><a href="#cb19-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-368"><a href="#cb19-368" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Discuss: Have you used datasets obtained from cloud storage? For which case(s)?</span>
+<span id="cb19-369"><a href="#cb19-369" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Discuss: Have you used cloud processing? For which case(s)</span>
+<span id="cb19-370"><a href="#cb19-370" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run</span>
+<span id="cb19-371"><a href="#cb19-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-372"><a href="#cb19-372" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb19-373"><a href="#cb19-373" aria-hidden="true" tabindex="-1"></a>granule <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"sentinel/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.zip"</span>, <span class="at">package =</span> <span class="st">"starsdata"</span>)</span>
+<span id="cb19-374"><a href="#cb19-374" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"SENTINEL2_L1C:/vsizip/"</span>, granule, <span class="st">"/S2A_MSIL1C_20180220T105051_N0206_R051_T32ULE_20180221T134037.SAFE/MTD_MSIL1C.xml:10m:EPSG_32632"</span>)</span>
+<span id="cb19-375"><a href="#cb19-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb19-376"><a href="#cb19-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-377"><a href="#cb19-377" aria-hidden="true" tabindex="-1"></a>and open <span class="in">`s2`</span> using <span class="in">`stars::read_stars()`</span>. Look at the summary; is the image data actually loaded in memory?</span>
+<span id="cb19-378"><a href="#cb19-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Write the stars object to a GeoTIFF file, using <span class="in">`write_stars()`</span>. How long does it take, and how large is the resulting file?</span>
+<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Compute the difference between the first two bands of the Sentinel-2 image, and write the result to a GeoTiff file.</span>
+<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a>   In which command(s) are the image values actually loaded into memory?</span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Only if time is left: try the <span class="co">[</span><span class="ot">Exercises of SDS chapter 9</span><span class="co">](https://r-spatial.org/book/09-Large.html#exercises)</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Edzer Pebesma">
-<meta name="dcterms.date" content="2025-11-20">
+<meta name="dcterms.date" content="2025-11-21">
 <title>Spatial Statistics with R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 20, 2025</p>
+      <p class="date">November 21, 2025</p>
     </div>
   </div>
   
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"spDataLarge"</span>, repos <span class="op">=</span> <span class="st">"https://nowosad.github.io/drat/"</span>, </span>
 <span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span> <span class="co"># 23 Mb</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">3600</span><span class="op">)</span> <span class="co"># 1 hr instead of 1 min</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"starsdata"</span>, repos <span class="op">=</span> <span class="st">"http://cran.uni-muenster.de/pebesma/"</span>, </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"starsdata"</span>, repos <span class="op">=</span> <span class="st">"https://cran.uni-muenster.de/pebesma/"</span>, </span>
 <span>                 type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span> <span class="co"># 1 Gb</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rnaturalearthhires"</span>,</span>
 <span>  repos <span class="op">=</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>
@@ -878,7 +878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"spDataLarge"</span>, <span class="at">repos =</span> <span class="st">"https://nowosad.github.io/drat/"</span>, </span>
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"source"</span>) <span class="co"># 23 Mb</span></span>
 <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">3600</span>) <span class="co"># 1 hr instead of 1 min</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, <span class="at">repos =</span> <span class="st">"http://cran.uni-muenster.de/pebesma/"</span>, </span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"starsdata"</span>, <span class="at">repos =</span> <span class="st">"https://cran.uni-muenster.de/pebesma/"</span>, </span>
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"source"</span>) <span class="co"># 1 Gb</span></span>
 <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rnaturalearthhires"</span>,</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">repos =</span> <span class="st">"https://ropensci.r-universe.dev"</span>,</span>

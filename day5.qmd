@@ -265,6 +265,7 @@ then, download (here only one item):
 download_items <- it_obj |>
   assets_download(assets_name = "thumbnail", items_max = 1, overwrite = TRUE)
 ```
+(this does not work; probably needs access to s3 from within a cloud environment)
 
 and examine
 
